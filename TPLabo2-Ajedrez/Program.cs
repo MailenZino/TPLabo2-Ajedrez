@@ -42,7 +42,7 @@ namespace TPLabo2_Ajedrez
             ePieza pieza=pieza_;
             sPosicion posicion=new sPosicion(fila,col);
         }
-        public sPosicion posicion { get { return posicion; } }
+        public sPosicion posicion { get { return posicion; } set { posicion = value; } }
         public ePieza pieza { get { return pieza; } }
    }
    class Program
@@ -55,16 +55,25 @@ namespace TPLabo2_Ajedrez
             CANT_SOL=0;
             LOOKUP = new sPieza[8];
         }
+        public void CargarFILACOL()
+        {
+
+        }
         public void BuscarSoluciones()
         {
             bool[,] MatrizPrueba = new bool[8, 8];
             // 1 posicion atacada | 0 libre
-            //posicionamos las torres
+
+            // Posicionamos las torres para trabajar en un 6x6
             sPieza TORRE1 = new sPieza(ePieza.TORRE, 0, 0);
             sPieza TORRE2 = new sPieza(ePieza.TORRE, 1, 1);
             LOOKUP[0] = TORRE1;
             LOOKUP[0] = TORRE2;
-            
+            CargarFILACOL(0);
+            CargarFILACOL(1);
+            CargarFILACOL(0,false);
+            CargarFILACOL(1,false);
+
         }
         static void Main(string[] args)
        {
