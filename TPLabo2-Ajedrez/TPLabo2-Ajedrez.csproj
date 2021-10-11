@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reina.cs" />
     <Compile Include="Rey.cs" />
+    <Compile Include="Soluciones.cs" />
     <Compile Include="Tablero.cs" />
     <Compile Include="Torre.cs" />
   </ItemGroup>
