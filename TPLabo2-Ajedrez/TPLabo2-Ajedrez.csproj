@@ -43,10 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alfil.cs" />
     <Compile Include="Caballo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reina.cs" />
+    <Compile Include="Rey.cs" />
     <Compile Include="Tablero.cs" />
+    <Compile Include="Torre.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
