@@ -10,14 +10,11 @@ namespace TPLabo2_Ajedrez
     public enum ePieza
     {
         LIBRE=0,
-        TORRE1,
-        TORRE2,
-        ALFIL1,
-        ALFIL2,
+        TORRE,
+        ALFIL,
         REINA,
         REY,
-        CABALLO1,
-        CABALLO2
+        CABALLO
     }
     public struct sPosicion
     {
@@ -26,30 +23,48 @@ namespace TPLabo2_Ajedrez
             int FILA = fila;
             int COL = col;
         }
-        public int FILA { get { return FILA; } }
-        public int COL { get { return COL; } }
+        public int FILA 
+        { 
+            get { return FILA; }
+            set { FILA = value; }
+        }
+        public int COL 
+        { 
+            get { return COL; } 
+            set { COL = value; }
+        }
+
     }
    public struct sPieza
    {
-        public sPieza(ePieza pieza_,int fila,int col)
+        public sPieza(ePieza pieza_,int fila=0,int col=0)
         {
             ePieza pieza=pieza_;
             sPosicion posicion=new sPosicion(fila,col);
         }
         public sPosicion posicion { get { return posicion; } }
+        public ePieza pieza { get { return pieza; } }
    }
    class Program
    {
        int CANT_SOL;
-       sPieza[] LOOKUPResolucion;
+       sPieza[] LOOKUP;
+       sPieza TORRE1; 
         public Program()
         { 
             CANT_SOL=0;
-            LOOKUPResolucion = new sPieza[8];
+            LOOKUP = new sPieza[8];
         }
         public void BuscarSoluciones()
         {
-
+            bool[,] MatrizPrueba = new bool[8, 8];
+            // 1 posicion atacada | 0 libre
+            //posicionamos las torres
+            sPieza TORRE1 = new sPieza(ePieza.TORRE, 0, 0);
+            sPieza TORRE2 = new sPieza(ePieza.TORRE, 1, 1);
+            LOOKUP[0] = TORRE1;
+            LOOKUP[0] = TORRE2;
+            
         }
         static void Main(string[] args)
        {
