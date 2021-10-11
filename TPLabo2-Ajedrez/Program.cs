@@ -86,8 +86,8 @@ namespace TPLabo2_Ajedrez
             //                   Cargamos ataque de las torres y guardamos la posicion en look up
             TORRE1 = new Torre(ePieza.TORRE, 0, 0);
             TORRE2 = new Torre(ePieza.TORRE, 1, 1);
-            LOOKUP[0] = TORRE1.p_Torre;
-            LOOKUP[1] = TORRE2.p_Torre;
+            LOOKUP[0] = TORRE1.p_torre;
+            LOOKUP[1] = TORRE2.p_torre;
 
             MatrizPrueba.CargarFILACOL(0);
             MatrizPrueba.CargarFILACOL(1);
@@ -123,7 +123,7 @@ namespace TPLabo2_Ajedrez
                 auxFila = rd.Next(2, 5);
             } while (!(MatrizPrueba.VerificarLibredeAtaque(auxFila, auxCol)));
             REINA = new Reina(ePieza.REINA, auxFila, auxCol);
-            LOOKUP[4] = Reina.p_reina;
+            LOOKUP[4] = REINA.p_reina;
             MatrizPrueba.CargarDiagonales(REINA.p_reina.posicion.FILA, REINA.posicion.COL);
             MatrizPrueba.CargarFILACOL(auxFila);
             MatrizPrueba.CargarFILACOL(auxFila, false);

@@ -8,9 +8,11 @@ namespace TPLabo2_Ajedrez
 {
     class Torre
     {
-        public Torre()
+        public Torre(ePieza pieza, int fila, int col)
         {
-            sPieza p_torre = new sPieza(ePieza.TORRE);
+            sPieza p_torre = new sPieza(pieza);
+            sPosicion pos = new sPosicion(fila, col);
+            p_torre.posicion = pos;
         }
         public sPieza p_torre { get { return p_torre; } }
     }
