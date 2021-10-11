@@ -8,5 +8,10 @@ namespace TPLabo2_Ajedrez
 {
     class Alfil
     {
+        public Alfil()
+        {
+            sPieza p_alfil = new sPieza(ePieza.ALFIL);
+        }
+        public sPieza p_alfil { get { return p_alfil; } }
     }
 }
