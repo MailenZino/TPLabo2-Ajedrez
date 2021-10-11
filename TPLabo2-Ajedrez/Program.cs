@@ -147,7 +147,7 @@ namespace TPLabo2_Ajedrez
         static void Main(string[] args)
         {
             var Programa = new Program();
-            while (Programa.CANT_SOL < 10)
+            while (Programa.CANT_SOL_TOTALES < 10)
             {
                 Programa.BuscarSoluciones();
             }
