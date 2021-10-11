@@ -8,5 +8,10 @@ namespace TPLabo2_Ajedrez
 {
     class Torre
     {
+        public Torre()
+        {
+            sPieza p_torre = new sPieza(ePieza.TORRE);
+        }
+        public sPieza p_torre { get { return p_torre; } }
     }
 }
