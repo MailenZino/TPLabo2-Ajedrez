@@ -109,8 +109,9 @@ namespace TPLabo2_Ajedrez
             MatrizPrueba.CargarFILACOL(auxFila);
             MatrizPrueba.CargarFILACOL(auxFila, false);
 
-            //seguir con el rey
-
+            //seguir con el rey definir la aternativa
+            Rey = new sPieza(ePieza.REY);
+            BuscarPosicionRey(Matriz, LOOKUP, REY);
         }
         static void Main(string[] args)
         {
