@@ -111,5 +111,11 @@ namespace TPLabo2_Ajedrez
            */
 
         }
+
+        public bool SolucionExistente(sPieza[] lookup)
+        {
+            //TODO: SOLUCION EXISTENTE EN SOLUCIONES.CS
+            return false;
+        }
     }
 }
