@@ -59,7 +59,7 @@ namespace TPLabo2_Ajedrez
 
 
         //ALTERNATIVA 2
-        void BuscarPosicionRey(bool[,] MatrizPrueba, sPieza[] LOOKUP, sPieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
+        public void BuscarPosicionRey(bool[,] MatrizPrueba, sPieza[] LOOKUP, sPieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
         {
             if (i >= 0 && i < N && j >= 0 && j < N)
             {
@@ -95,7 +95,7 @@ namespace TPLabo2_Ajedrez
                 BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, cantLlenas, i, j);
             }
         }
-        int VerificarPosRey(bool[,] MatrizPrueba, sPieza REY)
+        public int VerificarPosRey(bool[,] MatrizPrueba, sPieza REY)
         {
             for (int i = REY.posicion.COL - 1; i <= REY.posicion.COL + 1; i++)
             {
