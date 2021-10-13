@@ -8,23 +8,23 @@ namespace TPLabo2_Ajedrez
 {
     class Tablero
     {
-        bool[,] Matriz;
+        int[,] Matriz;
         int N;
         public Tablero(int n)
         {
-            bool[,] Matriz = new bool[n, n];
+            Matriz = new int[n, n];
             N = n;
         }
 
-        public bool[,] matriz { get { return Matriz; } }
+        public int[,] matriz { get { return Matriz; } }
         public void CargarFILACOL(int numero, bool fila = true)
         {
             for (int i = 0; i < N; i++)
             {
                 if (fila)
-                    Matriz[numero, i] = true;
+                    Matriz[numero, i] = 1;
                 else
-                    Matriz[i, numero] = true;
+                    Matriz[i, numero] = 1;
             }
         }
 
@@ -36,9 +36,9 @@ namespace TPLabo2_Ajedrez
             else
             {
                 if (col + i < N)
-                    Matriz[fila, col + i] = true;
+                    Matriz[fila, col + i] = 1;
                 if (col - i >= 2)
-                    Matriz[fila, col - i] = true;
+                    Matriz[fila, col - i] = 1;
             }
             i++;
             CargarDiagonalesInferiores(fila + i, col);
@@ -52,9 +52,9 @@ namespace TPLabo2_Ajedrez
             else
             {
                 if (col + l < N)
-                    Matriz[fila, col + l] = true;
+                    Matriz[fila, col + l] = 1;
                 if (col - l >= 2)
-                    Matriz[fila, col - l] = true;
+                    Matriz[fila, col - l] = 1;
             }
             l++;
             CargarDiagonalesSuperiores(fila - l, col);
@@ -66,7 +66,7 @@ namespace TPLabo2_Ajedrez
         }
         public bool VerificarLibredeAtaque(int fila, int col)
         {
-            if (Matriz[fila, col])
+            if (Matriz[fila, col]!=0)
                 return false;
             return true;
         }
@@ -76,7 +76,7 @@ namespace TPLabo2_Ajedrez
         {
             for(int i=2;i<N;i++)
             {
-                contador += int(Matriz[i, col]);
+                contador += Matriz[i, col];
             }
             if (col < N - 1)
                 contarVacias(col++);

@@ -16,7 +16,7 @@ namespace TPLabo2_Ajedrez
         }
         public sPieza p_rey { get { return p_rey; } }
         //ALTERNATIVA 1
-        //public void BuscarPosicionRey(bool [,] MatrizPrueba, sPieza [] LOOKUP, sPieza REY, int CantLlenas,int i, int j)
+        //public void BuscarPosicionRey(int [,] MatrizPrueba, sPieza [] LOOKUP, sPieza REY, int CantLlenas,int i, int j)
         //{
         //    sPosicion posEspaciosMax = new sPosicion(3, 3);
         //    REY.posicion = PosRey(MatrizPrueba, posEspaciosMax);
@@ -24,14 +24,14 @@ namespace TPLabo2_Ajedrez
         //}
         ////se mueve analizando el tablero en cuadrados 3x3 para ubicar al rey donde más espacios vacíos haya
         //sPosicion Pos;
-        //sPosicion PosRey(bool[,] MatrizPrueba, sPosicion posEspaciosMax, int EspaciosMax = 0, int fila=3, int col=3)
+        //sPosicion PosRey(int[,] MatrizPrueba, sPosicion posEspaciosMax, int EspaciosMax = 0, int fila=3, int col=3)
         //{
         //    int Llenas = 0;
         //    for(int j = -1; j <= 1; j++)
         //    {
         //        for (int i = -1; i <= 1; i++)
         //        {
-        //            Llenas += int(MatrizPrueba[fila + i, col + j]);  //No anda el casteo
+        //            Llenas += MatrizPrueba[fila + i, col + j];  
         //        }
         //        if(j == -1 && Llenas == 3) //si 1er columnita esta llena
         //        {
@@ -59,11 +59,11 @@ namespace TPLabo2_Ajedrez
 
 
         //ALTERNATIVA 2
-        public void BuscarPosicionRey(bool[,] MatrizPrueba, sPieza[] LOOKUP, sPieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
+        public void BuscarPosicionRey(int[,] MatrizPrueba, sPieza[] LOOKUP, sPieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
         {
             if (i >= 0 && i < N && j >= 0 && j < N)
             {
-                if (MatrizPrueba[i, j] == false)
+                if (MatrizPrueba[i, j] == 0)
                 {
                     sPosicion pos = new sPosicion(i, j);
                     REY.posicion = pos;
@@ -95,26 +95,26 @@ namespace TPLabo2_Ajedrez
                 BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, cantLlenas, i, j);
             }
         }
-        public int VerificarPosRey(bool[,] MatrizPrueba, sPieza REY)
+        public int VerificarPosRey(int[,] MatrizPrueba, sPieza REY)
         {
             for (int i = REY.posicion.COL - 1; i <= REY.posicion.COL + 1; i++)
             {
                 if (REY.posicion.FILA + 1 < N)
                 {
-                    if (!MatrizPrueba[REY.posicion.FILA + 1, i]) cont++;
+                    if (MatrizPrueba[REY.posicion.FILA + 1, i] == 0) cont++;
                 }
                 if (REY.posicion.FILA - 1 >= 0)
                 {
-                    if (!MatrizPrueba[REY.posicion.FILA - 1, i]) cont++;
+                    if (MatrizPrueba[REY.posicion.FILA - 1, i]==0) cont++;
                 }
             }
             if (REY.posicion.COL + 1 < N)
             {
-                if (!MatrizPrueba[REY.posicion.FILA, REY.posicion.COL + 1]) cont++;
+                if (MatrizPrueba[REY.posicion.FILA, REY.posicion.COL + 1]==0) cont++;
             }
             if (REY.posicion.COL - 1 >= 0)
             {
-                if (!MatrizPrueba[REY.posicion.FILA, REY.posicion.COL - 1]) cont++;
+                if (MatrizPrueba[REY.posicion.FILA, REY.posicion.COL - 1]==0) cont++;
             }
             return cont;
         }
