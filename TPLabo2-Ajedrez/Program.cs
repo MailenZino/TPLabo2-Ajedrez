@@ -23,6 +23,7 @@ namespace TPLabo2_Ajedrez
             int FILA = fila;
             int COL = col;
         }
+
         public int FILA 
         { 
             get { return FILA; }

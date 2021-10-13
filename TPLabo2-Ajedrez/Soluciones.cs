@@ -26,47 +26,62 @@ namespace TPLabo2_Ajedrez
             }
             ImprimirSolucion(lookup);
 
-            sPosicion aux = new sPosicion(0, N - 1);
-            lookup[1].posicion.COL = N - 1;
-            Reacomodar(aux, lookup);
+            sPosicion auxReacomodar1 = new sPosicion(0, N - 1); //con aux avisamos a reacomodar las modificaciones que hicimos
+            sPosicion auxReacomodar2 = new sPosicion(N - 1, N - 1);
+            sPosicion modificarPos1 = new sPosicion(lookup[1].posicion.FILA, N - 1);
+            sPosicion modificarPos0 = new sPosicion(lookup[0].posicion.FILA, N-1);
 
-            lookup[1].posicion.FILA = N - 1;
-            lookup[1].posicion.COL = 1;
-            aux.FILA = N - 1; aux.COL = 0;
-            Reacomodar(aux, lookup);
+            lookup[1].posicion = modificarPos1;
+            Reacomodar(auxReacomodar1, lookup);
 
-
-            lookup[1].posicion.COL = N - 1;
-            aux.COL = N - 1;
-            Reacomodar(aux, lookup);
-
-            lookup[0].posicion.COL = N - 1;
-            lookup[1].posicion.COL = 0;
-            aux.FILA = N - 1;
-            Reacomodar(aux, lookup);
+            modificarPos1.FILA = N - 1;
+            modificarPos1.COL = 1;
+            lookup[1].posicion = modificarPos1;
+            auxReacomodar1.FILA = N - 1; auxReacomodar1.COL = 0;
+            Reacomodar(auxReacomodar1, lookup);
 
 
+            modificarPos1.COL = N - 1;
+            lookup[1].posicion = modificarPos1;
+            auxReacomodar1.COL = N - 1;
+            Reacomodar(auxReacomodar1, lookup);
 
-            lookup[1].posicion.COL = N - 2;
-            aux.FILA = 0;
-            sPosicion aux2 = new sPosicion(N - 1, N - 1);
-            Reacomodar(aux, lookup, aux2);
+          
+            modificarPos1.COL = 0;
+            lookup[1].posicion = modificarPos1;
+            lookup[0].posicion = modificarPos0;
+            auxReacomodar1.FILA = N - 1;
+            Reacomodar(auxReacomodar1, lookup);
 
-            lookup[1].posicion.FILA = 1;
-            aux.FILA = 0;
-            Reacomodar(aux, lookup, aux);
 
-            lookup[1].posicion.FILA = N - 1;
-            lookup[0].posicion.FILA = N - 2;
-            Reacomodar(aux2, lookup, aux2);
 
-            lookup[0].posicion.COL = 0;
-            lookup[1].posicion.COL = N - 1;
-            aux.FILA = N - 1; aux.COL = 0;
-            Reacomodar(aux, lookup, aux2);
+            modificarPos1.COL = N - 2;
+            lookup[1].posicion = modificarPos1;
+            auxReacomodar1.FILA = 0;
+            Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
 
-            lookup[1].posicion.COL = 1;
-            Reacomodar(aux, lookup, aux);
+            modificarPos1.FILA = 1;
+            lookup[1].posicion= modificarPos1;
+            auxReacomodar1.FILA = 0;
+            Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
+
+            modificarPos1.FILA = N-1;
+            lookup[1].posicion = modificarPos1;
+            modificarPos0.FILA = N - 2;
+            lookup[0].posicion = modificarPos0;
+            Reacomodar(auxReacomodar2, lookup, auxReacomodar2);
+
+            modificarPos1.COL = N - 1;
+            lookup[1].posicion = modificarPos1;
+            modificarPos0.COL = 0;
+            lookup[0].posicion = modificarPos0;
+            
+            auxReacomodar1.FILA = N - 1; auxReacomodar1.COL = 0;
+            Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
+
+            modificarPos1.COL = 1;
+            lookup[1].posicion= modificarPos1;
+            Reacomodar(auxReacomodar1, lookup, auxReacomodar1);
         }
         public void ImprimirSolucion(sPieza[] lookup)
         {
