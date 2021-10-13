@@ -18,7 +18,7 @@ namespace TPLabo2_Ajedrez
         }
         public void ReproducirSoluciones(sPieza[] lookup)
         {
-            //guardamos la solucion original
+            //guardamos la solucion original y la contamos como nueva sol maestra
             CANT_SOL_MAESTRA++;
             for (int i = 0; i < 8; i++)
             {
@@ -82,6 +82,7 @@ namespace TPLabo2_Ajedrez
             modificarPos1.COL = 1;
             lookup[1].posicion= modificarPos1;
             Reacomodar(auxReacomodar1, lookup, auxReacomodar1);
+            Program.CANT_SOL_TOTALES = 10;
         }
         public void ImprimirSolucion(sPieza[] lookup)
         {
@@ -137,7 +138,7 @@ namespace TPLabo2_Ajedrez
 
         public bool SolucionExistente(sPieza[] lookup)
         {
-            //TODO: pinta sobrecarga == ??????
+            //TODO: pinta sobrecarga == para fila y col  ??????
             int iguales = 0;
             for (int j = 0; j <= CANT_SOL_MAESTRA; j++)
             {

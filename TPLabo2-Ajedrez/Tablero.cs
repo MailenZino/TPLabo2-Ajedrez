@@ -80,8 +80,18 @@ namespace TPLabo2_Ajedrez
             }
             if (col < N - 1)
                 contarVacias(col++);
-            else
-                return contador;
+           
+            return contador;
+        }
+
+        public bool PosLibre(sPieza[] LOOKUP, int fila, int col)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (LOOKUP[i].posicion.FILA == fila && LOOKUP[i].posicion.COL == col)
+                    return false;
+            }
+            return true;
         }
     }
 }

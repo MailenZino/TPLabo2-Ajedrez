@@ -18,12 +18,14 @@ namespace TPLabo2_Ajedrez
     }
     public struct sPosicion
     {
+        //constructor
         public sPosicion(int fila=0, int col=0)
         {
             int FILA = fila;
             int COL = col;
         }
-
+        
+        //get set de fila
         public int FILA 
         { 
             get { return FILA; }
@@ -43,15 +45,17 @@ namespace TPLabo2_Ajedrez
             ePieza pieza=pieza_;
             sPosicion posicion=new sPosicion(fila,col);
         }
+
+        //gets y sets
+        //TODO: si hay quilombo chequear los setters de fila y col aca y en reproducirsoluciones
         public sPosicion posicion { get { return posicion; } set { posicion = value; } }
-        
         public int FILA { get { return posicion.FILA; } set { FILA = value; } }
         public int COL { get { return posicion.COL; } set { COL = value; } }
         public ePieza pieza { get { return pieza; } }
    }
     class Program
     {
-        int CANT_SOL_TOTALES;
+        public static int CANT_SOL_TOTALES;
         int CANT_SOL_MAESTRA;
         sPieza[] LOOKUP;
         Soluciones LookSoluciones;
@@ -70,16 +74,6 @@ namespace TPLabo2_Ajedrez
             CANT_SOL_TOTALES = 0;
             LOOKUP = new sPieza[8];
             LookSoluciones = new Soluciones();
-        }
-
-        public bool PosLibre(int fila, int col)
-        {
-            for(int i=0;i<8;i++)
-            {
-                if (LOOKUP[i].posicion.FILA == fila && LOOKUP[i].posicion.COL == col)
-                    return false;
-            }
-            return true;
         }
         
         public void BuscarSoluciones()
@@ -125,7 +119,9 @@ namespace TPLabo2_Ajedrez
             {
                 auxCol = rd.Next(2, 5);
                 auxFila = rd.Next(2, 5);
-            } while (!(MatrizPrueba.VerificarLibredeAtaque(auxFila, auxCol)));
+            } while (!(MatrizPrueba.VerificarLibredeAtaque(auxFila, auxCol))); 
+            // no ponemos a la reina donde pueda ser atacada por alfiles porque no tiene sol
+
             REINA = new Reina(ePieza.REINA, auxFila, auxCol);
             LOOKUP[4] = REINA.p_reina;
             MatrizPrueba.CargarDiagonales(REINA.p_reina.posicion.FILA, REINA.p_reina.posicion.COL);
@@ -151,11 +147,12 @@ namespace TPLabo2_Ajedrez
         static void Main(string[] args)
         {
             var Programa = new Program();
-            while (Programa.CANT_SOL_TOTALES < 10)
+            while (CANT_SOL_TOTALES < 10)
             {
                 Programa.BuscarSoluciones();
             }
         }
+
 
     }
 }
