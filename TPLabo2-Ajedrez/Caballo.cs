@@ -23,10 +23,10 @@ namespace TPLabo2_Ajedrez
             if (MatrizPrueba.contarVacias(0) != 0) return false;//Si en la posición donde pusimos al caballo quedan más de ... casillas vacias, no lo ponemos ahi
             else return true;//Si esta bien ahí, lo dejamos en esa posición
         }
-        public void RecursividadCaballo(Tablero MatrizPrueba, sPieza[] LOOKUP, sPieza CABALLO, int i, int j)
+        public void RecursividadCaballo(Tablero MatrizPrueba, sPieza[] LOOKUP, sPieza CABALLO, int i, int j)//i=2,j=2
         {
             int NLibres = 0;
-            if(i >= 0 && i < N && j >= 0 && j < N)
+            if(i >= 2 && i < N && j >= 2 && j < N)
             {
                 if(MatrizPrueba.PosLibre(LOOKUP,i, j))//Si en la casilla [i,j] no hay otra pieza posicionada es una posición válida que hay que verificar si sirve
                 {
@@ -43,7 +43,7 @@ namespace TPLabo2_Ajedrez
                 {//Cambiamos la cassila en donde probamos el posicionamiento y lo hacemos de nuevo
                     if (i == N - 1) 
                     {
-                        i = 0;
+                        i = 2;
                         j++;
                     }
                     else i++;
@@ -53,7 +53,7 @@ namespace TPLabo2_Ajedrez
             {
                 if (i == N - 1)
                 {
-                    i = 0;
+                    i = 2;
                     j++;
                 }
                 else i++;
