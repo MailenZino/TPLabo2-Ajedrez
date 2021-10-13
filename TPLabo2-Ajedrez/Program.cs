@@ -110,8 +110,8 @@ namespace TPLabo2_Ajedrez
             LOOKUP[3] = ALFIL2.p_alfil;
             //ya nos aseguramos que quede uno en casilla blanca y otro en negra
 
-            MatrizPrueba.CargarDiagonales(ALFIL1.p_alfil.posicion.FILA, ALFIL1.posicion.COL);
-            MatrizPrueba.CargarDiagonales(ALFIL2.p_alfil.posicion.FILA, ALFIL2.posicion.COL);
+            MatrizPrueba.CargarDiagonales(ALFIL1.p_alfil.posicion.FILA, ALFIL1.p_alfil.posicion.COL);
+            MatrizPrueba.CargarDiagonales(ALFIL2.p_alfil.posicion.FILA, ALFIL2.p_alfil.posicion.COL);
 
 
             //                   Cargamos ataque de la reina y guardamos la posicion en look up 
@@ -123,7 +123,7 @@ namespace TPLabo2_Ajedrez
                 auxFila = rd.Next(2, 5);
             } while (!(MatrizPrueba.VerificarLibredeAtaque(auxFila, auxCol)));
             REINA = new Reina(ePieza.REINA, auxFila, auxCol);
-            LOOKUP[4] = Reina.p_reina;
+            LOOKUP[4] = REINA.p_reina;
             MatrizPrueba.CargarDiagonales(REINA.p_reina.posicion.FILA, REINA.p_reina.posicion.COL);
             MatrizPrueba.CargarFILACOL(auxFila);
             MatrizPrueba.CargarFILACOL(auxFila, false);
