@@ -130,7 +130,7 @@ namespace TPLabo2_Ajedrez
 
             //TODO: seguir con el rey definir la aternativa
             REY = new Rey();
-            REY.BuscarPosicionRey(MatrizPrueba.matriz, LOOKUP, REY,0,0,0);
+            REY.BuscarPosicionRey(MatrizPrueba.matriz, LOOKUP, REY.p_rey,0,0,0);
             LOOKUP[5] = REY.p_rey;
 
 
