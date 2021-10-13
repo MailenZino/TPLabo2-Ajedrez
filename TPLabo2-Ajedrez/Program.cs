@@ -130,17 +130,19 @@ namespace TPLabo2_Ajedrez
 
             //TODO: seguir con el rey definir la aternativa
             REY = new Rey();
-            REY.BuscarPosicionRey(MatrizPrueba.matriz, LOOKUP, REY.p_rey,0,0,0);
+            REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY.p_rey,0,0,0);
             LOOKUP[5] = REY.p_rey;
 
 
             CABALLO1 = new Caballo();
             CABALLO2 = new Caballo();
-            CABALLO1.PosicionarCaballos(MatrizPrueba.matriz, LOOKUP, CABALLO1.p_caballo);
+            CABALLO1.PosicionarCaballos(MatrizPrueba, LOOKUP, CABALLO1.p_caballo);
             LOOKUP[6] = CABALLO1.p_caballo;
-            CABALLO2.PosicionarCaballos(MatrizPrueba.matriz, LOOKUP, CABALLO2.p_caballo);
+            CABALLO2.PosicionarCaballos(MatrizPrueba, LOOKUP, CABALLO2.p_caballo);
             LOOKUP[7] = CABALLO2.p_caballo;
 
+            if (LookSoluciones.SolucionExistente(LOOKUP))
+                BuscarSoluciones();
             
             LookSoluciones.ReproducirSoluciones(LOOKUP);
         }

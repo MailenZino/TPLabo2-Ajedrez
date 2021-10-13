@@ -139,18 +139,21 @@ namespace TPLabo2_Ajedrez
         public bool SolucionExistente(sPieza[] lookup)
         {
             //TODO: pinta sobrecarga == para fila y col  ??????
-            int iguales = 0;
-            for (int j = 0; j <= CANT_SOL_MAESTRA; j++)
+            if (CANT_SOL_MAESTRA > 0)
             {
-                for (int i = 0; i < 8; i++)
+                int iguales = 0;
+                for (int j = 0; j <= CANT_SOL_MAESTRA; j++)
                 {
-                    if (Solucion_Maestra[CANT_SOL_MAESTRA,i].posicion.FILA == lookup[i].posicion.FILA&& Solucion_Maestra[CANT_SOL_MAESTRA, i].posicion.COL == lookup[i].posicion.COL)
+                    for (int i = 0; i < 8; i++)
                     {
-                        iguales++;
+                        if (Solucion_Maestra[CANT_SOL_MAESTRA, i].posicion.FILA == lookup[i].posicion.FILA && Solucion_Maestra[CANT_SOL_MAESTRA, i].posicion.COL == lookup[i].posicion.COL)
+                        {
+                            iguales++;
+                        }
                     }
+                    if (iguales == 8)
+                        return true;
                 }
-                if(iguales==8)
-                    return true;
             }
             return false;
         }
