@@ -8,7 +8,7 @@ namespace TPLabo2_Ajedrez
 {
     class Rey
     {
-        int N = 6;
+        int N = 8;
         int cont = 0;
         public Rey()
         {
@@ -59,20 +59,22 @@ namespace TPLabo2_Ajedrez
 
 
         //ALTERNATIVA 2
-        public void BuscarPosicionRey(int[,] MatrizPrueba, sPieza[] LOOKUP, sPieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
+        public void BuscarPosicionRey(Tablero MatrizPrueba, sPieza[] LOOKUP, sPieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
         {
-            if (i >= 0 && i < N && j >= 0 && j < N)
+            if (i >= 2 && i < N && j >= 2 && j < N)
             {
-                if (MatrizPrueba[i, j] == 0)
+                if (MatrizPrueba.matriz[i, j] == 0)
                 {
-                    sPosicion pos = new sPosicion(i, j);
-                    REY.posicion = pos;
+                    REY.FILA = i;
+                    REY.COL = j;
+                    //sPosicion pos = new sPosicion(i, j);
+                    //REY.posicion = pos;
                     cantLlenas = VerificarPosRey(MatrizPrueba, REY);
                     if (cantLlenas > 5)
                     {
                         if (i == N - 1)
                         {
-                            i = 0;
+                            i = 2;
                             j++;
                         }
                         else i++;
@@ -88,33 +90,33 @@ namespace TPLabo2_Ajedrez
             {
                 if (i == N - 1)
                 {
-                    i = 0;
+                    i = 2;
                     j++;
                 }
                 else i++;
                 BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, cantLlenas, i, j);
             }
         }
-        public int VerificarPosRey(int[,] MatrizPrueba, sPieza REY)
+        public int VerificarPosRey(Tablero MatrizPrueba, sPieza REY)
         {
             for (int i = REY.posicion.COL - 1; i <= REY.posicion.COL + 1; i++)
             {
                 if (REY.posicion.FILA + 1 < N)
                 {
-                    if (MatrizPrueba[REY.posicion.FILA + 1, i] == 0) cont++;
+                    if (MatrizPrueba.matriz[REY.posicion.FILA + 1, i] == 0) cont++;
                 }
                 if (REY.posicion.FILA - 1 >= 0)
                 {
-                    if (MatrizPrueba[REY.posicion.FILA - 1, i]==0) cont++;
+                    if (MatrizPrueba.matriz[REY.posicion.FILA - 1, i]==0) cont++;
                 }
             }
             if (REY.posicion.COL + 1 < N)
             {
-                if (MatrizPrueba[REY.posicion.FILA, REY.posicion.COL + 1]==0) cont++;
+                if (MatrizPrueba.matriz[REY.posicion.FILA, REY.posicion.COL + 1]==0) cont++;
             }
             if (REY.posicion.COL - 1 >= 0)
             {
-                if (MatrizPrueba[REY.posicion.FILA, REY.posicion.COL - 1]==0) cont++;
+                if (MatrizPrueba.matriz[REY.posicion.FILA, REY.posicion.COL - 1]==0) cont++;
             }
             return cont;
         }

@@ -11,8 +11,10 @@ namespace TPLabo2_Ajedrez
         public Alfil(ePieza pieza, int fila, int col)
         {
             sPieza p_alfil = new sPieza(pieza);
-            sPosicion pos = new sPosicion(fila, col);
-            p_alfil.posicion = pos;
+            p_alfil.COL = col;
+            p_alfil.FILA = fila;
+            //sPosicion pos = new sPosicion(fila, col);
+            //p_alfil.posicion = pos;
         }
         public sPieza p_alfil { get { return p_alfil; } }
     }
