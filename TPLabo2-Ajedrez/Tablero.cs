@@ -15,6 +15,8 @@ namespace TPLabo2_Ajedrez
             bool[,] Matriz = new bool[n, n];
             N = n;
         }
+
+        public bool[,] matriz { get { return Matriz; } }
         public void CargarFILACOL(int numero, bool fila = true)
         {
             for (int i = 0; i < N; i++)

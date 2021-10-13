@@ -86,8 +86,8 @@ namespace TPLabo2_Ajedrez
             //                   Cargamos ataque de las torres y guardamos la posicion en look up
             TORRE1 = new Torre(ePieza.TORRE, 0, 0);
             TORRE2 = new Torre(ePieza.TORRE, 1, 1);
-            LOOKUP[0] = TORRE1.p_Torre;
-            LOOKUP[1] = TORRE2.p_Torre;
+            LOOKUP[0] = TORRE1.p_torre;
+            LOOKUP[1] = TORRE2.p_torre;
 
             MatrizPrueba.CargarFILACOL(0);
             MatrizPrueba.CargarFILACOL(1);
@@ -124,21 +124,21 @@ namespace TPLabo2_Ajedrez
             } while (!(MatrizPrueba.VerificarLibredeAtaque(auxFila, auxCol)));
             REINA = new Reina(ePieza.REINA, auxFila, auxCol);
             LOOKUP[4] = Reina.p_reina;
-            MatrizPrueba.CargarDiagonales(REINA.p_reina.posicion.FILA, REINA.posicion.COL);
+            MatrizPrueba.CargarDiagonales(REINA.p_reina.posicion.FILA, REINA.p_reina.posicion.COL);
             MatrizPrueba.CargarFILACOL(auxFila);
             MatrizPrueba.CargarFILACOL(auxFila, false);
 
             //TODO: seguir con el rey definir la aternativa
             REY = new Rey();
-            REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY);
+            REY.BuscarPosicionRey(MatrizPrueba.matriz, LOOKUP, REY,0,0,0);
             LOOKUP[5] = REY.p_rey;
 
 
             CABALLO1 = new Caballo();
             CABALLO2 = new Caballo();
-            CABALLO1.PosicionarCaballos(MatrizPrueba, LOOKUP, CABALLO1);
+            CABALLO1.PosicionarCaballos(MatrizPrueba.matriz, LOOKUP, CABALLO1.p_caballo);
             LOOKUP[6] = CABALLO1.p_caballo;
-            CABALLO2.PosicionarCaballos(MatrizPrueba, LOOKUP, CABALLO2);
+            CABALLO2.PosicionarCaballos(MatrizPrueba.matriz, LOOKUP, CABALLO2.p_caballo);
             LOOKUP[7] = CABALLO2.p_caballo;
 
             
