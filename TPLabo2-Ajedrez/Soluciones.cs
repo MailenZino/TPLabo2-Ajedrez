@@ -94,42 +94,63 @@ namespace TPLabo2_Ajedrez
                 7 REY
             */
         }
-        public void Reacomodar(sPosicion pos, sPieza[] lookup, sPosicion pos2)
+        public void Reacomodar(sPosicion PosCritica, sPieza[] lookup, sPosicion PosCritica2=new sPosicion())
         {
             sPieza[] LOOKUPaux = new sPieza[8];
            for(int i=0;i<8;i++)
            {    LOOKUPaux[i]=lookup[i]; }
 
-
-
-           /*
-            * //si es una columna sabes que moves a izq o derecha y va a ser la n-1 o la 
- 1- SI (PosCritica.COL!=0)
-      1.1 - SI(PosCrtica.COL>1)
-               MIENTRAS(i=2;i<N;i++)
-                  LOOKUPResolucionAUX[i].COL--;
-           SI NO
-               MIENTRAS(i=2;i<N;i++)
-                  LOOKUPResolucionAUX[i].COL++;         
- 2- SINO SI (PosCritica.FILA!=0)
-      2.1- SI(PosCrtica.FILA>1)
-              MIENTRAS(i=2;i<N;i++)
-                  LOOKUPResolucionAUX[i].FILA--;
-           SI NO
-              MIENTRAS(i=2;i<N;i++)
-                  LOOKUPResolucionAUX[i].FILA++;
-3- SI(PosCritica2!={0,0})
-        LLAMAR Reacomodar(PosCritica2,LOOKUP)
-4- LLAMAR ImprimirSolucion(LOOKUPResolucionAUX);
-
-            * 
-           */
+           
+            //si es una columna sabes que moves a izq o derecha y va a ser la n-1 o la
+            if (PosCritica.COL != 0)
+            {
+                if (PosCritica.COL > 1)
+                {
+                    for (int i = 2; i < N; i++)
+                        LOOKUPaux[i].COL--;
+                }
+                else
+                {
+                    for (int i = 2; i < N; i++)
+                        LOOKUPaux[i].COL++;
+                }
+            }
+            else if (PosCritica.FILA != 0)
+            {
+                if (PosCritica.FILA > 1)
+                {
+                    for (int i = 2; i < N; i++)
+                        LOOKUPaux[i].FILA--;
+                }
+            }
+            else
+            {
+                for (int i = 2; i < N; i++)
+                { LOOKUPaux[i].FILA++; }
+            }
+            if (PosCritica2.FILA != 0 && PosCritica2.COL != 0)
+                Reacomodar(PosCritica2, lookup);
+            
+            ImprimirSolucion(LOOKUPaux);
 
         }
 
         public bool SolucionExistente(sPieza[] lookup)
         {
-            //TODO: SOLUCION EXISTENTE EN SOLUCIONES.CS
+            //TODO: pinta sobrecarga == ??????
+            int iguales = 0;
+            for (int j = 0; j <= CANT_SOL_MAESTRA; j++)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    if (Solucion_Maestra[CANT_SOL_MAESTRA,i].posicion.FILA == lookup[i].posicion.FILA&& Solucion_Maestra[CANT_SOL_MAESTRA, i].posicion.COL == lookup[i].posicion.COL)
+                    {
+                        iguales++;
+                    }
+                }
+                if(iguales==8)
+                    return true;
+            }
             return false;
         }
     }

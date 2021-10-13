@@ -18,7 +18,7 @@ namespace TPLabo2_Ajedrez
     }
     public struct sPosicion
     {
-        public sPosicion(int fila, int col)
+        public sPosicion(int fila=0, int col=0)
         {
             int FILA = fila;
             int COL = col;
@@ -44,6 +44,9 @@ namespace TPLabo2_Ajedrez
             sPosicion posicion=new sPosicion(fila,col);
         }
         public sPosicion posicion { get { return posicion; } set { posicion = value; } }
+        
+        public int FILA { get { return posicion.FILA; } set { FILA = value; } }
+        public int COL { get { return posicion.COL; } set { COL = value; } }
         public ePieza pieza { get { return pieza; } }
    }
     class Program
