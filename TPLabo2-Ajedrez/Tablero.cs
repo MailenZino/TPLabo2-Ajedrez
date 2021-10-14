@@ -84,7 +84,7 @@ namespace TPLabo2_Ajedrez
             return contador;
         }
 
-        public bool PosLibre(sPieza[] LOOKUP, int fila, int col)
+        public bool PosLibre(Pieza[] LOOKUP, int fila, int col)
         {
             for (int i = 0; i < 8; i++)
             {

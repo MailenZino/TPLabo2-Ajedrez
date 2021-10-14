@@ -6,24 +6,20 @@ using System.Threading.Tasks;
 
 namespace TPLabo2_Ajedrez
 {
-    class Caballo
+    class Caballo:Pieza
     {
         static int N = 8;
         int cont = 0;
         //Constructor de clase Caballo
-        public Caballo()
-        {
-            sPieza p_caballo = new sPieza(ePieza.CABALLO);
-        }
-        public sPieza p_caballo { get { return p_caballo; } }
+        public Caballo():base(ePieza.CABALLO) {  }
         //Función para posicionar caballos en el tablero
-        public bool PosicionarCaballos(Tablero MatrizPrueba , sPieza [] LOOKUP, sPieza CABALLO)
+        public bool PosicionarCaballos(Tablero MatrizPrueba , Pieza [] LOOKUP, Pieza CABALLO)
         {
             RecursividadCaballo(MatrizPrueba, LOOKUP, CABALLO, 0, 0);//Probamos casilla por casilla cuál es la mejor posición
             if (MatrizPrueba.contarVacias(0) != 0) return false;//Si en la posición donde pusimos al caballo quedan más de ... casillas vacias, no lo ponemos ahi
             else return true;//Si esta bien ahí, lo dejamos en esa posición
         }
-        public void RecursividadCaballo(Tablero MatrizPrueba, sPieza[] LOOKUP, sPieza CABALLO, int i, int j)//i=2,j=2
+        public void RecursividadCaballo(Tablero MatrizPrueba, Pieza[] LOOKUP, Pieza CABALLO, int i, int j)//i=2,j=2
         {
             int NLibres = 0;
             if(i >= 2 && i < N && j >= 2 && j < N)
@@ -60,7 +56,7 @@ namespace TPLabo2_Ajedrez
             }
             RecursividadCaballo(MatrizPrueba, LOOKUP, CABALLO, i, j);//LLamamos nuevamente la función con un posicionamiento diferente
         }
-        public int VerificarPosCaballo(Tablero MatrizPrueba, sPieza CABALLO)
+        public int VerificarPosCaballo(Tablero MatrizPrueba, Pieza CABALLO)
         {
             cont = 8;
             if(CABALLO.posicion.FILA + 1 < N)

@@ -8,15 +8,15 @@ namespace TPLabo2_Ajedrez
 {
     class Soluciones
     {
-        sPieza[,] Solucion_Maestra;
+        Pieza[,] Solucion_Maestra;
         int CANT_SOL_MAESTRA;
         int N = 8;
         public Soluciones()
         {
             CANT_SOL_MAESTRA = 0;
-            Solucion_Maestra = new sPieza[8, 8];
+            Solucion_Maestra = new Pieza[8, 8];
         }
-        public void ReproducirSoluciones(sPieza[] lookup)
+        public void ReproducirSoluciones(Pieza[] lookup)
         {
             //guardamos la solucion original y la contamos como nueva sol maestra
             CANT_SOL_MAESTRA++;
@@ -84,7 +84,7 @@ namespace TPLabo2_Ajedrez
             Reacomodar(auxReacomodar1, lookup, auxReacomodar1);
             Program.CANT_SOL_TOTALES = 10;
         }
-        public void ImprimirSolucion(sPieza[] lookup)
+        public void ImprimirSolucion(Pieza[] lookup)
         {
             /*
              * IMPRIMIMOS TABLERO CON PRINTF E IMÁGENES, SABEMOS QUE EN 
@@ -95,9 +95,9 @@ namespace TPLabo2_Ajedrez
                 7 REY
             */
         }
-        public void Reacomodar(sPosicion PosCritica, sPieza[] lookup, sPosicion PosCritica2=new sPosicion())
+        public void Reacomodar(sPosicion PosCritica, Pieza[] lookup, sPosicion PosCritica2=new sPosicion())
         {
-            sPieza[] LOOKUPaux = new sPieza[8];
+            Pieza[] LOOKUPaux = new Pieza[8];
            for(int i=0;i<8;i++)
            {    LOOKUPaux[i]=lookup[i]; }
 
@@ -136,7 +136,7 @@ namespace TPLabo2_Ajedrez
 
         }
 
-        public bool SolucionExistente(sPieza[] lookup)
+        public bool SolucionExistente(Pieza[] lookup)
         {
             //TODO: pinta sobrecarga == para fila y col  ??????
             if (CANT_SOL_MAESTRA > 0)

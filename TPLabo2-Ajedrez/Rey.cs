@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace TPLabo2_Ajedrez
 {
-    class Rey
+    class Rey:Pieza
     {
         int N = 8;
         int cont = 0;
-        public Rey()
-        {
-            sPieza p_rey = new sPieza(ePieza.REY);
-        }
-        public sPieza p_rey { get { return p_rey; } }
+        public Rey() : base(ePieza.REY) { }
+        
         //ALTERNATIVA 1
         //public void BuscarPosicionRey(int [,] MatrizPrueba, sPieza [] LOOKUP, sPieza REY, int CantLlenas,int i, int j)
         //{
@@ -59,7 +56,7 @@ namespace TPLabo2_Ajedrez
 
 
         //ALTERNATIVA 2
-        public void BuscarPosicionRey(Tablero MatrizPrueba, sPieza[] LOOKUP, sPieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
+        public void BuscarPosicionRey(Tablero MatrizPrueba, Pieza[] LOOKUP, Pieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
         {
             if (i >= 2 && i < N && j >= 2 && j < N)
             {
@@ -97,7 +94,7 @@ namespace TPLabo2_Ajedrez
                 BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, cantLlenas, i, j);
             }
         }
-        public int VerificarPosRey(Tablero MatrizPrueba, sPieza REY)
+        public int VerificarPosRey(Tablero MatrizPrueba, Pieza REY)
         {
             for (int i = REY.posicion.COL - 1; i <= REY.posicion.COL + 1; i++)
             {
