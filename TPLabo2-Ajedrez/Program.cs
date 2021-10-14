@@ -21,24 +21,22 @@ namespace TPLabo2_Ajedrez
         //constructor
         public sPosicion(int fila=0, int col=0)
         {
-            int FILA = fila;
-            int COL = col;
+            FILA = fila;
+            COL = col;
         }
         
         //get set de fila
         public int FILA 
-        { 
-            get { return FILA; }
-            set { FILA = value; }
+        {
+            get; set;
         }
         public int COL 
-        { 
-            get { return COL; } 
-            set { COL = value; }
+        {
+            get; set;
         }
-
+        // si fuera read only init  var p2 = p1 with { X = 3 };
     }
-   public class Pieza
+    public class Pieza
    {
         public ePieza pieza { get; }
         public sPosicion posicion;
@@ -49,8 +47,10 @@ namespace TPLabo2_Ajedrez
         }
 
        
-        public int FILA { get { return posicion.FILA; } set { posicion.FILA = value; } }
-        public int COL { get { return posicion.COL; } set { posicion.COL = value; } }
+        public int getFILA() { return posicion.FILA;  }
+        public int getCOL() { return posicion.COL;  }
+        public void setFILA(int value) { posicion.FILA=value; }
+        public void setCOL(int value) {posicion.COL=value; }
     }
     class Program
     {
@@ -105,8 +105,8 @@ namespace TPLabo2_Ajedrez
             LOOKUP[3] = ALFIL2;
             //ya nos aseguramos que quede uno en casilla blanca y otro en negra
 
-            MatrizPrueba.CargarDiagonales(ALFIL1.FILA, ALFIL1.COL);
-            MatrizPrueba.CargarDiagonales(ALFIL2.FILA, ALFIL2.COL);
+            MatrizPrueba.CargarDiagonales(ALFIL1.getFILA(), ALFIL1.getCOL());
+            MatrizPrueba.CargarDiagonales(ALFIL2.getFILA(), ALFIL2.getCOL());
 
 
             //                   Cargamos ataque de la reina y guardamos la posicion en look up 

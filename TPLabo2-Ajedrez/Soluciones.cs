@@ -108,12 +108,12 @@ namespace TPLabo2_Ajedrez
                 if (PosCritica.COL > 1)
                 {
                     for (int i = 2; i < N; i++)
-                        LOOKUPaux[i].COL--;
+                        LOOKUPaux[i].setCOL(LOOKUPaux[i].getCOL()-1);
                 }
                 else
                 {
                     for (int i = 2; i < N; i++)
-                        LOOKUPaux[i].COL++;
+                        LOOKUPaux[i].setCOL(LOOKUPaux[i].getCOL() + 1);
                 }
             }
             else if (PosCritica.FILA != 0)
@@ -121,13 +121,13 @@ namespace TPLabo2_Ajedrez
                 if (PosCritica.FILA > 1)
                 {
                     for (int i = 2; i < N; i++)
-                        LOOKUPaux[i].FILA--;
+                        LOOKUPaux[i].setFILA(LOOKUPaux[i].getFILA() - 1);
                 }
             }
             else
             {
                 for (int i = 2; i < N; i++)
-                { LOOKUPaux[i].FILA++; }
+                { LOOKUPaux[i].setFILA(LOOKUPaux[i].getFILA() + 1); }
             }
             if (PosCritica2.FILA != 0 && PosCritica2.COL != 0)
                 Reacomodar(PosCritica2, lookup);

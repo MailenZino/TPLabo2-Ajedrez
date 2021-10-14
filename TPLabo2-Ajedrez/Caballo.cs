@@ -27,8 +27,8 @@ namespace TPLabo2_Ajedrez
                 if(MatrizPrueba.PosLibre(LOOKUP,i, j))//Si en la casilla [i,j] no hay otra pieza posicionada es una posición válida que hay que verificar si sirve
                 {
                     //Posisionamos el caballo ahí
-                    CABALLO.FILA = i;
-                    CABALLO.COL = j;
+                    CABALLO.setFILA(i);
+                    CABALLO.setCOL(j);
                     //sPosicion pos = new sPosicion(i, j);
                     //CABALLO.posicion = pos;
                 }
