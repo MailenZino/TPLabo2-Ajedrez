@@ -38,7 +38,7 @@ namespace TPLabo2_Ajedrez
     }
     public class Pieza
    {
-        public ePieza pieza { get; }
+        public ePieza pieza { get; set; }
         public sPosicion posicion;
         public Pieza(ePieza pieza_,int fila=0,int col=0)
         {
@@ -130,7 +130,7 @@ namespace TPLabo2_Ajedrez
             REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY,0,0,0);
             LOOKUP[5] = REY;
 
-
+            
             CABALLO1 = new Caballo();
             CABALLO2 = new Caballo();
             CABALLO1.PosicionarCaballos(MatrizPrueba, LOOKUP, CABALLO1);
