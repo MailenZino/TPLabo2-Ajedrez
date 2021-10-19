@@ -25,72 +25,73 @@ namespace TPLabo2_Ajedrez
             {
                 Solucion_Maestra[CANT_SOL_MAESTRA, i] = lookup[i];
             }
+            Program.CANT_SOL_TOTALES = 1;
             ImprimirSolucion(lookup);
 
-            sPosicion auxReacomodar1 = new sPosicion(0, N - 1); //con aux avisamos a reacomodar las modificaciones que hicimos
-            sPosicion auxReacomodar2 = new sPosicion(N - 1, N - 1);
-            sPosicion modificarPos1 = new sPosicion(lookup[1].posicion.FILA, N - 1);
-            sPosicion modificarPos0 = new sPosicion(lookup[0].posicion.FILA, N-1);
+            //sPosicion auxReacomodar1 = new sPosicion(0, N - 1); //con aux avisamos a reacomodar las modificaciones que hicimos
+            //sPosicion auxReacomodar2 = new sPosicion(N - 1, N - 1);
+            //sPosicion modificarPos1 = new sPosicion(lookup[1].posicion.FILA, N - 1);
+            //sPosicion modificarPos0 = new sPosicion(lookup[0].posicion.FILA, N-1);
 
-            lookup[1].posicion = modificarPos1;
-            Reacomodar(auxReacomodar1, lookup);
+            //lookup[1].posicion = modificarPos1;
+            //Reacomodar(auxReacomodar1, lookup);
 
-            modificarPos1.FILA = N - 1;
-            modificarPos1.COL = 1;
-            lookup[1].posicion = modificarPos1;
-            auxReacomodar1.FILA = N - 1; auxReacomodar1.COL = 0;
-            Reacomodar(auxReacomodar1, lookup);
+            //modificarPos1.FILA = N - 1;
+            //modificarPos1.COL = 1;
+            //lookup[1].posicion = modificarPos1;
+            //auxReacomodar1.FILA = N - 1; auxReacomodar1.COL = 0;
+            //Reacomodar(auxReacomodar1, lookup);
 
 
-            modificarPos1.COL = N - 1;
-            lookup[1].posicion = modificarPos1;
-            auxReacomodar1.COL = N - 1;
-            Reacomodar(auxReacomodar1, lookup);
+            //modificarPos1.COL = N - 1;
+            //lookup[1].posicion = modificarPos1;
+            //auxReacomodar1.COL = N - 1;
+            //Reacomodar(auxReacomodar1, lookup);
 
           
-            modificarPos1.COL = 0;
-            lookup[1].posicion = modificarPos1;
-            lookup[0].posicion = modificarPos0;
-            auxReacomodar1.FILA = N - 1;
-            Reacomodar(auxReacomodar1, lookup);
+            //modificarPos1.COL = 0;
+            //lookup[1].posicion = modificarPos1;
+            //lookup[0].posicion = modificarPos0;
+            //auxReacomodar1.FILA = N - 1;
+            //Reacomodar(auxReacomodar1, lookup);
 
 
 
-            modificarPos1.COL = N - 2;
-            lookup[1].posicion = modificarPos1;
-            auxReacomodar1.FILA = 0;
-            Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
+            //modificarPos1.COL = N - 2;
+            //lookup[1].posicion = modificarPos1;
+            //auxReacomodar1.FILA = 0;
+            //Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
 
-            modificarPos1.FILA = 1;
-            lookup[1].posicion= modificarPos1;
-            auxReacomodar1.FILA = 0;
-            Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
+            //modificarPos1.FILA = 1;
+            //lookup[1].posicion= modificarPos1;
+            //auxReacomodar1.FILA = 0;
+            //Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
 
-            modificarPos1.FILA = N-1;
-            lookup[1].posicion = modificarPos1;
-            modificarPos0.FILA = N - 2;
-            lookup[0].posicion = modificarPos0;
-            Reacomodar(auxReacomodar2, lookup, auxReacomodar2);
+            //modificarPos1.FILA = N-1;
+            //lookup[1].posicion = modificarPos1;
+            //modificarPos0.FILA = N - 2;
+            //lookup[0].posicion = modificarPos0;
+            //Reacomodar(auxReacomodar2, lookup, auxReacomodar2);
 
-            modificarPos1.COL = N - 1;
-            lookup[1].posicion = modificarPos1;
-            modificarPos0.COL = 0;
-            lookup[0].posicion = modificarPos0;
+            //modificarPos1.COL = N - 1;
+            //lookup[1].posicion = modificarPos1;
+            //modificarPos0.COL = 0;
+            //lookup[0].posicion = modificarPos0;
             
-            auxReacomodar1.FILA = N - 1; auxReacomodar1.COL = 0;
-            Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
+            //auxReacomodar1.FILA = N - 1; auxReacomodar1.COL = 0;
+            //Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
 
-            modificarPos1.COL = 1;
-            lookup[1].posicion= modificarPos1;
-            Reacomodar(auxReacomodar1, lookup, auxReacomodar1);
+            //modificarPos1.COL = 1;
+            //lookup[1].posicion= modificarPos1;
+            //Reacomodar(auxReacomodar1, lookup, auxReacomodar1);
             Program.CANT_SOL_TOTALES = 10;
         }
         public void ImprimirSolucion(Pieza[] lookup)
         {
-            Pieza[,] Soluciones_Totales=new Pieza[10,8];
+            Pieza[,] Soluciones_Totales=new Pieza[1,8];//cambiar a 10,8
             for (int i = 0; i < 8; i++)
-            { Soluciones_Totales[Program.CANT_SOL_TOTALES, i] = lookup[i]; }
-            if (Program.CANT_SOL_TOTALES == 9)
+            { Soluciones_Totales[Program.CANT_SOL_TOTALES-1, i] = lookup[i]; }
+            if (Program.CANT_SOL_TOTALES == 1)//cambiar a 9
             {
                 FormSoluciones FORM = new FormSoluciones(Soluciones_Totales);
                 FORM.Visible = true;

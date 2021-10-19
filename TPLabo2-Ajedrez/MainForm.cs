@@ -24,7 +24,7 @@ namespace TPLabo2_Ajedrez
             {
                 programa_.BuscarSoluciones();
             }
-            
+            Program.CANT_SOL_TOTALES = 0;
         }
 
         private void MainForm_Load(object sender, EventArgs e)

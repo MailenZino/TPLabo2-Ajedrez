@@ -25,7 +25,6 @@ namespace TPLabo2_Ajedrez
         
         private void Form1_Load(object sender, EventArgs e)
         {
-            count += 1;
             const int tileSize = 40;
             const int gridSize = 8;
             var clr1 = Color.DarkGray;
@@ -108,6 +107,8 @@ namespace TPLabo2_Ajedrez
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+            //Mostrar main form
+            
         }
     }
 }
