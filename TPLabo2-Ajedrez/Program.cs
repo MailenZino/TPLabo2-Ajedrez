@@ -117,8 +117,9 @@ namespace TPLabo2_Ajedrez
             {
                 auxCol = rd.Next(2, 5);
                 auxFila = rd.Next(2, 5);
-            } while (!(MatrizPrueba.VerificarLibredeAtaque(auxFila, auxCol))); 
-            // no ponemos a la reina donde pueda ser atacada por alfiles porque no tiene sol
+
+            } while (!(MatrizPrueba.VerificarLibredeAtaque(auxFila, auxCol))||!(MatrizPrueba.PosLibre(LOOKUP,auxFila,auxCol))); 
+            // no ponemos a la reina donde pueda ser atacada por alfiles porque no tiene sol ni donde haya otra ficha
 
             REINA = new Reina(ePieza.REINA, auxFila, auxCol);
             LOOKUP[4] = REINA;
@@ -126,9 +127,13 @@ namespace TPLabo2_Ajedrez
             MatrizPrueba.CargarFILACOL(auxFila);
             MatrizPrueba.CargarFILACOL(auxFila, false);
 
-            //TODO: seguir con el rey definir la aternativa
+            
             REY = new Rey();
-            REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY,0,0,0);
+            do
+            { 
+                REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, 0, 0, 0);
+
+            } while (!(MatrizPrueba.PosLibre(LOOKUP, REY.getFILA(), REY.getCOL())));
             LOOKUP[5] = REY;
 
             

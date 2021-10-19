@@ -61,6 +61,7 @@ namespace TPLabo2_Ajedrez
         }
         public void CargarDiagonales(int fila, int col)
         {
+            Matriz[fila, col] = 1;
             CargarDiagonalesInferiores(fila, col);
             CargarDiagonalesSuperiores(fila, col);
         }
@@ -79,17 +80,23 @@ namespace TPLabo2_Ajedrez
                 contador += Matriz[i, col];
             }
             if (col < N - 1)
-                contarVacias(col++);
+                contarVacias(++col);
            
-            return contador;
+            return (36-contador);
         }
 
         public bool PosLibre(Pieza[] LOOKUP, int fila, int col)
         {
-            for (int i = 0; i < 8; i++)
+            int piezas_cargadas = 7;
+            for (int i = 0; i < piezas_cargadas; i++)
             {
-                if (LOOKUP[i].posicion.FILA == fila && LOOKUP[i].posicion.COL == col)
-                    return false;
+                if (LOOKUP[i] != null)
+                {
+                    if (LOOKUP[i].posicion.FILA == fila && LOOKUP[i].posicion.COL == col)
+                        return false;
+                }
+                else
+                    break;
             }
             return true;
         }
