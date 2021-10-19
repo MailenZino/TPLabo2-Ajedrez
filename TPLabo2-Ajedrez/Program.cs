@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TPLabo2_Ajedrez
 {
@@ -52,11 +53,11 @@ namespace TPLabo2_Ajedrez
         public int FILA { get { return posicion.FILA; } set { posicion.FILA = value; } }
         public int COL { get { return posicion.COL; } set { posicion.COL = value; } }
     }
-    class Program
+    public class Program
     {
         public static int CANT_SOL_TOTALES;
         Pieza[] LOOKUP;
-        Soluciones LookSoluciones;
+        public Soluciones LookSoluciones;
         Torre TORRE1;
         Torre TORRE2;
         Alfil ALFIL1;
@@ -145,11 +146,15 @@ namespace TPLabo2_Ajedrez
         }
         static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             var Programa = new Program();
-            while (CANT_SOL_TOTALES < 10)
-            {
-                Programa.BuscarSoluciones();
-            }
+            Application.Run(new MainForm(Programa));
+
+            //while (CANT_SOL_TOTALES < 10)
+            //{
+            //    Programa.BuscarSoluciones();
+            //}
         }
 
 

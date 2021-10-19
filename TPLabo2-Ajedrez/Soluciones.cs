@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TPLabo2_Ajedrez
 {
-    class Soluciones
+    public class Soluciones
     {
-        Pieza[,] Solucion_Maestra;
+        public Pieza[,] Solucion_Maestra;
         int CANT_SOL_MAESTRA;
         int N = 8;
         public Soluciones()
