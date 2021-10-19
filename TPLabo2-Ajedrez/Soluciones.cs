@@ -18,6 +18,7 @@ namespace TPLabo2_Ajedrez
         }
         public void ReproducirSoluciones(Pieza[] lookup)
         {
+            
             //guardamos la solucion original y la contamos como nueva sol maestra
             CANT_SOL_MAESTRA++;
             for (int i = 0; i < 8; i++)
@@ -86,14 +87,15 @@ namespace TPLabo2_Ajedrez
         }
         public void ImprimirSolucion(Pieza[] lookup)
         {
-            /*
-             * IMPRIMIMOS TABLERO CON PRINTF E IMÁGENES, SABEMOS QUE EN 
-                0 Y 1 - TORRES
-                2 Y 3 - ALFILES
-                4 - REINA
-                5 Y 6 CABALLOS
-                7 REY
-            */
+            Pieza[,] Soluciones_Totales=new Pieza[10,8];
+            for (int i = 0; i < 8; i++)
+            { Soluciones_Totales[Program.CANT_SOL_TOTALES, i] = lookup[i]; }
+            if (Program.CANT_SOL_TOTALES == 9)
+            {
+                FormSoluciones FORM = new FormSoluciones(Soluciones_Totales);
+                FORM.Visible = true;
+            }
+           
         }
         public void Reacomodar(sPosicion PosCritica, Pieza[] lookup, sPosicion PosCritica2=new sPosicion())
         {
@@ -131,7 +133,8 @@ namespace TPLabo2_Ajedrez
             }
             if (PosCritica2.FILA != 0 && PosCritica2.COL != 0)
                 Reacomodar(PosCritica2, lookup);
-            
+
+            Program.CANT_SOL_TOTALES++;
             ImprimirSolucion(LOOKUPaux);
 
         }

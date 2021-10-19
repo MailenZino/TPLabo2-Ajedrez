@@ -151,10 +151,6 @@ namespace TPLabo2_Ajedrez
             var Programa = new Program();
             Application.Run(new MainForm(Programa));
 
-            //while (CANT_SOL_TOTALES < 10)
-            //{
-            //    Programa.BuscarSoluciones();
-            //}
         }
 
 

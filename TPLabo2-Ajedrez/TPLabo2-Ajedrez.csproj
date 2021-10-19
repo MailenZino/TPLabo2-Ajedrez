@@ -47,11 +47,11 @@
   <ItemGroup>
     <Compile Include="Alfil.cs" />
     <Compile Include="Caballo.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FormSoluciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormSoluciones.Designer.cs">
+      <DependentUpon>FormSoluciones.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -76,8 +76,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FormSoluciones.resx">
+      <DependentUpon>FormSoluciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

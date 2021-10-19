@@ -20,8 +20,11 @@ namespace TPLabo2_Ajedrez
         Program programa_;
         private void btnSln_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1(programa_.LookSoluciones);
-            form1.Visible = true;
+            while (Program.CANT_SOL_TOTALES < 10)
+            {
+                programa_.BuscarSoluciones();
+            }
+            
         }
 
         private void MainForm_Load(object sender, EventArgs e)
