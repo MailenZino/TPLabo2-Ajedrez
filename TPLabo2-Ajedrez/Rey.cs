@@ -62,8 +62,8 @@ namespace TPLabo2_Ajedrez
             {
                 if (MatrizPrueba.matriz[i, j] == 0)
                 {
-                    REY.FILA = i;
-                    REY.COL = j;
+                    REY.setFILA(i);
+                    REY.setCOL(j);
                     //sPosicion pos = new sPosicion(i, j);
                     //REY.posicion = pos;
                     cantLlenas = VerificarPosRey(MatrizPrueba, REY);

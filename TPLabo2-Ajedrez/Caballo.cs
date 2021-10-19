@@ -27,13 +27,13 @@ namespace TPLabo2_Ajedrez
                 if(MatrizPrueba.PosLibre(LOOKUP,i, j))//Si en la casilla [i,j] no hay otra pieza posicionada es una posición válida que hay que verificar si sirve
                 {
                     //Posisionamos el caballo ahí
-                    CABALLO.FILA = i;
-                    CABALLO.COL = j;
+                    CABALLO.setFILA(i);
+                    CABALLO.setCOL(j);
                     //sPosicion pos = new sPosicion(i, j);
                     //CABALLO.posicion = pos;
                 }
                 cont = VerificarPosCaballo(MatrizPrueba, CABALLO);//Verificamos cuántas casillas ocuparía el caballo posicionado de esta forma
-                if (LOOKUP[6].pieza == ePieza.LIBRE) NLibres = 5;//Si estamos posicionando al primer caballo, entonces las casillas libres serían 5 o menos
+                if (LOOKUP[6] == null) NLibres = 5;//Si estamos posicionando al primer caballo, entonces las casillas libres serían 5 o menos
                 else NLibres = 3;//Si estamos posicionando el segundo, las casillas libres son menos
                 if(MatrizPrueba.contarVacias() - cont > NLibres)//Si las casillas libres en el tablero al posicionar al caballo de esta manera son más que las que podría ocupar la próxima pieza
                 {//Cambiamos la cassila en donde probamos el posicionamiento y lo hacemos de nuevo
