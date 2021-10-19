@@ -129,11 +129,7 @@ namespace TPLabo2_Ajedrez
 
             
             REY = new Rey();
-            do
-            { 
-                REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, 0, 0, 0);
-
-            } while (!(MatrizPrueba.PosLibre(LOOKUP, REY.getFILA(), REY.getCOL())));
+            REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, 0,2,2);
             LOOKUP[5] = REY;
 
             

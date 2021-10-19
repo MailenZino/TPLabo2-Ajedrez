@@ -58,16 +58,16 @@ namespace TPLabo2_Ajedrez
         //ALTERNATIVA 2
         public void BuscarPosicionRey(Tablero MatrizPrueba, Pieza[] LOOKUP, Pieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
         {
-            if (i >= 2 && i < N && j >= 2 && j < N)
+            if ((i >= 2) && (i < N) && (j >= 2) && (j < N))
             {
-                if (MatrizPrueba.matriz[i, j] == 0)
+                if (/*MatrizPrueba.matriz[i, j] == 0 &&*/ (MatrizPrueba.PosLibre(LOOKUP, REY.getFILA(), REY.getCOL())))
                 {
                     REY.setFILA(i);
                     REY.setCOL(j);
                     //sPosicion pos = new sPosicion(i, j);
                     //REY.posicion = pos;
                     cantLlenas = VerificarPosRey(MatrizPrueba, REY);
-                    if (cantLlenas > 5)
+                    if (cantLlenas < 5)
                     {
                         if (i == N - 1)
                         {
