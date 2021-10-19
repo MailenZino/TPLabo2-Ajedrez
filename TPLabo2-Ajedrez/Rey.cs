@@ -60,7 +60,7 @@ namespace TPLabo2_Ajedrez
         {
             if ((i >= 2) && (i < N) && (j >= 2) && (j < N))
             {
-                if (/*MatrizPrueba.matriz[i, j] == 0 &&*/ (MatrizPrueba.PosLibre(LOOKUP, REY.getFILA(), REY.getCOL())))
+                if (MatrizPrueba.matriz[i, j] == 0 && (MatrizPrueba.PosLibre(LOOKUP, i,j)))
                 {
                     REY.setFILA(i);
                     REY.setCOL(j);
@@ -79,19 +79,20 @@ namespace TPLabo2_Ajedrez
                     }
                     else
                     {
-                        LOOKUP[5] = REY;
+                        //LOOKUP[5] = REY;
+                        return;
                     }
                 }
-            }
-            else
-            {
-                if (i == N - 1)
+                else
                 {
-                    i = 2;
-                    j++;
+                    if (i == N - 1)
+                    {
+                        i = 2;
+                        j++;
+                    }
+                    else i++;
+                    BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, cantLlenas, i, j);
                 }
-                else i++;
-                BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, cantLlenas, i, j);
             }
         }
         public int VerificarPosRey(Tablero MatrizPrueba, Pieza REY)
