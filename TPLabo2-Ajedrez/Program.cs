@@ -92,37 +92,56 @@ namespace TPLabo2_Ajedrez
 
 
             //                   Cargamos ataque de alfiles y guardamos la posicion en look up 
-
-            Random rd = new Random(); int auxPos = rd.Next(2, 5); //llega a 5 o a 4??
-
-            ALFIL1 = new Alfil(ePieza.ALFIL, auxPos, auxPos);
-
-            if (auxPos == 2)
-                ALFIL2 = new Alfil(ePieza.ALFIL, auxPos, auxPos + 1);
+            //Posicionamos a los alfiles de mandera que queden dentro de un rectángulo de 3x4 casi centrado en el medio del tablero
+            Random rd_col = new Random(); int auxCol = rd_col.Next(3, 6); //random de 3 a 5
+            Random rd_fila = new Random(); int auxFila = rd_fila.Next(3, 7);//random de 3 a 6
+            ALFIL1 = new Alfil(ePieza.ALFIL, auxFila, auxCol);//cargamos al alfil 1 en esa posicion
+            MatrizPrueba.matriz[auxFila, auxCol] = 1; //Cargamos la posicion del aflil como atacada
+            //Ponemos al segudno alfil arriba o abajo del otro siempre respetando nuestro rectangulo
+            if (auxFila < 6)
+            {
+                ALFIL2 = new Alfil(ePieza.ALFIL, auxFila + 1, auxCol);
+                MatrizPrueba.matriz[auxFila+1, auxCol] = 1;
+            }
             else
-                ALFIL2 = new Alfil(ePieza.ALFIL, auxPos, auxPos - 1);
+            {
+                ALFIL2 = new Alfil(ePieza.ALFIL, auxFila - 1, auxCol);
+                MatrizPrueba.matriz[auxFila-1, auxCol] = 1;
+            }
 
             LOOKUP[2] = ALFIL1;
             LOOKUP[3] = ALFIL2;
             //ya nos aseguramos que quede uno en casilla blanca y otro en negra
-
             MatrizPrueba.CargarDiagonales(ALFIL1.getFILA(), ALFIL1.getCOL());
             MatrizPrueba.CargarDiagonales(ALFIL2.getFILA(), ALFIL2.getCOL());
 
 
             //                   Cargamos ataque de la reina y guardamos la posicion en look up 
-            int auxCol;
-            int auxFila;
-            do
-            {
-                auxCol = rd.Next(2, 5);
-                auxFila = rd.Next(2, 5);
+            //do
+            //{
+            //    auxFila = rd_fila.Next(2, 5);
 
-            } while (!(MatrizPrueba.VerificarLibredeAtaque(auxFila, auxCol))||!(MatrizPrueba.PosLibre(LOOKUP,auxFila,auxCol))); 
+            //} while (!(MatrizPrueba.VerificarLibredeAtaque(auxFila, auxCol))||!(MatrizPrueba.PosLibre(LOOKUP,auxFila,auxCol))); 
+            if(ALFIL1.getFILA() < 6) //Se cargó al alfil 2 debajo del alfil 1
+            {
+                if(ALFIL2.getFILA() < 6)
+                {
+                    auxFila = ALFIL2.getFILA() + 1;
+                }
+                else
+                {
+                    auxFila = ALFIL1.getFILA() - 1;
+                }
+            }
+            else//alfil 1 esta en fila 6 y alfil2 esta en fila 5
+            {
+                auxFila = ALFIL2.getFILA() - 1;
+            }
             // no ponemos a la reina donde pueda ser atacada por alfiles porque no tiene sol ni donde haya otra ficha
 
-            REINA = new Reina(ePieza.REINA, auxFila, auxCol);
+            REINA = new Reina(ePieza.REINA, auxFila, auxCol);//La reina la cargamos en la misma columna que los alfiles, justo abajo o arriba de ellos
             LOOKUP[4] = REINA;
+            MatrizPrueba.matriz[REINA.getFILA(), REINA.getCOL()] = 1;
             MatrizPrueba.CargarDiagonales(REINA.posicion.FILA, REINA.posicion.COL);
             MatrizPrueba.CargarFILACOL(auxFila);
             MatrizPrueba.CargarFILACOL(auxFila, false);
@@ -131,14 +150,18 @@ namespace TPLabo2_Ajedrez
             REY = new Rey();
             REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, 0,2,2);
             LOOKUP[5] = REY;
+            REY.CargarPosRey(MatrizPrueba);
+            MatrizPrueba.matriz[REY.getFILA(), REY.getCOL()] = 1;
 
-            
+
             CABALLO1 = new Caballo();
             CABALLO2 = new Caballo();
             CABALLO1.PosicionarCaballos(MatrizPrueba, LOOKUP, CABALLO1);
             LOOKUP[6] = CABALLO1;
+            MatrizPrueba.matriz[CABALLO1.getFILA(), CABALLO1.getCOL()] = 1;
             CABALLO2.PosicionarCaballos(MatrizPrueba, LOOKUP, CABALLO2);
             LOOKUP[7] = CABALLO2;
+            MatrizPrueba.matriz[CABALLO2.getFILA(), CABALLO2.getCOL()] = 1;
 
             if (LookSoluciones.SolucionExistente(LOOKUP))
                 BuscarSoluciones();

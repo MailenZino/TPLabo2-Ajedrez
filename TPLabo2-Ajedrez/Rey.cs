@@ -56,18 +56,26 @@ namespace TPLabo2_Ajedrez
 
 
         //ALTERNATIVA 2
+        public void CargarPosRey(Tablero MatrizPrueba)
+        {
+            for(int i = this.getCOL()-1; i < this.getCOL()+3; i++)
+            {
+                MatrizPrueba.matriz[this.getFILA() - 1, i] = 1;
+                MatrizPrueba.matriz[this.getFILA() - 1, i] = 1;
+            }
+            MatrizPrueba.matriz[this.getFILA(), this.getCOL() + 1] = 1;
+            MatrizPrueba.matriz[this.getFILA(), this.getCOL() - 1] = 1;
+        }
         public void BuscarPosicionRey(Tablero MatrizPrueba, Pieza[] LOOKUP, Pieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
         {
-            if ((i >= 2) && (i < N) && (j >= 2) && (j < N))
+            if ((i >= 2) && (i < N) && (j >= 2) && (j < N))//Si la casilla está dentrode nuestro 6x6
             {
                 if (MatrizPrueba.matriz[i, j] == 0 && (MatrizPrueba.PosLibre(LOOKUP, i,j)))
                 {
                     REY.setFILA(i);
                     REY.setCOL(j);
-                    //sPosicion pos = new sPosicion(i, j);
-                    //REY.posicion = pos;
                     cantLlenas = VerificarPosRey(MatrizPrueba, REY);
-                    if (cantLlenas < 5)
+                    if (MatrizPrueba.contarVacias() - cantLlenas < 3)//Si las casillas que quedan vacías al posicionar al rey allí son más de 3, no nos sirve
                     {
                         if (i == N - 1)
                         {
@@ -78,12 +86,11 @@ namespace TPLabo2_Ajedrez
                         BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, cantLlenas, i, j);
                     }
                     else
-                    {
-                        //LOOKUP[5] = REY;
+                    {//Nos sirve, dejamos al rey en esa posición y volvemos
                         return;
                     }
                 }
-                else
+                else//Si no está dentro del 6x6, intentamos con otra
                 {
                     if (i == N - 1)
                     {
@@ -116,7 +123,7 @@ namespace TPLabo2_Ajedrez
             {
                 if (MatrizPrueba.matriz[REY.posicion.FILA, REY.posicion.COL - 1]==0) cont++;
             }
-            return cont;
+            return cont + 1;//retornamos las casillas que atacaría el rey más la casilla en donde está posicionado
         }
     }
 }
