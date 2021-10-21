@@ -73,19 +73,19 @@ namespace TPLabo2_Ajedrez
             if (count < 10)
             {
 
-                _chessBoardPanels[soluciones[count, 0].getFILA(), soluciones[count, 0].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
-                _chessBoardPanels[soluciones[count, 1].getFILA(), soluciones[count, 1].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
+                _chessBoardPanels[soluciones[count, 0].getCOL(), soluciones[count, 0].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
+                _chessBoardPanels[soluciones[count, 1].getCOL(), soluciones[count, 1].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
 
 
-                _chessBoardPanels[soluciones[count, 2].getFILA(), soluciones[count, 2].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
-                _chessBoardPanels[soluciones[count, 3].getFILA(), soluciones[count, 3].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
+                _chessBoardPanels[soluciones[count, 2].getCOL(), soluciones[count, 2].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
+                _chessBoardPanels[soluciones[count, 3].getCOL(), soluciones[count, 3].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
 
-                _chessBoardPanels[soluciones[count, 4].getFILA(), soluciones[count, 4].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaReina;
+                _chessBoardPanels[soluciones[count, 4].getCOL(), soluciones[count, 4].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaReina;
 
-                _chessBoardPanels[soluciones[count, 5].getFILA(), soluciones[count, 5].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaRey;
+                _chessBoardPanels[soluciones[count, 5].getCOL(), soluciones[count, 5].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaRey;
 
-                _chessBoardPanels[soluciones[count, 6].getFILA(), soluciones[count, 6].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
-                _chessBoardPanels[soluciones[count, 7].getFILA(), soluciones[count, 7].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
+                _chessBoardPanels[soluciones[count, 6].getCOL(), soluciones[count, 6].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
+                _chessBoardPanels[soluciones[count, 7].getCOL(), soluciones[count, 7].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
 
             }
         }

@@ -66,22 +66,22 @@ namespace TPLabo2_Ajedrez
             cont = 8;
             if(CABALLO.posicion.FILA + 1 < N)
             {
-                if (CABALLO.posicion.COL - 2 > 1) cont -= MatrizPrueba.matriz[CABALLO.posicion.FILA + 1, CABALLO.posicion.COL - 2];
-                if (CABALLO.posicion.COL + 2 < N) cont -= MatrizPrueba.matriz[CABALLO.posicion.FILA + 1, CABALLO.posicion.COL + 2];
-                if(CABALLO.posicion.FILA + 2 < N)
+                if (CABALLO.getCOL() - 2 >= 0) cont -= MatrizPrueba.matriz[CABALLO.getFILA() + 1, CABALLO.getCOL() - 2];
+                if (CABALLO.getCOL() + 2 < N) cont -= MatrizPrueba.matriz[CABALLO.getFILA() + 1, CABALLO.getCOL() + 2];
+                if(CABALLO.getFILA() + 2 < N)
                 {
-                    if (CABALLO.posicion.COL - 1 > 1) cont -= MatrizPrueba.matriz[CABALLO.posicion.FILA + 2, CABALLO.posicion.COL - 1];
-                    if (CABALLO.posicion.COL + 1 < N) cont -= MatrizPrueba.matriz[CABALLO.posicion.FILA + 2, CABALLO.posicion.COL + 1];
+                    if (CABALLO.getCOL() - 1 >= 0) cont -= MatrizPrueba.matriz[CABALLO.getFILA() + 2, CABALLO.getCOL() - 1];
+                    if (CABALLO.getCOL() + 1 < N) cont -= MatrizPrueba.matriz[CABALLO.getFILA() + 2, CABALLO.getCOL() + 1];
                 }
             }
-            if(CABALLO.posicion.FILA - 1 > 1)
+            if(CABALLO.getFILA() - 1 >= 0)
             {
-                if (CABALLO.posicion.COL - 2 > 1) cont -= MatrizPrueba.matriz[CABALLO.posicion.FILA - 1, CABALLO.posicion.COL - 2];
-                if (CABALLO.posicion.COL + 2 < N) cont -= MatrizPrueba.matriz[CABALLO.posicion.FILA - 1, CABALLO.posicion.COL + 2];
-                if(CABALLO.posicion.FILA - 2 < 1)
+                if (CABALLO.getCOL() - 2 > 1) cont -= MatrizPrueba.matriz[CABALLO.getFILA() - 1, CABALLO.getCOL() - 2];
+                if (CABALLO.getCOL() + 2 < N) cont -= MatrizPrueba.matriz[CABALLO.getFILA() - 1, CABALLO.getCOL() + 2];
+                if(CABALLO.getFILA() - 2 >= 0)
                 {
-                    if (CABALLO.posicion.COL - 1 > 1) cont -= MatrizPrueba.matriz[CABALLO.posicion.FILA - 2, CABALLO.posicion.COL - 1];
-                    if (CABALLO.posicion.COL + 1 < N) cont -= MatrizPrueba.matriz[CABALLO.posicion.FILA - 2, CABALLO.posicion.COL + 1];
+                    if (CABALLO.getCOL() - 1 >= 0) cont -= MatrizPrueba.matriz[CABALLO.getFILA() - 2, CABALLO.getCOL() - 1];
+                    if (CABALLO.getCOL() + 1 < N) cont -= MatrizPrueba.matriz[CABALLO.getFILA() - 2, CABALLO.getCOL() + 1];
                 }
             }
             return cont;

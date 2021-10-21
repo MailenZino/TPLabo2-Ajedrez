@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace TPLabo2_Ajedrez
 {
-    class Rey:Pieza
+    class Rey : Pieza
     {
         int N = 8;
         int cont = 0;
         public Rey() : base(ePieza.REY) { }
-        
+
         //ALTERNATIVA 1
         //public void BuscarPosicionRey(int [,] MatrizPrueba, sPieza [] LOOKUP, sPieza REY, int CantLlenas,int i, int j)
         //{
@@ -58,7 +58,7 @@ namespace TPLabo2_Ajedrez
         //ALTERNATIVA 2
         public void CargarPosRey(Tablero MatrizPrueba)
         {
-            for(int i = this.getCOL()-1; i < this.getCOL()+3; i++)
+            for (int i = this.getCOL() - 1; i < this.getCOL() + 1; i++)
             {
                 MatrizPrueba.matriz[this.getFILA() - 1, i] = 1;
                 MatrizPrueba.matriz[this.getFILA() - 1, i] = 1;
@@ -68,14 +68,14 @@ namespace TPLabo2_Ajedrez
         }
         public void BuscarPosicionRey(Tablero MatrizPrueba, Pieza[] LOOKUP, Pieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
         {
-            if ((i >= 2) && (i < N) && (j >= 2) && (j < N))//Si la casilla está dentrode nuestro 6x6
+            if ((i >= 2) && (i < N) && (j >= 2) && (j < N))//Si la casilla está dentro de nuestro 6x6
             {
-                if (MatrizPrueba.matriz[i, j] == 0 && (MatrizPrueba.PosLibre(LOOKUP, i,j)))
+                if (MatrizPrueba.matriz[i, j] == 0 && (MatrizPrueba.PosLibre(LOOKUP, i, j)))
                 {
                     REY.setFILA(i);
                     REY.setCOL(j);
                     cantLlenas = VerificarPosRey(MatrizPrueba, REY);
-                    if (MatrizPrueba.contarVacias() - cantLlenas < 3)//Si las casillas que quedan vacías al posicionar al rey allí son más de 3, no nos sirve
+                    if (MatrizPrueba.contarVacias() - cantLlenas > 3)//Si las casillas que quedan vacías al posicionar al rey allí son más de 3, no nos sirve
                     {
                         if (i == N - 1)
                         {
@@ -104,26 +104,46 @@ namespace TPLabo2_Ajedrez
         }
         public int VerificarPosRey(Tablero MatrizPrueba, Pieza REY)
         {
-            for (int i = REY.posicion.COL - 1; i <= REY.posicion.COL + 1; i++)
+            for (int i = REY.getCOL() - 1; i <= REY.getCOL() + 1; i++)
             {
-                if (REY.posicion.FILA + 1 < N)
+                if (REY.getFILA() + 1 < N)
                 {
-                    if (MatrizPrueba.matriz[REY.posicion.FILA + 1, i] == 0) cont++;
+                    if (MatrizPrueba.matriz[REY.getFILA() + 1, i] == 0) cont++;
                 }
-                if (REY.posicion.FILA - 1 >= 0)
+                if (REY.getFILA() - 1 >= 0)
                 {
-                    if (MatrizPrueba.matriz[REY.posicion.FILA - 1, i]==0) cont++;
+                    if (MatrizPrueba.matriz[REY.getFILA() - 1, i] == 0) cont++;
                 }
             }
-            if (REY.posicion.COL + 1 < N)
+            if (REY.getCOL() + 1 < N)
             {
-                if (MatrizPrueba.matriz[REY.posicion.FILA, REY.posicion.COL + 1]==0) cont++;
+                if (MatrizPrueba.matriz[REY.getFILA(), REY.getCOL() + 1] == 0) cont++;
             }
-            if (REY.posicion.COL - 1 >= 0)
+            if (REY.getCOL() - 1 >= 0)
             {
-                if (MatrizPrueba.matriz[REY.posicion.FILA, REY.posicion.COL - 1]==0) cont++;
+                if (MatrizPrueba.matriz[REY.getFILA(), REY.getCOL() - 1] == 0) cont++;
             }
             return cont + 1;//retornamos las casillas que atacaría el rey más la casilla en donde está posicionado
+        }
+        public void BuscarPosReyFor(Tablero MatrizPrueba, Pieza[] LOOKUP, Pieza REY)
+        {
+            int cantLlenas = 0;
+            for (int i = 2; i < N ; i++)
+            {
+                for (int j = 2; j < N; j++)
+                {
+                    if (MatrizPrueba.matriz[i, j] == 0 && (MatrizPrueba.PosLibre(LOOKUP, i, j)))
+                    {
+                        REY.setFILA(i);
+                        REY.setCOL(j);
+                        cantLlenas = VerificarPosRey(MatrizPrueba, REY);
+                        if (MatrizPrueba.contarVacias() - cantLlenas <= 3)//Si las casillas que quedan vacías al posicionar al rey allí son más de 3, no nos sirve
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
         }
     }
 }
