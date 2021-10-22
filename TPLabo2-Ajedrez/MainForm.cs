@@ -20,19 +20,20 @@ namespace TPLabo2_Ajedrez
         Program programa_;
         private void btnSln_Click(object sender, EventArgs e)
         {
-            while (Program.CANT_SOL_TOTALES < 10)
+            //while (programa_.LookSoluciones.CANT_SOL_IMPRESAS < Constants.SOL_A_MOSTRAR)
+            //{
+            //    programa_.BuscarSoluciones();
+            //}
+            if(programa_.LookSoluciones.CANT_SOL_IMPRESAS < Constants.SOL_A_MOSTRAR)
             {
                 programa_.BuscarSoluciones();
             }
-            Program.CANT_SOL_TOTALES = 0;
+            else
+            programa_.LookSoluciones.CANT_SOL_IMPRESAS = 0;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //while (Program.CANT_SOL_TOTALES < 10)
-            //{
-            //    Programa.BuscarSoluciones();
-            //}
         }
     }
 }

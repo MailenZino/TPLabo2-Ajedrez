@@ -31,7 +31,7 @@ namespace TPLabo2_Ajedrez
         int i = 0;
         void CargarDiagonalesInferiores(int fila, int col)
         {
-            if (fila > N - 1 || fila < 2 || (col + i > N - 1 && col - i < 2))
+            if (fila > N - 1 || fila < 2 )
                 return;
             else
             {
@@ -41,13 +41,14 @@ namespace TPLabo2_Ajedrez
                     Matriz[fila, col - i] = 1;
             }
             i++;
-            CargarDiagonalesInferiores(fila + i, col);
+            fila++;
+            CargarDiagonalesInferiores(fila, col);
         }
         
         int l = 0;
         void CargarDiagonalesSuperiores(int fila, int col)
         {
-            if (fila > N - 1 || fila < 2 || col - l < 2 && col + l > N - 1)
+            if (fila > N - 1 || fila < 2 )//|| col - l < 2 && col + l > N - 1)
                 return;
             else
             {
@@ -57,13 +58,16 @@ namespace TPLabo2_Ajedrez
                     Matriz[fila, col - l] = 1;
             }
             l++;
-            CargarDiagonalesSuperiores(fila - l, col);
+            fila--;
+            CargarDiagonalesSuperiores(fila, col);
         }
         public void CargarDiagonales(int fila, int col)
         {
-            Matriz[fila, col] = 1;
+          
             CargarDiagonalesInferiores(fila, col);
+            i = 0;
             CargarDiagonalesSuperiores(fila, col);
+            l = 0;
         }
         public bool VerificarLibredeAtaque(int fila, int col)
         {
@@ -72,17 +76,29 @@ namespace TPLabo2_Ajedrez
             return true;
         }
 
-        int contador;
+        public int contador;
         public int contarVacias(int col= 2)
         {
-            for(int i=2;i<N;i++)
+            //for(int i=2;i<N;i++)
+            //{
+            //    if (Matriz[i, col] == 0) contador++;
+            //}
+            //if (col < N - 1)
+            //{
+            //    col++;
+            //    contarVacias(col);
+            //}
+
+            //return contador;
+            contador = 0;
+            for(int i = 2;i < N;i++)
             {
-                contador += Matriz[i, col];
+                for(int j=2;j<N;j++)
+                {
+                    if (Matriz[i, j] == 0) contador++;
+                }
             }
-            if (col < N - 1)
-                contarVacias(++col);
-           
-            return (36-contador);
+            return contador;
         }
 
         public bool PosLibre(Pieza[] LOOKUP, int fila, int col)

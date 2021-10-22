@@ -12,17 +12,21 @@ namespace TPLabo2_Ajedrez
 {
     public partial class FormSoluciones : Form
     {
-        Pieza[,] soluciones;
-        private Panel[,] _chessBoardPanels;
-        // array tipo panel que representa el tablero de ajedrez
-        static int count = 0;
-        public FormSoluciones(Pieza[,] look_soluciones)
+        Pieza[,] soluciones;                       //guardara las soluciones encontradas en el programa
+        private Panel[,] _chessBoardPanels;       // array tipo panel que representa el tablero de ajedrez
+        int count = 0;
+        //int CANT_SOL_IMPRESAS;
+        int[] Sol_Mostradas;
+        Soluciones SolucionMadre;
+        public FormSoluciones(Pieza[,] look_soluciones, Soluciones Sol_madre)
         {
             InitializeComponent();
-            soluciones = new Pieza[10,8];
+            soluciones = new Pieza[36, 8];
             soluciones = look_soluciones;
+            Sol_Mostradas = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            SolucionMadre = Sol_madre;
         }
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
             const int tileSize = 40;
@@ -61,39 +65,71 @@ namespace TPLabo2_Ajedrez
             
         }
 
+        /// <summary>
+        /// cada fila de soluciones representa un look up solucion.
+        /// Traducimos esta informacion al panel/tablero _chessBoardPanels e imprimimos. 
+        /// Se inhabilita el botonProxSol una vez alcanzado el numero de impresiones determinado
+        /// </summary>
         private void ImprimirSol()
         {
-            /* cada fila de soluciones representa un look up solucion que tiene
-            * 0 1 TORRES 
-            * 2 3 ALFILES
-            * 4 REINA
-            * 5 REY
-            * 6 7 CABALLOS
-           */
-            if (count < 10)
+            if (count < Constants.SOL_A_MOSTRAR)
             {
+                Random rd = new Random();
+                int numSol = 0;
+                do
+                {
+                    numSol = rd.Next(0, 36);
+                }
+                while (VerificarRepeticion(numSol));
 
-                _chessBoardPanels[soluciones[count, 0].getCOL(), soluciones[count, 0].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
-                _chessBoardPanels[soluciones[count, 1].getCOL(), soluciones[count, 1].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
+                _chessBoardPanels[soluciones[numSol, 0].getFILA(), soluciones[numSol, 0].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
+                _chessBoardPanels[soluciones[numSol, 1].getFILA(), soluciones[numSol, 1].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
 
 
-                _chessBoardPanels[soluciones[count, 2].getCOL(), soluciones[count, 2].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
-                _chessBoardPanels[soluciones[count, 3].getCOL(), soluciones[count, 3].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
+                _chessBoardPanels[soluciones[numSol, 2].getFILA(), soluciones[numSol, 2].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
+                _chessBoardPanels[soluciones[numSol, 3].getFILA(), soluciones[numSol, 3].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
 
-                _chessBoardPanels[soluciones[count, 4].getCOL(), soluciones[count, 4].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaReina;
+                _chessBoardPanels[soluciones[numSol, 4].getFILA(), soluciones[numSol, 4].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaReina;
 
-                _chessBoardPanels[soluciones[count, 5].getCOL(), soluciones[count, 5].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaRey;
+                _chessBoardPanels[soluciones[numSol, 5].getFILA(), soluciones[numSol, 5].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaRey;
 
-                _chessBoardPanels[soluciones[count, 6].getCOL(), soluciones[count, 6].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
-                _chessBoardPanels[soluciones[count, 7].getCOL(), soluciones[count, 7].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
+                _chessBoardPanels[soluciones[numSol, 6].getFILA(), soluciones[numSol, 6].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
+                _chessBoardPanels[soluciones[numSol, 7].getFILA(), soluciones[numSol, 7].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
 
             }
+            if (count == Constants.SOL_A_MOSTRAR - 1)
+            {
+                btnProxSol.Enabled = false;
+                //SolucionMadre.CANT_SOL_IMPRESAS = Constants.SOL_A_MOSTRAR;
+            }
+
+        }
+        /// <summary>
+        /// Verifica que no mostremos la misma sol 2 veces
+        /// </summary>
+        /// <param name="numSol"></param>
+        /// <returns></returns>
+        private bool VerificarRepeticion(int numSol)
+        {
+            int i = 0;
+            for (i = 0; i < Constants.SOL_A_MOSTRAR; i++)
+            {
+                if (Sol_Mostradas[i] != 0)
+                {
+                    if (Sol_Mostradas[i] == numSol)
+                        return true;
+                }
+                break;
+            }
+            Sol_Mostradas[i] = numSol;
+            return false;
         }
 
 
         private void btnProxSol_Click(object sender, EventArgs e)
         {
             count++;
+            SolucionMadre.CANT_SOL_IMPRESAS++;
             NroSol.Text = Convert.ToString("Solucion nro. "+(count+1));
             ImprimirSol();
         }

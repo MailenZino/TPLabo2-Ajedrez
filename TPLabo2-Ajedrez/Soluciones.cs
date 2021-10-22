@@ -9,148 +9,222 @@ namespace TPLabo2_Ajedrez
     public class Soluciones
     {
         public Pieza[,] Solucion_Maestra;
+        private Pieza[,] Soluciones_totales;
+        int CANT_SOL_TOTALES;
         int CANT_SOL_MAESTRA;
+        public int CANT_SOL_IMPRESAS;
+
         int N = 8;
         public Soluciones()
         {
             CANT_SOL_MAESTRA = 0;
+            CANT_SOL_TOTALES = 0;
+            CANT_SOL_IMPRESAS = 0;
             Solucion_Maestra = new Pieza[8, 8];
+            Soluciones_totales = new Pieza[36, 8];
         }
+        /// <summary>
+        /// nos permite encontrar mas soluciones a partir del lookup recibido que contiene una ""solucion maestra""
+        /// </summary>
+        /// <param name="lookup"></param>
         public void ReproducirSoluciones(Pieza[] lookup)
         {
-            
-            //guardamos la solucion original y la contamos como nueva sol maestra
+
+            Pieza[] lookup_aux = new Pieza[8];
+            //FormSoluciones FORM = new FormSoluciones(Soluciones_totales, this);
+            //guardamos la solucion original y la contamos
+            lookup.CopyTo(lookup_aux, 0);
+            for (int i = 0; i < 8; i++)
+            {
+                Solucion_Maestra[CANT_SOL_MAESTRA, i] = lookup[i]; //copiamos el lookup como solucion maestra
+                //lookup_aux[i] = lookup[i]; //copiamos el look up original a el auxiliar
+
+            }
             CANT_SOL_MAESTRA++;
-            for (int i = 0; i < 8; i++)
-            {
-                Solucion_Maestra[CANT_SOL_MAESTRA, i] = lookup[i];
-            }
-            Program.CANT_SOL_TOTALES = 1;
-            ImprimirSolucion(lookup);
 
-            //sPosicion auxReacomodar1 = new sPosicion(0, N - 1); //con aux avisamos a reacomodar las modificaciones que hicimos
-            //sPosicion auxReacomodar2 = new sPosicion(N - 1, N - 1);
-            //sPosicion modificarPos1 = new sPosicion(lookup[1].posicion.FILA, N - 1);
-            //sPosicion modificarPos0 = new sPosicion(lookup[0].posicion.FILA, N-1);
+            // Imprimimos las soluciones que pueden reproducirse sin desplazar las fichas del 6x6 encerrado x las torres 
+            CargarSolucion(lookup);
+            Espejar(lookup);
+            lookup_aux[0].posicion.COL = 1;
+            lookup_aux[1].posicion.COL = 0;
+            CargarSolucion(lookup);
+            Espejar(lookup);
 
-            //lookup[1].posicion = modificarPos1;
-            //Reacomodar(auxReacomodar1, lookup);
+            /*
+             * hasta aca teniamos la torre1
+             *                     lookup[0].posicion={0,0}
+             * y la torre 2
+             *                      lookup[1].posicion={1,1}             
+            */
 
-            //modificarPos1.FILA = N - 1;
-            //modificarPos1.COL = 1;
-            //lookup[1].posicion = modificarPos1;
-            //auxReacomodar1.FILA = N - 1; auxReacomodar1.COL = 0;
-            //Reacomodar(auxReacomodar1, lookup);
+            // Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 col hacia arriba 
+            //lookup_aux = Reacomodar(lookup, 0, 1);
+            //lookup_aux[0].posicion.COL = N - 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+            //lookup_aux[0].posicion.COL = 0;
+            //lookup_aux[1].posicion.COL = N - 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+
+            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq 
+            //lookup_aux = Reacomodar(lookup, 1);
+            //lookup_aux[1].posicion.FILA = N - 1;
+            //lookup_aux[1].posicion.COL = 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+            //lookup_aux[0].posicion.COL = 1;
+            //lookup_aux[1].posicion.COL = 0;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+
+            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq y 1 col hacia arriba
+            //lookup_aux = Reacomodar(lookup, 1, 1);
+            //lookup_aux[0].posicion.COL = N - 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+            //lookup_aux[0].posicion.COL = 0;
+            //lookup_aux[1].posicion.COL = N - 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+
+            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 2 fila a izq y 1 col hacia arriba
+            //lookup_aux = Reacomodar(lookup, 2, 1);
+            //lookup_aux[0].posicion.COL = N - 2;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+            //lookup_aux[0].posicion.COL = N - 1;
+            //lookup_aux[1].posicion.COL = N - 2;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
 
 
-            //modificarPos1.COL = N - 1;
-            //lookup[1].posicion = modificarPos1;
-            //auxReacomodar1.COL = N - 1;
-            //Reacomodar(auxReacomodar1, lookup);
-
-          
-            //modificarPos1.COL = 0;
-            //lookup[1].posicion = modificarPos1;
-            //lookup[0].posicion = modificarPos0;
-            //auxReacomodar1.FILA = N - 1;
-            //Reacomodar(auxReacomodar1, lookup);
+            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq y 2 col hacia arriba
+            //lookup_aux = Reacomodar(lookup, 1, 2);
+            //lookup_aux[1].posicion.FILA = 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+            //lookup_aux[0].posicion.COL = N - 2;
+            //lookup_aux[1].posicion.COL = N - 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
 
 
+            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 2 fila a izq y 2 col hacia arriba
+            //lookup_aux = Reacomodar(lookup, 2, 2);
+            //lookup_aux[0].posicion.FILA = N - 2;
+            //lookup_aux[1].posicion.FILA = N - 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+            //lookup_aux[0].posicion.COL = N - 1;
+            //lookup_aux[1].posicion.COL = N - 2;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
 
-            //modificarPos1.COL = N - 2;
-            //lookup[1].posicion = modificarPos1;
-            //auxReacomodar1.FILA = 0;
-            //Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
+            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq y 2 col hacia arriba
+            //lookup_aux = Reacomodar(lookup, 1, 2);
+            //lookup_aux[0].posicion.COL = 0;
+            //lookup_aux[1].posicion.COL = N - 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+            //lookup_aux[0].posicion.COL = N - 1;
+            //lookup_aux[1].posicion.COL = 0;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
 
-            //modificarPos1.FILA = 1;
-            //lookup[1].posicion= modificarPos1;
-            //auxReacomodar1.FILA = 0;
-            //Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
+            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 2 col hacia arriba
+            //lookup_aux = Reacomodar(lookup, 0, 2);
+            //lookup_aux[0].posicion.COL = 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
+            //lookup_aux[0].posicion.COL = 0;
+            //lookup_aux[1].posicion.COL = 1;
+            //CargarSolucion(lookup_aux);
+            //Espejar(lookup);
 
-            //modificarPos1.FILA = N-1;
-            //lookup[1].posicion = modificarPos1;
-            //modificarPos0.FILA = N - 2;
-            //lookup[0].posicion = modificarPos0;
-            //Reacomodar(auxReacomodar2, lookup, auxReacomodar2);
-
-            //modificarPos1.COL = N - 1;
-            //lookup[1].posicion = modificarPos1;
-            //modificarPos0.COL = 0;
-            //lookup[0].posicion = modificarPos0;
-            
-            //auxReacomodar1.FILA = N - 1; auxReacomodar1.COL = 0;
-            //Reacomodar(auxReacomodar1, lookup, auxReacomodar2);
-
-            //modificarPos1.COL = 1;
-            //lookup[1].posicion= modificarPos1;
-            //Reacomodar(auxReacomodar1, lookup, auxReacomodar1);
-            Program.CANT_SOL_TOTALES = 10;
+            ImprimirSoluciones();
         }
-        public void ImprimirSolucion(Pieza[] lookup)
+        /// <summary>
+        /// Guardamos las soluciones en un vector que al llenarse se envia al form para imprimir 10 soluciones de manera aleatoria.
+        /// En el vector nos quedan las soluciones: original - espejada - torres desplazadas - torres desplazadas espejadas
+        /// </summary>
+        ///  
+        /// <param name="lookup"></param>
+
+        public void ImprimirSoluciones()
         {
-            Pieza[,] Soluciones_Totales=new Pieza[1,8];//cambiar a 10,8
-            for (int i = 0; i < 8; i++)
-            { Soluciones_Totales[Program.CANT_SOL_TOTALES-1, i] = lookup[i]; }
-            if (Program.CANT_SOL_TOTALES == 1)//cambiar a 9
-            {
-                FormSoluciones FORM = new FormSoluciones(Soluciones_Totales);
-                FORM.Visible = true;
-            }
-           
+            
+          FormSoluciones FORM = new FormSoluciones(Soluciones_totales, this);
+           FORM.Visible = true;
         }
-        public void Reacomodar(sPosicion PosCritica, Pieza[] lookup, sPosicion PosCritica2=new sPosicion())
+        public Pieza[] Reacomodar(Pieza[] lookup, int fila, int col = 0)
         {
             Pieza[] LOOKUPaux = new Pieza[8];
-           for(int i=0;i<8;i++)
-           {    LOOKUPaux[i]=lookup[i]; }
+            for (int i = 0; i < 8; i++)
+            { LOOKUPaux[i] = lookup[i]; }
 
-           
-            //si es una columna sabes que moves a izq o derecha y va a ser la n-1 o la
-            if (PosCritica.COL != 0)
-            {
-                if (PosCritica.COL > 1)
-                {
-                    for (int i = 2; i < N; i++)
-                        LOOKUPaux[i].setCOL(LOOKUPaux[i].getCOL()-1);
-                }
-                else
-                {
-                    for (int i = 2; i < N; i++)
-                        LOOKUPaux[i].setCOL(LOOKUPaux[i].getCOL() + 1);
-                }
-            }
-            else if (PosCritica.FILA != 0)
-            {
-                if (PosCritica.FILA > 1)
-                {
-                    for (int i = 2; i < N; i++)
-                        LOOKUPaux[i].setFILA(LOOKUPaux[i].getFILA() - 1);
-                }
-            }
-            else
-            {
-                for (int i = 2; i < N; i++)
-                { LOOKUPaux[i].setFILA(LOOKUPaux[i].getFILA() + 1); }
-            }
-            if (PosCritica2.FILA != 0 && PosCritica2.COL != 0)
-                Reacomodar(PosCritica2, lookup);
 
-            Program.CANT_SOL_TOTALES++;
-            ImprimirSolucion(LOOKUPaux);
+            for (int i = 2; i < N; i++)
+            {
+                if (fila > 0 && fila < 3)
+                {
+                    LOOKUPaux[i].posicion.FILA -= fila;
+                }
+                if (col > 0 && col < 3)
+                {
+                    LOOKUPaux[i].posicion.COL -= col;
+                }
+            }
+            return LOOKUPaux;
 
         }
 
-        public bool SolucionExistente(Pieza[] lookup)
+        /// <summary>
+        /// espejar hacia el costado las piezas del 6x6 delimitado por las torres para encontrar otra solucion
+        /// </summary>
+        /// <param name="lookup"></param>
+        public void Espejar(Pieza[] lookup)
+        {
+            int aux = 0;
+            Pieza[] lookupaux = new Pieza[8];
+            lookupaux = (Pieza[])lookup.Clone();
+            for (int i = 0; i < 8; i++)
+            {
+                /*
+                lookupaux[i].posicion.col = lookup[i].getcol();
+                lookupaux[i].setfila(lookup[i].getfila());*/
+                if (i >= 2)
+                {
+                    aux = Constants.N - 1 - lookup[i].getCOL();
+                    lookupaux[i].setCOL(aux);
+                }
+            }
+            //espeja hacia el costado tambien podria espejarse hacia abajo
+            CargarSolucion(lookupaux);
+        }
+
+        public void CargarSolucion(Pieza[] lookup)
+        {
+            if (CANT_SOL_TOTALES <= 35)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    Soluciones_totales[CANT_SOL_TOTALES, i] = lookup[i];
+                }
+                CANT_SOL_TOTALES++;
+            }
+        }
+            public bool SolucionExistente(Pieza[] lookup)
         {
             //TODO: pinta sobrecarga == para fila y col  ??????
             if (CANT_SOL_MAESTRA > 0)
             {
                 int iguales = 0;
-                for (int j = 0; j <= CANT_SOL_MAESTRA; j++)
+                for (int j = 0; j < CANT_SOL_MAESTRA; j++)
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        if (Solucion_Maestra[CANT_SOL_MAESTRA, i].posicion.FILA == lookup[i].posicion.FILA && Solucion_Maestra[CANT_SOL_MAESTRA, i].posicion.COL == lookup[i].posicion.COL)
+                        if (Solucion_Maestra[j, i].getFILA() == lookup[i].getFILA() && Solucion_Maestra[j, i].getCOL() == lookup[i].getCOL())
                         {
                             iguales++;
                         }

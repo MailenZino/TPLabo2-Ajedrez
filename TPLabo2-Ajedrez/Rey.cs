@@ -56,15 +56,22 @@ namespace TPLabo2_Ajedrez
 
 
         //ALTERNATIVA 2
-        public void CargarPosRey(Tablero MatrizPrueba)
+        public void CargarPosRey(Tablero MatrizPrueba, int fila, int col)
         {
-            for (int i = this.getCOL() - 1; i < this.getCOL() + 1; i++)
+            for (int i = col - 1; i < col + 2; i++)
             {
-                MatrizPrueba.matriz[this.getFILA() - 1, i] = 1;
-                MatrizPrueba.matriz[this.getFILA() - 1, i] = 1;
+                if (i < N && i >= 2)
+                {
+                    if(fila - 1 >= 2)
+                    MatrizPrueba.matriz[fila - 1, i] = 1;
+                    if(fila + 1 < N)
+                    MatrizPrueba.matriz[fila + 1, i] = 1;
+                }
             }
-            MatrizPrueba.matriz[this.getFILA(), this.getCOL() + 1] = 1;
-            MatrizPrueba.matriz[this.getFILA(), this.getCOL() - 1] = 1;
+            if(col + 1 < N)
+            MatrizPrueba.matriz[fila, col + 1] = 1;
+            if(col - 1 >= 2)
+            MatrizPrueba.matriz[fila, col - 1] = 1;
         }
         public void BuscarPosicionRey(Tablero MatrizPrueba, Pieza[] LOOKUP, Pieza REY, int cantLlenas, int i, int j)//LLAMAR CON I Y J EN CERO
         {
@@ -75,6 +82,7 @@ namespace TPLabo2_Ajedrez
                     REY.setFILA(i);
                     REY.setCOL(j);
                     cantLlenas = VerificarPosRey(MatrizPrueba, REY);
+                    MatrizPrueba.contador = 0;
                     if (MatrizPrueba.contarVacias() - cantLlenas > 3)//Si las casillas que quedan vacías al posicionar al rey allí son más de 3, no nos sirve
                     {
                         if (i == N - 1)

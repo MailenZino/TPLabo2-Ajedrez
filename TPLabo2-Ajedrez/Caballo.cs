@@ -31,19 +31,19 @@ namespace TPLabo2_Ajedrez
                     CABALLO.setCOL(j);
                     //sPosicion pos = new sPosicion(i, j);
                     //CABALLO.posicion = pos;
-
+                    if (MatrizPrueba.matriz[i, j] == 0) cont++;
                     cont = VerificarPosCaballo(MatrizPrueba, CABALLO);//Verificamos cuántas casillas ocuparía el caballo posicionado de esta forma
-                    if (LOOKUP[6] == null) NLibres = 5;//Si estamos posicionando al primer caballo, entonces las casillas libres serían 3 o menos
-                    else NLibres = 1;//Si estamos posicionando el segundo, solo nos queda una casilla libre
-
-                    if (MatrizPrueba.contarVacias() - cont - 1 > NLibres)//Si las casillas libres en el tablero al posicionar al caballo de esta manera son más que las que podría ocupar la próxima pieza
-                    {//Cambiamos la cassila en donde probamos el posicionamiento y lo hacemos de nuevo
+                    if (LOOKUP[6] == null) NLibres = 1;//Si estamos posicionando al primer caballo, entonces las casillas libres que deja el primer caballo es solo 1
+                    else NLibres = 0;//Si estamos posicionando el segundo, debe dejar 0 casillas sin llenar
+                    if (MatrizPrueba.contarVacias() - cont > NLibres)//Si las casillas libres en el tablero al posicionar al caballo de esta manera son más que las que podría ocupar la próxima pieza
+                    {//Cambiamos la casilla en donde probamos el posicionamiento y lo hacemos de nuevo
                         if (i == N - 1)
                         {
                             i = 2;
                             j++;
                         }
                         else i++;
+                        RecursividadCaballo(MatrizPrueba, LOOKUP, CABALLO, i, j);//LLamamos nuevamente la función con un posicionamiento diferente
                     }
                     else
                         return;
@@ -56,35 +56,59 @@ namespace TPLabo2_Ajedrez
                         j++;
                     }
                     else i++;
+                    RecursividadCaballo(MatrizPrueba, LOOKUP, CABALLO, i, j);//LLamamos nuevamente la función con un posicionamiento diferente
                 }
             }
             
-            RecursividadCaballo(MatrizPrueba, LOOKUP, CABALLO, i, j);//LLamamos nuevamente la función con un posicionamiento diferente
+            
         }
         public int VerificarPosCaballo(Tablero MatrizPrueba, Pieza CABALLO)
         {
-            cont = 8;
-            if(CABALLO.posicion.FILA + 1 < N)
+            cont = 0;
+            if(CABALLO.getFILA() + 1 < N)
             {
-                if (CABALLO.getCOL() - 2 >= 0) cont -= MatrizPrueba.matriz[CABALLO.getFILA() + 1, CABALLO.getCOL() - 2];
-                if (CABALLO.getCOL() + 2 < N) cont -= MatrizPrueba.matriz[CABALLO.getFILA() + 1, CABALLO.getCOL() + 2];
+                if (CABALLO.getCOL() - 2 >= 0 && MatrizPrueba.matriz[CABALLO.getFILA() + 1, CABALLO.getCOL() - 2] == 0) cont++;
+                if (CABALLO.getCOL() + 2 < N && MatrizPrueba.matriz[CABALLO.getFILA() + 1, CABALLO.getCOL() + 2] == 0) cont++; ;
                 if(CABALLO.getFILA() + 2 < N)
                 {
-                    if (CABALLO.getCOL() - 1 >= 0) cont -= MatrizPrueba.matriz[CABALLO.getFILA() + 2, CABALLO.getCOL() - 1];
-                    if (CABALLO.getCOL() + 1 < N) cont -= MatrizPrueba.matriz[CABALLO.getFILA() + 2, CABALLO.getCOL() + 1];
+                    if (CABALLO.getCOL() - 1 >= 0 && MatrizPrueba.matriz[CABALLO.getFILA() + 2, CABALLO.getCOL() - 1] == 0) cont++; ;
+                    if (CABALLO.getCOL() + 1 < N && MatrizPrueba.matriz[CABALLO.getFILA() + 2, CABALLO.getCOL() + 1] == 0) cont++;
                 }
             }
             if(CABALLO.getFILA() - 1 >= 0)
             {
-                if (CABALLO.getCOL() - 2 > 1) cont -= MatrizPrueba.matriz[CABALLO.getFILA() - 1, CABALLO.getCOL() - 2];
-                if (CABALLO.getCOL() + 2 < N) cont -= MatrizPrueba.matriz[CABALLO.getFILA() - 1, CABALLO.getCOL() + 2];
+                if (CABALLO.getCOL() - 2 >= 0 && MatrizPrueba.matriz[CABALLO.getFILA() - 1, CABALLO.getCOL() - 2] == 0) cont++;
+                if (CABALLO.getCOL() + 2 < N && MatrizPrueba.matriz[CABALLO.getFILA() - 1, CABALLO.getCOL() + 2] == 0) cont++;
                 if(CABALLO.getFILA() - 2 >= 0)
                 {
-                    if (CABALLO.getCOL() - 1 >= 0) cont -= MatrizPrueba.matriz[CABALLO.getFILA() - 2, CABALLO.getCOL() - 1];
-                    if (CABALLO.getCOL() + 1 < N) cont -= MatrizPrueba.matriz[CABALLO.getFILA() - 2, CABALLO.getCOL() + 1];
+                    if (CABALLO.getCOL() - 1 >= 0 && MatrizPrueba.matriz[CABALLO.getFILA() - 2, CABALLO.getCOL() - 1] == 0) cont++;
+                    if (CABALLO.getCOL() + 1 < N && MatrizPrueba.matriz[CABALLO.getFILA() - 2, CABALLO.getCOL() + 1] == 0) cont++;
                 }
             }
             return cont;
+        }
+        public void CargarPosCaballo(Tablero MatrizPrueba, int fila, int col)
+        {
+            if (fila + 1 < N)
+            {
+                if (col - 2 >= 0) MatrizPrueba.matriz[fila + 1, col - 2] = 1;
+                if (col + 2 < N) MatrizPrueba.matriz[fila + 1, col + 2]=1;
+                if (fila + 2 < N)
+                {
+                    if (col - 1 >= 0) MatrizPrueba.matriz[fila + 2, col - 1] = 1;
+                    if (col + 1 < N) MatrizPrueba.matriz[fila + 2, col + 1] = 1;
+                }
+            }
+            if (fila - 1 >= 0)
+            {
+                if (col - 2 >= 0) MatrizPrueba.matriz[fila - 1, col - 2] = 1;
+                if (col + 2 < N) MatrizPrueba.matriz[fila - 1, col + 2] = 1;
+                if (fila - 2 >= 0)
+                {
+                    if (col - 1 >= 0) MatrizPrueba.matriz[fila - 2, col - 1] = 1;
+                    if (col + 1 < N) MatrizPrueba.matriz[fila - 2, col + 1] = 1;
+                }
+            }
         }
     }
 }

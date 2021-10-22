@@ -8,6 +8,11 @@ using System.Windows.Forms;
 
 namespace TPLabo2_Ajedrez
 {
+    static class Constants
+    {
+        public const int SOL_A_MOSTRAR = 10;
+        public const int N = 8;
+    }
     public enum ePieza
     {
         LIBRE=0,
@@ -142,16 +147,16 @@ namespace TPLabo2_Ajedrez
             REINA = new Reina(ePieza.REINA, auxFila, auxCol);//La reina la cargamos en la misma columna que los alfiles, justo abajo o arriba de ellos
             LOOKUP[4] = REINA;
             MatrizPrueba.matriz[REINA.getFILA(), REINA.getCOL()] = 1;
-            MatrizPrueba.CargarDiagonales(REINA.posicion.FILA, REINA.posicion.COL);
-            MatrizPrueba.CargarFILACOL(auxFila);
-            MatrizPrueba.CargarFILACOL(auxFila, false);
+            MatrizPrueba.CargarDiagonales(REINA.getFILA(), REINA.getCOL());
+            MatrizPrueba.CargarFILACOL(REINA.getFILA());
+            MatrizPrueba.CargarFILACOL(REINA.getCOL(), false);
 
             
             REY = new Rey();
-            //REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, 0,2,2);
-            REY.BuscarPosReyFor(MatrizPrueba, LOOKUP, REY);
+            REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, 0,2,2);
+            //REY.BuscarPosReyFor(MatrizPrueba, LOOKUP, REY);
             LOOKUP[5] = REY;
-            REY.CargarPosRey(MatrizPrueba);
+            REY.CargarPosRey(MatrizPrueba, REY.getFILA(), REY.getCOL());
             MatrizPrueba.matriz[REY.getFILA(), REY.getCOL()] = 1;
 
 
@@ -159,9 +164,11 @@ namespace TPLabo2_Ajedrez
             CABALLO2 = new Caballo();
             CABALLO1.PosicionarCaballos(MatrizPrueba, LOOKUP, CABALLO1);
             LOOKUP[6] = CABALLO1;
+            CABALLO1.CargarPosCaballo(MatrizPrueba, CABALLO1.getFILA(), CABALLO1.getCOL());
             MatrizPrueba.matriz[CABALLO1.getFILA(), CABALLO1.getCOL()] = 1;
             CABALLO2.PosicionarCaballos(MatrizPrueba, LOOKUP, CABALLO2);
             LOOKUP[7] = CABALLO2;
+            CABALLO1.CargarPosCaballo(MatrizPrueba, CABALLO2.getFILA(), CABALLO2.getCOL());
             MatrizPrueba.matriz[CABALLO2.getFILA(), CABALLO2.getCOL()] = 1;
 
             if (LookSoluciones.SolucionExistente(LOOKUP))
