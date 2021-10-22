@@ -101,7 +101,7 @@ namespace TPLabo2_Ajedrez
             if (count == Constants.SOL_A_MOSTRAR - 1)
             {
                 btnProxSol.Enabled = false;
-                //SolucionMadre.CANT_SOL_IMPRESAS = Constants.SOL_A_MOSTRAR;
+                
             }
 
         }
@@ -113,14 +113,15 @@ namespace TPLabo2_Ajedrez
         private bool VerificarRepeticion(int numSol)
         {
             int i = 0;
-            for (i = 0; i < Constants.SOL_A_MOSTRAR; i++)
+            for (i = 0; i < SolucionMadre.CANT_SOL_IMPRESAS; i++)
             {
-                if (Sol_Mostradas[i] != 0)
+                if (Sol_Mostradas != null)
                 {
                     if (Sol_Mostradas[i] == numSol)
                         return true;
                 }
-                break;
+                else
+                    break;
             }
             Sol_Mostradas[i] = numSol;
             return false;
