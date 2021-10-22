@@ -114,22 +114,25 @@ namespace TPLabo2_Ajedrez
         {
             for (int i = REY.getCOL() - 1; i <= REY.getCOL() + 1; i++)
             {
-                if (REY.getFILA() + 1 < N)
+                if (i < N && i >= 0)
                 {
-                    if (MatrizPrueba.matriz[REY.getFILA() + 1, i] == 0) cont++;
+                    if (REY.getFILA() + 1 < N)
+                    {
+                        if (MatrizPrueba.matriz[REY.getFILA() + 1, i] == 0) cont++;
+                    }
+                    if (REY.getFILA() - 1 >= 0)
+                    {
+                        if (MatrizPrueba.matriz[REY.getFILA() - 1, i] == 0) cont++;
+                    }
                 }
-                if (REY.getFILA() - 1 >= 0)
+                if (REY.getCOL() + 1 < N)
                 {
-                    if (MatrizPrueba.matriz[REY.getFILA() - 1, i] == 0) cont++;
+                    if (MatrizPrueba.matriz[REY.getFILA(), REY.getCOL() + 1] == 0) cont++;
                 }
-            }
-            if (REY.getCOL() + 1 < N)
-            {
-                if (MatrizPrueba.matriz[REY.getFILA(), REY.getCOL() + 1] == 0) cont++;
-            }
-            if (REY.getCOL() - 1 >= 0)
-            {
-                if (MatrizPrueba.matriz[REY.getFILA(), REY.getCOL() - 1] == 0) cont++;
+                if (REY.getCOL() - 1 >= 0)
+                {
+                    if (MatrizPrueba.matriz[REY.getFILA(), REY.getCOL() - 1] == 0) cont++;
+                }
             }
             return cont + 1;//retornamos las casillas que atacaría el rey más la casilla en donde está posicionado
         }

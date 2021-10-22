@@ -73,6 +73,16 @@ namespace TPLabo2_Ajedrez.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap piezaAlfilCaballo {
+            get {
+                object obj = ResourceManager.GetObject("piezaAlfilCaballo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap piezaCaballo {
             get {
                 object obj = ResourceManager.GetObject("piezaCaballo", resourceCulture);
