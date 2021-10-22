@@ -72,6 +72,7 @@ namespace TPLabo2_Ajedrez
         /// </summary>
         private void ImprimirSol()
         {
+
             if (count < Constants.SOL_A_MOSTRAR)
             {
                 Random rd = new Random();
@@ -128,6 +129,13 @@ namespace TPLabo2_Ajedrez
 
         private void btnProxSol_Click(object sender, EventArgs e)
         {
+            for(int i = 0; i < 8; i++)
+            {
+                for(int j = 0; j < 8;j++)
+                {
+                    _chessBoardPanels[i, j].BackgroundImage = null;
+                }
+            }
             count++;
             SolucionMadre.CANT_SOL_IMPRESAS++;
             NroSol.Text = Convert.ToString("Solucion nro. "+(count+1));

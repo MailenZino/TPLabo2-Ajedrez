@@ -51,6 +51,11 @@ namespace TPLabo2_Ajedrez
             pieza=pieza_;
             posicion=new sPosicion(fila,col);
         }
+        public Pieza(Pieza Pieza)
+        {
+            this.pieza = Pieza.pieza;
+            this.posicion = Pieza.posicion;
+        }
 
        
         public int getFILA() { return posicion.FILA;  }

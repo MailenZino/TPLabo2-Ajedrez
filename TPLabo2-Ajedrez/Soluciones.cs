@@ -33,11 +33,10 @@ namespace TPLabo2_Ajedrez
             Pieza[] lookup_aux = new Pieza[8];
             //FormSoluciones FORM = new FormSoluciones(Soluciones_totales, this);
             //guardamos la solucion original y la contamos
-            lookup.CopyTo(lookup_aux, 0);
             for (int i = 0; i < 8; i++)
             {
-                Solucion_Maestra[CANT_SOL_MAESTRA, i] = lookup[i]; //copiamos el lookup como solucion maestra
-                //lookup_aux[i] = lookup[i]; //copiamos el look up original a el auxiliar
+                Solucion_Maestra[CANT_SOL_MAESTRA, i] = new Pieza(lookup[i]); //copiamos el lookup como solucion maestra
+                lookup_aux[i] = new Pieza(lookup[i]); //copiamos el look up original a el auxiliar
 
             }
             CANT_SOL_MAESTRA++;
@@ -57,90 +56,90 @@ namespace TPLabo2_Ajedrez
              *                      lookup[1].posicion={1,1}             
             */
 
-            // Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 col hacia arriba 
-            //lookup_aux = Reacomodar(lookup, 0, 1);
-            //lookup_aux[0].posicion.COL = N - 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
-            //lookup_aux[0].posicion.COL = 0;
-            //lookup_aux[1].posicion.COL = N - 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
+            //Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 col hacia arriba
+            lookup_aux = Reacomodar(lookup, 0, 1);
+            lookup_aux[0].posicion.COL = N - 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
+            lookup_aux[0].posicion.COL = 0;
+            lookup_aux[1].posicion.COL = N - 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
 
-            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq 
-            //lookup_aux = Reacomodar(lookup, 1);
-            //lookup_aux[1].posicion.FILA = N - 1;
-            //lookup_aux[1].posicion.COL = 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
-            //lookup_aux[0].posicion.COL = 1;
-            //lookup_aux[1].posicion.COL = 0;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
+            // Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq 
+            lookup_aux = Reacomodar(lookup, 1);
+            lookup_aux[1].posicion.FILA = N - 1;
+            lookup_aux[1].posicion.COL = 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
+            lookup_aux[0].posicion.COL = 1;
+            lookup_aux[1].posicion.COL = 0;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
 
-            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq y 1 col hacia arriba
-            //lookup_aux = Reacomodar(lookup, 1, 1);
-            //lookup_aux[0].posicion.COL = N - 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
-            //lookup_aux[0].posicion.COL = 0;
-            //lookup_aux[1].posicion.COL = N - 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
+            // Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq y 1 col hacia arriba
+            lookup_aux = Reacomodar(lookup, 1, 1);
+            lookup_aux[0].posicion.COL = N - 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
+            lookup_aux[0].posicion.COL = 0;
+            lookup_aux[1].posicion.COL = N - 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
 
-            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 2 fila a izq y 1 col hacia arriba
-            //lookup_aux = Reacomodar(lookup, 2, 1);
-            //lookup_aux[0].posicion.COL = N - 2;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
-            //lookup_aux[0].posicion.COL = N - 1;
-            //lookup_aux[1].posicion.COL = N - 2;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
-
-
-            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq y 2 col hacia arriba
-            //lookup_aux = Reacomodar(lookup, 1, 2);
-            //lookup_aux[1].posicion.FILA = 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
-            //lookup_aux[0].posicion.COL = N - 2;
-            //lookup_aux[1].posicion.COL = N - 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
+            // Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 2 fila a izq y 1 col hacia arriba
+            lookup_aux = Reacomodar(lookup, 2, 1);
+            lookup_aux[0].posicion.COL = N - 2;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
+            lookup_aux[0].posicion.COL = N - 1;
+            lookup_aux[1].posicion.COL = N - 2;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
 
 
-            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 2 fila a izq y 2 col hacia arriba
-            //lookup_aux = Reacomodar(lookup, 2, 2);
-            //lookup_aux[0].posicion.FILA = N - 2;
-            //lookup_aux[1].posicion.FILA = N - 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
-            //lookup_aux[0].posicion.COL = N - 1;
-            //lookup_aux[1].posicion.COL = N - 2;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
+            // Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq y 2 col hacia arriba
+            lookup_aux = Reacomodar(lookup, 1, 2);
+            lookup_aux[1].posicion.FILA = 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
+            lookup_aux[0].posicion.COL = N - 2;
+            lookup_aux[1].posicion.COL = N - 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
 
-            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq y 2 col hacia arriba
-            //lookup_aux = Reacomodar(lookup, 1, 2);
-            //lookup_aux[0].posicion.COL = 0;
-            //lookup_aux[1].posicion.COL = N - 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
-            //lookup_aux[0].posicion.COL = N - 1;
-            //lookup_aux[1].posicion.COL = 0;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
 
-            //// Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 2 col hacia arriba
-            //lookup_aux = Reacomodar(lookup, 0, 2);
-            //lookup_aux[0].posicion.COL = 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
-            //lookup_aux[0].posicion.COL = 0;
-            //lookup_aux[1].posicion.COL = 1;
-            //CargarSolucion(lookup_aux);
-            //Espejar(lookup);
+            // Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 2 fila a izq y 2 col hacia arriba
+            lookup_aux = Reacomodar(lookup, 2, 2);
+            lookup_aux[0].posicion.FILA = N - 2;
+            lookup_aux[1].posicion.FILA = N - 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
+            lookup_aux[0].posicion.COL = N - 1;
+            lookup_aux[1].posicion.COL = N - 2;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
+
+            // Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 1 fila a izq y 2 col hacia arriba
+            lookup_aux = Reacomodar(lookup, 1, 2);
+            lookup_aux[0].posicion.COL = 0;
+            lookup_aux[1].posicion.COL = N - 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
+            lookup_aux[0].posicion.COL = N - 1;
+            lookup_aux[1].posicion.COL = 0;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
+
+            // Imprimimos las soluciones que pueden reproducirse desplazando las fichas del 6x6 2 col hacia arriba
+            lookup_aux = Reacomodar(lookup, 0, 2);
+            lookup_aux[0].posicion.COL = 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
+            lookup_aux[0].posicion.COL = 0;
+            lookup_aux[1].posicion.COL = 1;
+            CargarSolucion(lookup_aux);
+            Espejar(lookup);
 
             ImprimirSoluciones();
         }
@@ -161,7 +160,7 @@ namespace TPLabo2_Ajedrez
         {
             Pieza[] LOOKUPaux = new Pieza[8];
             for (int i = 0; i < 8; i++)
-            { LOOKUPaux[i] = lookup[i]; }
+            { LOOKUPaux[i] = new Pieza(lookup[i]); }
 
 
             for (int i = 2; i < N; i++)
@@ -187,12 +186,9 @@ namespace TPLabo2_Ajedrez
         {
             int aux = 0;
             Pieza[] lookupaux = new Pieza[8];
-            lookupaux = (Pieza[])lookup.Clone();
             for (int i = 0; i < 8; i++)
             {
-                /*
-                lookupaux[i].posicion.col = lookup[i].getcol();
-                lookupaux[i].setfila(lookup[i].getfila());*/
+                lookupaux[i] = new Pieza(lookup[i]);
                 if (i >= 2)
                 {
                     aux = Constants.N - 1 - lookup[i].getCOL();
