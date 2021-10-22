@@ -10,40 +10,51 @@ namespace TPLabo2_Ajedrez
     {
         static int N = 8;
         int cont = 0;
-        //Constructor de clase Caballo
+        
         public Caballo():base(ePieza.CABALLO) {  }
-        //Función para posicionar caballos en el tablero
-        public bool PosicionarCaballos(Tablero MatrizPrueba , Pieza [] LOOKUP, Pieza CABALLO)
+
+        //FUNCIONES POSICIONAR
+        public void PosicionarCaballos(Tablero MatrizPrueba , Pieza [] LOOKUP, Pieza CABALLO)
         {
+            //llamar a Casilla candidata y mandar a recursividad caballo con casilla candidata en ves 2,2 
+
             RecursividadCaballo(MatrizPrueba, LOOKUP, CABALLO, 2, 2);//Probamos casilla por casilla cuál es la mejor posición
-            if (MatrizPrueba.contarVacias(0) != 0) return false;//Si en la posición donde pusimos al caballo quedan más de ... casillas vacias, no lo ponemos ahi
-            else return true;//Si esta bien ahí, lo dejamos en esa posición
+
         }
-        public void RecursividadCaballo(Tablero MatrizPrueba, Pieza[] LOOKUP, Pieza CABALLO, int i, int j)//i=2,j=2
+        public void RecursividadCaballo(Tablero MatrizPrueba, Pieza[] LOOKUP, Pieza CABALLO, int i, int j)
         {
             int NLibres = 0;
             if(i >= 2 && i < N && j >= 2 && j < N)
             {
-                if (MatrizPrueba.PosLibre(LOOKUP, i, j))//Si en la casilla [i,j] no hay otra pieza posicionada es una posición válida que hay que verificar si sirve
+                if (MatrizPrueba.PosLibre(LOOKUP, i, j,true))//Si la casilla no esta ocupada
                 {
-                    //Posisionamos el caballo ahí
+                    //Posicionamos el caballo ahí y vemos cuántas casillas ocuparía posicionado ahi
                     CABALLO.setFILA(i);
                     CABALLO.setCOL(j);
-                    //sPosicion pos = new sPosicion(i, j);
-                    //CABALLO.posicion = pos;
+                    
                     if (MatrizPrueba.matriz[i, j] == 0) cont++;
-                    cont = VerificarPosCaballo(MatrizPrueba, CABALLO);//Verificamos cuántas casillas ocuparía el caballo posicionado de esta forma
-                    if (LOOKUP[6] == null) NLibres = 1;//Si estamos posicionando al primer caballo, entonces las casillas libres que deja el primer caballo es solo 1
-                    else NLibres = 0;//Si estamos posicionando el segundo, debe dejar 0 casillas sin llenar
-                    if (MatrizPrueba.contarVacias() - cont > NLibres)//Si las casillas libres en el tablero al posicionar al caballo de esta manera son más que las que podría ocupar la próxima pieza
-                    {//Cambiamos la casilla en donde probamos el posicionamiento y lo hacemos de nuevo
+                    cont = VerificarPosCaballo(MatrizPrueba, CABALLO);
+
+                    //Si estamos posicionando al primer caballo, queremos que quede solo 1 casilla libre maximo. Si no, 0
+                    if (LOOKUP[6] == null) 
+                        NLibres = 1;
+                    else 
+                        NLibres = 0;
+
+
+                    //Si las casillas libres sin contar las que ocuparia caballo son más que las que queremos
+                    if (MatrizPrueba.contarVacias() - cont > NLibres)
+                    {
+                        //Probamos otro posicionamiento
+                        // aca podriamos usar la funcion que devuelva la direccion de la prox casilla libre y definir i j para que la tape y probar si sirve
+                        //tambien podriamos llamar directamente con i j tapando la 1er casilla libre que se encuentre
                         if (i == N - 1)
                         {
                             i = 2;
                             j++;
                         }
                         else i++;
-                        RecursividadCaballo(MatrizPrueba, LOOKUP, CABALLO, i, j);//LLamamos nuevamente la función con un posicionamiento diferente
+                        RecursividadCaballo(MatrizPrueba, LOOKUP, CABALLO, i, j);
                     }
                     else
                         return;
@@ -58,10 +69,92 @@ namespace TPLabo2_Ajedrez
                     else i++;
                     RecursividadCaballo(MatrizPrueba, LOOKUP, CABALLO, i, j);//LLamamos nuevamente la función con un posicionamiento diferente
                 }
+                
             }
             
             
         }
+
+        /*
+        ----- ALTERNATIVA
+        public void RecursividadCaballo(Tablero MatrizPrueba, Pieza[] LOOKUP, Pieza CABALLO, int i, int j)
+        {
+            int NLibres = 0;
+            if(i >= 2 && i < N && j >= 2 && j < N)
+            {
+                if (MatrizPrueba.PosLibre(LOOKUP, i, j))//Si la casilla no esta ocupada
+                {
+                    //Posicionamos el caballo ahí y vemos cuántas casillas ocuparía posicionado ahi
+                    CABALLO.setFILA(i);
+                    CABALLO.setCOL(j);
+                    
+                    if (MatrizPrueba.matriz[i, j] == 0) cont++;
+                    cont = VerificarPosCaballo(MatrizPrueba, CABALLO);
+
+                    //Si estamos posicionando al primer caballo, queremos que quede solo 1 casilla libre maximo. Si no, 0
+                    if (LOOKUP[6] == null) 
+                        NLibres = 1;
+                    else 
+                        NLibres = 0;
+
+
+                    if (MatrizPrueba.contarVacias() - cont <= NLibres)
+                            return;
+           
+                }
+             //Si las casillas libres son más que las que queremos o esta la pos ocupada
+             //Probamos otro posicionamiento
+                sPosicion Nueva.posicionCasillaCandidata(MatrizPrueba,i,j);  i=Nueva.fila j=Nueva.col;
+               RecursividadCaballo(MatrizPrueba,LOOKUP,CABALLO, i, j)
+            }
+   
+        }
+
+
+        sPosicion CasillaCandidata(int[,]MatrizPrueba,int i=0,int j=0)
+        {
+            sPosicion aux= MatrizPrueba.ProxCasillaVacia(i,j);
+                if(Posicion.COL<N-1&&Posicion.COL>3)
+                 {
+                           j=Posicion.COL-2;
+                           if(Posicion.FILA==2)
+                              i=Posicion.FILA--;
+                           else
+                             i=Posicion.FILA++; 
+                           RecursividadCaballo(MatrizPrueba, LOOKUP, CABALLO, i, j);
+                }
+                else
+                 {
+                          j=Posicion.COL+2;
+                          if(Posicion.FILA==2)
+                              i=Posicion.FILA--;
+                           else
+                             i=Posicion.FILA++;
+                 }
+        }
+
+
+        sPosicion ProxCasillaVacia(int fila=0;int col=0)
+        {
+           sPosicion aux;
+            for(int i = 2;i < N;i++)
+            {
+                for(int j=2;j<N;j++)
+                {
+                    if (Matriz[i, j] == 0&&i!=fila&&col!=j) 
+                     {   aux=new sPosicion(i,j); return aux;}
+        
+                }
+            }
+            
+        }
+
+        */
+
+
+
+
+
         public int VerificarPosCaballo(Tablero MatrizPrueba, Pieza CABALLO)
         {
             cont = 0;

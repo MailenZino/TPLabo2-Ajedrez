@@ -15,8 +15,9 @@ namespace TPLabo2_Ajedrez
             Matriz = new int[n, n];
             N = n;
         }
-
         public int[,] matriz { get { return Matriz; } }
+
+        //funciones de carga de la matriz
         public void CargarFILACOL(int numero, bool fila = true)
         {
             for (int i = 0; i < N; i++)
@@ -69,6 +70,14 @@ namespace TPLabo2_Ajedrez
             CargarDiagonalesSuperiores(fila, col);
             l = 0;
         }
+
+
+        /// <summary>
+        /// Verifica que la casilla no este ATACADA
+        /// </summary>
+        /// <param name="fila"></param>
+        /// <param name="col"></param>
+        /// <returns></returns>
         public bool VerificarLibredeAtaque(int fila, int col)
         {
             if (Matriz[fila, col]!=0)
@@ -77,6 +86,11 @@ namespace TPLabo2_Ajedrez
         }
 
         public int contador;
+        /// <summary>
+        /// Cuenta vacias de la matriz
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
         public int contarVacias(int col= 2)
         {
             //for(int i=2;i<N;i++)
@@ -101,7 +115,14 @@ namespace TPLabo2_Ajedrez
             return contador;
         }
 
-        public bool PosLibre(Pieza[] LOOKUP, int fila, int col)
+        /// <summary>
+        /// Verifica que la posicion no este ocupada por ninguna otra PIEZA
+        /// </summary>
+        /// <param name="LOOKUP"></param>
+        /// <param name="fila"></param>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        public bool PosLibre(Pieza[] LOOKUP, int fila, int col,bool Alfil_Caballo=false)
         {
             int piezas_cargadas = 7;
             for (int i = 0; i < piezas_cargadas; i++)
@@ -109,7 +130,12 @@ namespace TPLabo2_Ajedrez
                 if (LOOKUP[i] != null)
                 {
                     if (LOOKUP[i].posicion.FILA == fila && LOOKUP[i].posicion.COL == col)
-                        return false;
+                    {
+                        if (Alfil_Caballo && LOOKUP[i].pieza == ePieza.ALFIL)
+                        { }
+                        else
+                        { return false; }
+                    }
                 }
                 else
                     break;

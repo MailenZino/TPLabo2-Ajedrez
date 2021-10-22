@@ -33,7 +33,7 @@ namespace TPLabo2_Ajedrez
             const int gridSize = 8;
             var clr1 = Color.DarkGray;
             var clr2 = Color.White;
-
+            btnProxSol.Enabled = false;
             // inicializamos el tablero
             _chessBoardPanels = new Panel[gridSize, gridSize];
 
@@ -83,20 +83,21 @@ namespace TPLabo2_Ajedrez
                 }
                 while (VerificarRepeticion(numSol));
 
-                _chessBoardPanels[soluciones[numSol, 0].getFILA(), soluciones[numSol, 0].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
-                _chessBoardPanels[soluciones[numSol, 1].getFILA(), soluciones[numSol, 1].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
+                _chessBoardPanels[soluciones[numSol, 0].getCOL(), soluciones[numSol, 0].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
+                _chessBoardPanels[soluciones[numSol, 1].getCOL(), soluciones[numSol, 1].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
 
 
-                _chessBoardPanels[soluciones[numSol, 2].getFILA(), soluciones[numSol, 2].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
-                _chessBoardPanels[soluciones[numSol, 3].getFILA(), soluciones[numSol, 3].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
+                _chessBoardPanels[soluciones[numSol, 2].getCOL(), soluciones[numSol, 2].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
+                _chessBoardPanels[soluciones[numSol, 3].getCOL(), soluciones[numSol, 3].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
 
-                _chessBoardPanels[soluciones[numSol, 4].getFILA(), soluciones[numSol, 4].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaReina;
+                _chessBoardPanels[soluciones[numSol, 4].getCOL(), soluciones[numSol, 4].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaReina;
 
-                _chessBoardPanels[soluciones[numSol, 5].getFILA(), soluciones[numSol, 5].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaRey;
+                _chessBoardPanels[soluciones[numSol, 5].getCOL(), soluciones[numSol, 5].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaRey;
 
-                _chessBoardPanels[soluciones[numSol, 6].getFILA(), soluciones[numSol, 6].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
-                _chessBoardPanels[soluciones[numSol, 7].getFILA(), soluciones[numSol, 7].getCOL()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
+                _chessBoardPanels[soluciones[numSol, 6].getCOL(), soluciones[numSol, 6].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
+                _chessBoardPanels[soluciones[numSol, 7].getCOL(), soluciones[numSol, 7].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
 
+                
             }
             if (count == Constants.SOL_A_MOSTRAR - 1)
             {
@@ -146,6 +147,7 @@ namespace TPLabo2_Ajedrez
         private void btn_GenerarSol_Click(object sender, EventArgs e)
         {
             ImprimirSol();
+            btnProxSol.Enabled = true;
             btn_GenerarSol.Enabled=false;
         }
 
