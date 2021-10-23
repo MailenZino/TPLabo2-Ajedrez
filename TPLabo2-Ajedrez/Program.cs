@@ -116,7 +116,7 @@ namespace TPLabo2_Ajedrez
 
             
             ALFIL1 = new Alfil(ePieza.ALFIL, auxFila, auxCol); // creamos ALFIL1 y lo colocamos en esa pos
-            //MatrizPrueba.matriz[auxFila, auxCol] = 1; 
+
 
             //ALFIL2 se coloca arriba o abajo del ALFIL1 segun los limites del rectangulo 3x4
             if (auxFila < 6)
@@ -136,6 +136,7 @@ namespace TPLabo2_Ajedrez
 
             MatrizPrueba.CargarDiagonales(ALFIL1.getFILA(), ALFIL1.getCOL());
             MatrizPrueba.CargarDiagonales(ALFIL2.getFILA(), ALFIL2.getCOL());
+
 
 
             //-------------------------------- Creamos, cargamos a matriz y guardamos en lookup REINA ------------------------------------------
@@ -161,7 +162,6 @@ namespace TPLabo2_Ajedrez
 
             REINA = new Reina(ePieza.REINA, auxFila, auxCol);
             LOOKUP[4] = REINA;
-            //MatrizPrueba.matriz[REINA.getFILA(), REINA.getCOL()] = 1;
             MatrizPrueba.CargarDiagonales(REINA.getFILA(), REINA.getCOL());
             MatrizPrueba.CargarFILACOL(REINA.getFILA());
             MatrizPrueba.CargarFILACOL(REINA.getCOL(), false);

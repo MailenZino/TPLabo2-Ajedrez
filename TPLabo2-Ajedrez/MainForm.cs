@@ -20,10 +20,7 @@ namespace TPLabo2_Ajedrez
         Program programa_;
         private void btnSln_Click(object sender, EventArgs e)
         {
-            //while (programa_.LookSoluciones.CANT_SOL_IMPRESAS < Constants.SOL_A_MOSTRAR)
-            //{
-            //    programa_.BuscarSoluciones();
-            //}
+            
             if(programa_.LookSoluciones.CANT_SOL_IMPRESAS < Constants.SOL_A_MOSTRAR)
             {
                 programa_.BuscarSoluciones();

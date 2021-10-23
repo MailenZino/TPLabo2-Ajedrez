@@ -76,13 +76,14 @@ namespace TPLabo2_Ajedrez
 
             if (count < Constants.SOL_A_MOSTRAR)
             {
+                //ELEJIMOS ALEATORIAMENTE UNA SOLUCION DEL VECTOR
                 Random rd = new Random();
                 int numSol = 0;
                 do
                 {
                     numSol = rd.Next(0, 36);
                 }
-                while (VerificarRepeticion(numSol));
+                while (VerificarRepeticion(numSol)); //CHEQUEAMOS QUE NO SE REPITA
 
                 _chessBoardPanels[soluciones[numSol, 0].getCOL(), soluciones[numSol, 0].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
                 _chessBoardPanels[soluciones[numSol, 1].getCOL(), soluciones[numSol, 1].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
@@ -90,6 +91,8 @@ namespace TPLabo2_Ajedrez
                 _chessBoardPanels[soluciones[numSol, 4].getCOL(), soluciones[numSol, 4].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaReina;
 
                 _chessBoardPanels[soluciones[numSol, 5].getCOL(), soluciones[numSol, 5].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaRey;
+
+                //TENEMOS EN CUENTA EL CASO DE QUE ALFIL Y CABALLO ESTEN EN LA MISMA CASILLA
 
                 if (soluciones[numSol, 2].getCOL() == soluciones[numSol, 6].getCOL() && soluciones[numSol, 2].getFILA() == soluciones[numSol, 6].getFILA())
                 {
@@ -135,6 +138,7 @@ namespace TPLabo2_Ajedrez
             }
 
         }
+
         /// <summary>
         /// Verifica que no mostremos la misma sol 2 veces
         /// </summary>
@@ -183,7 +187,7 @@ namespace TPLabo2_Ajedrez
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
-            //Mostrar main form
+            
             
         }
     }
