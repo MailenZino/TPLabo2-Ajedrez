@@ -160,6 +160,8 @@ namespace TPLabo2_Ajedrez
         /// <param name="numSol"></param>
         private void PrepararForm(int numSol)
         {
+            // Cargamosa a la reina primero porque es la que mas abarca
+            CargarReina(numSol);
             // EN soluciones[numSol,0] y soluciones[numSol,1] estan las torres y atacan fuerte SIEMPRE
             CargarFilaCol(soluciones[numSol, 0].getFILA());
             CargarFilaCol(soluciones[numSol, 1].getFILA());
@@ -180,7 +182,7 @@ namespace TPLabo2_Ajedrez
 
             CargarDiagos(soluciones[numSol, 4].getFILA(), soluciones[numSol, 4].getCOL());
             CargarDiagos(soluciones[numSol, 5].getFILA(), soluciones[numSol, 5].getCOL());
-            CargarReina(numSol);
+            
 
             //TODO: FALTA CARGAR LEVES
         }
@@ -319,36 +321,36 @@ namespace TPLabo2_Ajedrez
 
 
         int i = 1;
-        void CargarDiagonalesInferiores(int fila, int col,int carga_completa=0,int disable=0)
+        void CargarDiagonalesInferiores(int fila, int col,int carga_completa=0,bool disable_1=false,bool disable_2=false)
         {
             
-            if (fila > gridSize - 1 || fila < 0||carga_completa==2)
+            if (fila > gridSize - 1 || fila < 0||carga_completa>=2)
                 return;
             else
             {
-                if (col + i < gridSize&&disable!=1)
+                if (col + i < gridSize&&!disable_1)
                 {
-                    if (_chessBoardPanels[fila, col + i].BackgroundImage == null)
+                    if (_chessBoardPanels[col + i, fila].BackgroundImage == null)
                     {
-                        _chessBoardPanels[fila, col + i].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[fila, col + i].BackgroundImageLayout = ImageLayout.Center;
+                        _chessBoardPanels[col + i, fila].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col + i, fila].BackgroundImageLayout = ImageLayout.Center;
                     }
                     else
                     { 
-                        disable = 1;
+                        disable_1 = true;
                         carga_completa++;
                     }
                 }
-                if (col - i >= 0&&disable!=2)
+                if (col - i >= 0&&!disable_2)
                 {
-                    if (_chessBoardPanels[fila, col - i].BackgroundImage == null)
+                    if (_chessBoardPanels[col - i, fila].BackgroundImage == null)
                     {
-                        _chessBoardPanels[fila, col - i].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[fila, col - i].BackgroundImageLayout = ImageLayout.Center;
+                        _chessBoardPanels[col - i, fila].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col - i, fila].BackgroundImageLayout = ImageLayout.Center;
                     }
                     else
                     { 
-                        disable = 2;
+                        disable_2 = true;
                         carga_completa++;
                     }
 
@@ -357,39 +359,39 @@ namespace TPLabo2_Ajedrez
             }
             i++;
             fila++;
-            CargarDiagonalesInferiores(fila, col, carga_completa,disable);
+            CargarDiagonalesInferiores(fila, col, carga_completa,disable_1,disable_2);
         }
 
         int l = 1;
-        void CargarDiagonalesSuperiores(int fila, int col, int carga_completa = 0, int disable = 0)
+        void CargarDiagonalesSuperiores(int fila, int col, int carga_completa = 0, bool disable_1 = false, bool disable_2 = false)
         {
             if (fila > gridSize - 1 || fila < 0||carga_completa==2)
                 return;
             else
             {
-                if (col + l < gridSize&&disable!=1)
+                if (col + l < gridSize&&!disable_1)
                 {
-                    if (_chessBoardPanels[fila, col + l].BackgroundImage == null)
+                    if (_chessBoardPanels[col + l, fila].BackgroundImage == null)
                     {
-                        _chessBoardPanels[fila, col + l].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[fila, col + l].BackgroundImageLayout = ImageLayout.Center;
+                        _chessBoardPanels[col + l, fila].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col + l, fila].BackgroundImageLayout = ImageLayout.Center;
                     }
                     else
                     { 
-                        disable = 1;
+                        disable_1 = true;
                         carga_completa++;
                     }
                 }
-                if (col - l >= 0&&disable!=2)
+                if (col - l >= 0&&!disable_2)
                 {
-                    if (_chessBoardPanels[fila, col - l].BackgroundImage == null)
+                    if (_chessBoardPanels[col - l, fila].BackgroundImage == null)
                     {
-                        _chessBoardPanels[fila, col - l].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[fila, col - l].BackgroundImageLayout = ImageLayout.Center;
+                        _chessBoardPanels[col - l, fila].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col - l, fila].BackgroundImageLayout = ImageLayout.Center;
                     }
                     else
                     {
-                        disable = 2;
+                        disable_2 = true;
                         carga_completa++;
                     }
                 }
@@ -397,16 +399,16 @@ namespace TPLabo2_Ajedrez
             }
             l++;
             fila--;
-            CargarDiagonalesSuperiores(fila, col,carga_completa,disable);
+            CargarDiagonalesSuperiores(fila, col,carga_completa,disable_1,disable_2);
         }
 
         public void CargarReina(int numSol)
         {
             CargarDiagos(soluciones[numSol, 4].getFILA(), soluciones[numSol, 4].getCOL());
             CargarFilaCol(soluciones[numSol, 4].getFILA(), true, 0, soluciones[numSol, 4].getCOL() - 1, true, false);
-            CargarFilaCol(soluciones[numSol, 4].getFILA(), true, gridSize, soluciones[numSol, 4].getCOL()-1, true,true);
+            CargarFilaCol(soluciones[numSol, 4].getFILA(), true, gridSize, soluciones[numSol, 4].getCOL()+1, true,true);
             CargarFilaCol(soluciones[numSol, 4].getCOL(), false, 0, soluciones[numSol, 4].getFILA() - 1, true, false);
-            CargarFilaCol(soluciones[numSol, 4].getCOL(), false, gridSize, soluciones[numSol, 4].getFILA() - 1, true, true);
+            CargarFilaCol(soluciones[numSol, 4].getCOL(), false, gridSize, soluciones[numSol, 4].getFILA() + 1, true, true);
         }
 
         private void btnProxSol_Click(object sender, EventArgs e)
