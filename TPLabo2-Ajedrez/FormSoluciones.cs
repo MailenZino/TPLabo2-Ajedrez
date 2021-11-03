@@ -313,9 +313,9 @@ namespace TPLabo2_Ajedrez
 
         public void CargarDiagos(int fila, int col)
         {
-            CargarDiagonalesInferiores(fila, col);
+            CargarDiagonalesInferiores(fila+1, col);
             i = 1;
-            CargarDiagonalesSuperiores(fila, col);
+            CargarDiagonalesSuperiores(fila-1, col);
             l = 1;
         }
 
@@ -328,6 +328,7 @@ namespace TPLabo2_Ajedrez
                 return;
             else
             {
+               
                 if (col + i < gridSize&&!disable_1)
                 {
                     if (_chessBoardPanels[col + i, fila].BackgroundImage == null)
@@ -340,6 +341,11 @@ namespace TPLabo2_Ajedrez
                         disable_1 = true;
                         carga_completa++;
                     }
+                }
+                else
+                {
+                    disable_1 = true;
+                    carga_completa++;
                 }
                 if (col - i >= 0&&!disable_2)
                 {
@@ -354,6 +360,11 @@ namespace TPLabo2_Ajedrez
                         carga_completa++;
                     }
 
+                }
+                else
+                {
+                    disable_2 = true;
+                    carga_completa++;
                 }
 
             }
