@@ -163,6 +163,7 @@ namespace TPLabo2_Ajedrez
             // EN soluciones[numSol,0] y soluciones[numSol,1] estan las torres y atacan fuerte SIEMPRE
             CargarFilaCol(soluciones[numSol, 0].getFILA());
             CargarFilaCol(soluciones[numSol, 1].getFILA());
+
             CargarFilaCol(soluciones[numSol, 0].getCOL(), false);
             CargarFilaCol(soluciones[numSol, 1].getCOL(), false);
 
@@ -187,38 +188,37 @@ namespace TPLabo2_Ajedrez
         private void CargarFilaCol( int numero, bool fila=true, int stop=gridSize, int start=0, bool romper= false, bool aDerecha= true)
         {
             int inc_dec = 1;
-            if (romper)
-            { 
-                inc_dec = -1;
-            }
-            //si romper es true start arranca con mayor valor que stop entonces decrementas start y
-            // a stop le sumamos la diferencia porque solo sirve para el numero de iteraciones
             int i = start;
             bool condicion = (i < stop);
-            if(!aDerecha)
-                condicion = (i > stop);
+
+            if (!aDerecha) //si vamos a izq true start arranca con mayor valor que stop entonces vamos a decrementar i de start a stop con inc_dec
+            {
+                inc_dec = -1;
+                condicion = (i >= stop); 
+            }
+
             do
             {
                 if (i >= gridSize || i < 0)
                     break;
                 if (fila)
                 {
-                    if (_chessBoardPanels[numero, i].BackgroundImage == null) //cargamos si no hay ficha cargada en la pos
-                    {
-                        _chessBoardPanels[numero, i].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[numero, i].BackgroundImageLayout = ImageLayout.Center;
-                    }
-                    else if (romper) //este parametro lo usamos cuando sabemos que habra ataques leves
-                        break;
-                }
-                else
-                {
-                    if (_chessBoardPanels[numero, i].BackgroundImage == null)
+                    if (_chessBoardPanels[i, numero].BackgroundImage == null) //cargamos si no hay ficha en la pos
                     {
                         _chessBoardPanels[i, numero].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
                         _chessBoardPanels[i, numero].BackgroundImageLayout = ImageLayout.Center;
                     }
-                    else if (romper)
+                    else if(romper)
+                        break;
+                }
+                else
+                {
+                    if (_chessBoardPanels[numero,i].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[numero, i].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[numero, i].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    else if(romper)
                         break;
                 }
                 i += inc_dec;
@@ -257,24 +257,24 @@ namespace TPLabo2_Ajedrez
             
             if (fila + 1 < gridSize)
             {
-                if (col - 2 >= 0)
+                if (col - 2 >= 0 && _chessBoardPanels[fila + 1, col - 2].BackgroundImage == null)
                 {
                     _chessBoardPanels[fila + 1, col - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
                     _chessBoardPanels[fila + 1, col - 2].BackgroundImageLayout = ImageLayout.Center;
                 }
-                if (col + 2 < gridSize)
+                if (col + 2 < gridSize && _chessBoardPanels[fila + 1, col + 2].BackgroundImage == null)
                 { 
                     _chessBoardPanels[fila + 1, col + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
                     _chessBoardPanels[fila + 1, col + 2].BackgroundImageLayout = ImageLayout.Center;
                 }
                 if (fila + 2 < gridSize)
                 {
-                    if (col - 1 >= 0)
+                    if (col - 1 >= 0 && _chessBoardPanels[fila + 2, col - 1].BackgroundImage == null)
                     {
                         _chessBoardPanels[fila + 2, col - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
                         _chessBoardPanels[fila + 2, col - 1].BackgroundImageLayout = ImageLayout.Center;
                     }
-                    if (col + 1 < gridSize)
+                    if (col + 1 < gridSize && _chessBoardPanels[fila + 2, col + 1].BackgroundImage == null)
                     { 
                         _chessBoardPanels[fila + 2, col + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
                         _chessBoardPanels[fila + 2, col + 1].BackgroundImageLayout = ImageLayout.Center;
@@ -283,24 +283,24 @@ namespace TPLabo2_Ajedrez
             }
             if (fila - 1 >= 0)
             {
-                if (col - 2 >= 0)
+                if (col - 2 >= 0 && _chessBoardPanels[fila - 1, col - 2].BackgroundImage == null)
                 { 
                     _chessBoardPanels[fila - 1, col - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
                     _chessBoardPanels[fila-1, col - 2].BackgroundImageLayout = ImageLayout.Center;
                 }
-                if (col + 2 < gridSize)
+                if (col + 2 < gridSize && _chessBoardPanels[fila - 1, col +2].BackgroundImage == null)
                 { 
                     _chessBoardPanels[fila - 1, col + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
                     _chessBoardPanels[fila - 1, col + 2].BackgroundImageLayout = ImageLayout.Center;
                 }
                 if (fila - 2 >= 0)
                 {
-                    if (col - 1 >= 0)
+                    if (col - 1 >= 0 && _chessBoardPanels[fila - 2, col - 1 ].BackgroundImage == null)
                     { 
                         _chessBoardPanels[fila - 2, col - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
                         _chessBoardPanels[fila - 2, col - 1].BackgroundImageLayout = ImageLayout.Center;
                     }
-                    if (col + 1 < gridSize)
+                    if (col + 1 < gridSize && _chessBoardPanels[fila - 2, col + 1].BackgroundImage == null)
                     { 
                         _chessBoardPanels[fila - 2, col + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
                         _chessBoardPanels[fila - 2, col +1].BackgroundImageLayout = ImageLayout.Center;
