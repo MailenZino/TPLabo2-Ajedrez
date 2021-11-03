@@ -171,7 +171,7 @@ namespace TPLabo2_Ajedrez
             for (int i = -1; i < 2; i++)
             { 
 
-                CargarFilaCol(soluciones[numSol, 5].getFILA()+i, true, soluciones[numSol, 5].getCOL() - 1, soluciones[numSol, 5].getCOL() + 1); 
+                CargarFilaCol(soluciones[numSol, 5].getFILA()+i, true, soluciones[numSol, 5].getCOL() + 1, soluciones[numSol, 5].getCOL() - 1); 
                
                 // para cargar al rey llamamos a cargar fila col con la fila que esta por encima del rey desde la col anterior hasta la posterior y repetimos hasta la fila inferior a su pos
             }
@@ -257,53 +257,53 @@ namespace TPLabo2_Ajedrez
             
             if (fila + 1 < gridSize)
             {
-                if (col - 2 >= 0 && _chessBoardPanels[fila + 1, col - 2].BackgroundImage == null)
+                if (col - 2 >= 0 && _chessBoardPanels[col - 2, fila + 1].BackgroundImage == null)
                 {
-                    _chessBoardPanels[fila + 1, col - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                    _chessBoardPanels[fila + 1, col - 2].BackgroundImageLayout = ImageLayout.Center;
+                    _chessBoardPanels[col - 2, fila + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[col - 2, fila + 1].BackgroundImageLayout = ImageLayout.Center;
                 }
-                if (col + 2 < gridSize && _chessBoardPanels[fila + 1, col + 2].BackgroundImage == null)
+                if (col + 2 < gridSize && _chessBoardPanels[col + 2, fila + 1].BackgroundImage == null)
                 { 
-                    _chessBoardPanels[fila + 1, col + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                    _chessBoardPanels[fila + 1, col + 2].BackgroundImageLayout = ImageLayout.Center;
+                    _chessBoardPanels[col + 2, fila + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[col + 2, fila + 1].BackgroundImageLayout = ImageLayout.Center;
                 }
                 if (fila + 2 < gridSize)
                 {
-                    if (col - 1 >= 0 && _chessBoardPanels[fila + 2, col - 1].BackgroundImage == null)
+                    if (col - 1 >= 0 && _chessBoardPanels[col - 1, fila + 2].BackgroundImage == null)
                     {
-                        _chessBoardPanels[fila + 2, col - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[fila + 2, col - 1].BackgroundImageLayout = ImageLayout.Center;
+                        _chessBoardPanels[col - 1, fila + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col - 1, fila + 2].BackgroundImageLayout = ImageLayout.Center;
                     }
-                    if (col + 1 < gridSize && _chessBoardPanels[fila + 2, col + 1].BackgroundImage == null)
+                    if (col + 1 < gridSize && _chessBoardPanels[col + 1, fila + 2].BackgroundImage == null)
                     { 
-                        _chessBoardPanels[fila + 2, col + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[fila + 2, col + 1].BackgroundImageLayout = ImageLayout.Center;
+                        _chessBoardPanels[col + 1, fila + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col + 1, fila + 2].BackgroundImageLayout = ImageLayout.Center;
                     }
                 }
             }
             if (fila - 1 >= 0)
             {
-                if (col - 2 >= 0 && _chessBoardPanels[fila - 1, col - 2].BackgroundImage == null)
+                if (col - 2 >= 0 && _chessBoardPanels[col - 2, fila - 1].BackgroundImage == null)
                 { 
-                    _chessBoardPanels[fila - 1, col - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                    _chessBoardPanels[fila-1, col - 2].BackgroundImageLayout = ImageLayout.Center;
+                    _chessBoardPanels[col - 2, fila - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[col - 2, fila - 1].BackgroundImageLayout = ImageLayout.Center;
                 }
-                if (col + 2 < gridSize && _chessBoardPanels[fila - 1, col +2].BackgroundImage == null)
+                if (col + 2 < gridSize && _chessBoardPanels[col + 2, fila - 1].BackgroundImage == null)
                 { 
-                    _chessBoardPanels[fila - 1, col + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                    _chessBoardPanels[fila - 1, col + 2].BackgroundImageLayout = ImageLayout.Center;
+                    _chessBoardPanels[col + 2, fila - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[col + 2, fila - 1].BackgroundImageLayout = ImageLayout.Center;
                 }
                 if (fila - 2 >= 0)
                 {
-                    if (col - 1 >= 0 && _chessBoardPanels[fila - 2, col - 1 ].BackgroundImage == null)
+                    if (col - 1 >= 0 && _chessBoardPanels[col - 1, fila - 2].BackgroundImage == null)
                     { 
-                        _chessBoardPanels[fila - 2, col - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[fila - 2, col - 1].BackgroundImageLayout = ImageLayout.Center;
+                        _chessBoardPanels[col - 1, fila - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col - 1, fila - 2].BackgroundImageLayout = ImageLayout.Center;
                     }
-                    if (col + 1 < gridSize && _chessBoardPanels[fila - 2, col + 1].BackgroundImage == null)
+                    if (col + 1 < gridSize && _chessBoardPanels[col + 1, fila - 2].BackgroundImage == null)
                     { 
-                        _chessBoardPanels[fila - 2, col + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[fila - 2, col +1].BackgroundImageLayout = ImageLayout.Center;
+                        _chessBoardPanels[col + 1, fila - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col + 1, fila - 2].BackgroundImageLayout = ImageLayout.Center;
                     }
                 }
             }
