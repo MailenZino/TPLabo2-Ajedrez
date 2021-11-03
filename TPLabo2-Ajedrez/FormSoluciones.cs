@@ -15,7 +15,6 @@ namespace TPLabo2_Ajedrez
         Pieza[,] soluciones;                       //guardara las soluciones encontradas en el programa
         private Panel[,] _chessBoardPanels;       // array tipo panel que representa el tablero de ajedrez
         int count = 0;
-        //int CANT_SOL_IMPRESAS;
         int[] Sol_Mostradas;
         Soluciones SolucionMadre;
         public FormSoluciones(Pieza[,] look_soluciones, Soluciones Sol_madre)
@@ -23,7 +22,6 @@ namespace TPLabo2_Ajedrez
             InitializeComponent();
             soluciones = new Pieza[36, 8];
             soluciones = look_soluciones;
-            //Sol_Mostradas = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             Sol_Mostradas = new int[36];
             SolucionMadre = Sol_madre;
         }
@@ -34,6 +32,7 @@ namespace TPLabo2_Ajedrez
             const int gridSize = 8;
             var clr1 = Color.DarkGray;
             var clr2 = Color.White;
+            
             btnProxSol.Enabled = false;
             // inicializamos el tablero
             _chessBoardPanels = new Panel[gridSize, gridSize];
@@ -61,9 +60,12 @@ namespace TPLabo2_Ajedrez
                         newPanel.BackColor = m % 2 != 0 ? clr1 : clr2;
                     else
                         newPanel.BackColor = m % 2 != 0 ? clr2 : clr1;
+
+                    
+
                 }
             }
-            
+            NroSol.Enabled = false;
         }
 
         /// <summary>
@@ -85,6 +87,12 @@ namespace TPLabo2_Ajedrez
                 }
                 while (VerificarRepeticion(numSol)); //CHEQUEAMOS QUE NO SE REPITA
 
+                //borramos el indicador de ataque fuerte para dejar la casilla y cargar posteriormente la imagen de la ficha
+                _chessBoardPanels[soluciones[numSol, 0].getCOL(), soluciones[numSol, 0].getFILA()].BackgroundImage.Dispose();
+                _chessBoardPanels[soluciones[numSol, 1].getCOL(), soluciones[numSol, 1].getFILA()].BackgroundImage.Dispose();
+                _chessBoardPanels[soluciones[numSol, 4].getCOL(), soluciones[numSol, 4].getFILA()].BackgroundImage.Dispose();
+                _chessBoardPanels[soluciones[numSol, 5].getCOL(), soluciones[numSol, 5].getFILA()].BackgroundImage.Dispose();
+
                 _chessBoardPanels[soluciones[numSol, 0].getCOL(), soluciones[numSol, 0].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
                 _chessBoardPanels[soluciones[numSol, 1].getCOL(), soluciones[numSol, 1].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
 
@@ -92,7 +100,11 @@ namespace TPLabo2_Ajedrez
 
                 _chessBoardPanels[soluciones[numSol, 5].getCOL(), soluciones[numSol, 5].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaRey;
 
+
                 //TENEMOS EN CUENTA EL CASO DE QUE ALFIL Y CABALLO ESTEN EN LA MISMA CASILLA
+                _chessBoardPanels[soluciones[numSol, 3].getCOL(), soluciones[numSol, 3].getFILA()].BackgroundImage.Dispose();
+                _chessBoardPanels[soluciones[numSol, 2].getCOL(), soluciones[numSol, 2].getFILA()].BackgroundImage.Dispose();
+                _chessBoardPanels[soluciones[numSol, 7].getCOL(), soluciones[numSol, 7].getFILA()].BackgroundImage.Dispose();
 
                 if (soluciones[numSol, 2].getCOL() == soluciones[numSol, 6].getCOL() && soluciones[numSol, 2].getFILA() == soluciones[numSol, 6].getFILA())
                 {
@@ -108,6 +120,7 @@ namespace TPLabo2_Ajedrez
                 }
                 else
                 {
+                    _chessBoardPanels[soluciones[numSol, 6].getCOL(), soluciones[numSol, 6].getFILA()].BackgroundImage.Dispose();
                     _chessBoardPanels[soluciones[numSol, 2].getCOL(), soluciones[numSol, 2].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
                     _chessBoardPanels[soluciones[numSol, 3].getCOL(), soluciones[numSol, 3].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
                     _chessBoardPanels[soluciones[numSol, 6].getCOL(), soluciones[numSol, 6].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
