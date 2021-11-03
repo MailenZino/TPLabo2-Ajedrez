@@ -17,6 +17,7 @@ namespace TPLabo2_Ajedrez
         int count = 0;
         int[] Sol_Mostradas;
         Soluciones SolucionMadre;
+        const int gridSize=8;
         public FormSoluciones(Pieza[,] look_soluciones, Soluciones Sol_madre)
         {
             InitializeComponent();
@@ -29,7 +30,6 @@ namespace TPLabo2_Ajedrez
         private void Form1_Load(object sender, EventArgs e)
         {
             const int tileSize = 40;
-            const int gridSize = 8;
             var clr1 = Color.DarkGray;
             var clr2 = Color.White;
             
@@ -87,11 +87,7 @@ namespace TPLabo2_Ajedrez
                 }
                 while (VerificarRepeticion(numSol)); //CHEQUEAMOS QUE NO SE REPITA
 
-                //borramos el indicador de ataque fuerte para dejar la casilla y cargar posteriormente la imagen de la ficha
-                _chessBoardPanels[soluciones[numSol, 0].getCOL(), soluciones[numSol, 0].getFILA()].BackgroundImage.Dispose();
-                _chessBoardPanels[soluciones[numSol, 1].getCOL(), soluciones[numSol, 1].getFILA()].BackgroundImage.Dispose();
-                _chessBoardPanels[soluciones[numSol, 4].getCOL(), soluciones[numSol, 4].getFILA()].BackgroundImage.Dispose();
-                _chessBoardPanels[soluciones[numSol, 5].getCOL(), soluciones[numSol, 5].getFILA()].BackgroundImage.Dispose();
+                //CARGAMOS FICHAS AL TABLERO
 
                 _chessBoardPanels[soluciones[numSol, 0].getCOL(), soluciones[numSol, 0].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
                 _chessBoardPanels[soluciones[numSol, 1].getCOL(), soluciones[numSol, 1].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
@@ -102,10 +98,7 @@ namespace TPLabo2_Ajedrez
 
 
                 //TENEMOS EN CUENTA EL CASO DE QUE ALFIL Y CABALLO ESTEN EN LA MISMA CASILLA
-                _chessBoardPanels[soluciones[numSol, 3].getCOL(), soluciones[numSol, 3].getFILA()].BackgroundImage.Dispose();
-                _chessBoardPanels[soluciones[numSol, 2].getCOL(), soluciones[numSol, 2].getFILA()].BackgroundImage.Dispose();
-                _chessBoardPanels[soluciones[numSol, 7].getCOL(), soluciones[numSol, 7].getFILA()].BackgroundImage.Dispose();
-
+               
                 if (soluciones[numSol, 2].getCOL() == soluciones[numSol, 6].getCOL() && soluciones[numSol, 2].getFILA() == soluciones[numSol, 6].getFILA())
                 {
                     _chessBoardPanels[soluciones[numSol, 2].getCOL(), soluciones[numSol, 2].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfilCaballo;
@@ -120,12 +113,16 @@ namespace TPLabo2_Ajedrez
                 }
                 else
                 {
-                    _chessBoardPanels[soluciones[numSol, 6].getCOL(), soluciones[numSol, 6].getFILA()].BackgroundImage.Dispose();
                     _chessBoardPanels[soluciones[numSol, 2].getCOL(), soluciones[numSol, 2].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
                     _chessBoardPanels[soluciones[numSol, 3].getCOL(), soluciones[numSol, 3].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
                     _chessBoardPanels[soluciones[numSol, 6].getCOL(), soluciones[numSol, 6].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
                     _chessBoardPanels[soluciones[numSol, 7].getCOL(), soluciones[numSol, 7].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
-                }   
+                }
+
+                //CARGAMOS LOS ATAQUES
+
+                PrepararForm(numSol);
+
             }
             if (count == Constants.SOL_A_MOSTRAR - 1)
             {
@@ -157,6 +154,260 @@ namespace TPLabo2_Ajedrez
             return false;
         }
 
+        /// <summary>
+        /// Se encarga de cargar ataques leves y fuertes
+        /// </summary>
+        /// <param name="numSol"></param>
+        private void PrepararForm(int numSol)
+        {
+            // EN soluciones[numSol,0] y soluciones[numSol,1] estan las torres y atacan fuerte SIEMPRE
+            CargarFilaCol(soluciones[numSol, 0].getFILA());
+            CargarFilaCol(soluciones[numSol, 1].getFILA());
+            CargarFilaCol(soluciones[numSol, 0].getCOL(), false);
+            CargarFilaCol(soluciones[numSol, 1].getCOL(), false);
+
+            // EN soluciones[numSol,5] esta el rey y en soluciones[numSol,6 y 7] estan los caballos que tambien atacan fuerte SIEMPRE
+            for (int i = -1; i < 2; i++)
+            { 
+
+                CargarFilaCol(soluciones[numSol, 5].getFILA()+i, true, soluciones[numSol, 5].getCOL() - 1, soluciones[numSol, 5].getCOL() + 1); 
+               
+                // para cargar al rey llamamos a cargar fila col con la fila que esta por encima del rey desde la col anterior hasta la posterior y repetimos hasta la fila inferior a su pos
+            }
+            CargarCaballo(soluciones[numSol, 6].getFILA(), soluciones[numSol, 6].getCOL());
+            CargarCaballo(soluciones[numSol, 7].getFILA(), soluciones[numSol, 7].getCOL());
+
+            CargarDiagos(soluciones[numSol, 4].getFILA(), soluciones[numSol, 4].getCOL());
+            CargarDiagos(soluciones[numSol, 5].getFILA(), soluciones[numSol, 5].getCOL());
+            CargarReina(numSol);
+
+            //TODO: FALTA CARGAR LEVES
+        }
+
+        private void CargarFilaCol( int numero, bool fila=true, int stop=gridSize, int start=0, bool romper= false, bool aDerecha= true)
+        {
+            int inc_dec = 1;
+            if (romper)
+            { 
+                inc_dec = -1;
+            }
+            //si romper es true start arranca con mayor valor que stop entonces decrementas start y
+            // a stop le sumamos la diferencia porque solo sirve para el numero de iteraciones
+            int i = start;
+            bool condicion = (i < stop);
+            if(!aDerecha)
+                condicion = (i > stop);
+            do
+            {
+                if (i >= gridSize || i < 0)
+                    break;
+                if (fila)
+                {
+                    if (_chessBoardPanels[numero, i].BackgroundImage == null) //cargamos si no hay ficha cargada en la pos
+                    {
+                        _chessBoardPanels[numero, i].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[numero, i].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    else if (romper) //este parametro lo usamos cuando sabemos que habra ataques leves
+                        break;
+                }
+                else
+                {
+                    if (_chessBoardPanels[numero, i].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[i, numero].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[i, numero].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    else if (romper)
+                        break;
+                }
+                i += inc_dec;
+            } while (condicion);
+
+            /*
+            for (int i = start; i < stop; i++)
+            {
+                if (i >= gridSize || i < 0)
+                    break;
+                if (fila)
+                {
+                    if (_chessBoardPanels[numero, i].BackgroundImage == null) //cargamos si no hay ficha cargada en la pos
+                    {
+                        _chessBoardPanels[numero, i].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[numero, i].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    else if (romper) //este parametro lo usamos cuando sabemos que habra ataques leves
+                        break;
+                }
+                else
+                {
+                    if (_chessBoardPanels[numero, i].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[i, numero].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[i, numero].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    else if (romper)
+                        break;
+                }
+            }
+            */
+        }
+        public void CargarCaballo(int fila, int col)
+        {
+            
+            if (fila + 1 < gridSize)
+            {
+                if (col - 2 >= 0)
+                {
+                    _chessBoardPanels[fila + 1, col - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[fila + 1, col - 2].BackgroundImageLayout = ImageLayout.Center;
+                }
+                if (col + 2 < gridSize)
+                { 
+                    _chessBoardPanels[fila + 1, col + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[fila + 1, col + 2].BackgroundImageLayout = ImageLayout.Center;
+                }
+                if (fila + 2 < gridSize)
+                {
+                    if (col - 1 >= 0)
+                    {
+                        _chessBoardPanels[fila + 2, col - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[fila + 2, col - 1].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    if (col + 1 < gridSize)
+                    { 
+                        _chessBoardPanels[fila + 2, col + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[fila + 2, col + 1].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                }
+            }
+            if (fila - 1 >= 0)
+            {
+                if (col - 2 >= 0)
+                { 
+                    _chessBoardPanels[fila - 1, col - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[fila-1, col - 2].BackgroundImageLayout = ImageLayout.Center;
+                }
+                if (col + 2 < gridSize)
+                { 
+                    _chessBoardPanels[fila - 1, col + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[fila - 1, col + 2].BackgroundImageLayout = ImageLayout.Center;
+                }
+                if (fila - 2 >= 0)
+                {
+                    if (col - 1 >= 0)
+                    { 
+                        _chessBoardPanels[fila - 2, col - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[fila - 2, col - 1].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    if (col + 1 < gridSize)
+                    { 
+                        _chessBoardPanels[fila - 2, col + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[fila - 2, col +1].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                }
+            }
+        }
+
+        public void CargarDiagos(int fila, int col)
+        {
+            CargarDiagonalesInferiores(fila, col);
+            i = 1;
+            CargarDiagonalesSuperiores(fila, col);
+            l = 1;
+        }
+
+
+        int i = 1;
+        void CargarDiagonalesInferiores(int fila, int col,int carga_completa=0,int disable=0)
+        {
+            
+            if (fila > gridSize - 1 || fila < 0||carga_completa==2)
+                return;
+            else
+            {
+                if (col + i < gridSize&&disable!=1)
+                {
+                    if (_chessBoardPanels[fila, col + i].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[fila, col + i].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[fila, col + i].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    else
+                    { 
+                        disable = 1;
+                        carga_completa++;
+                    }
+                }
+                if (col - i >= 0&&disable!=2)
+                {
+                    if (_chessBoardPanels[fila, col - i].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[fila, col - i].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[fila, col - i].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    else
+                    { 
+                        disable = 2;
+                        carga_completa++;
+                    }
+
+                }
+
+            }
+            i++;
+            fila++;
+            CargarDiagonalesInferiores(fila, col, carga_completa,disable);
+        }
+
+        int l = 1;
+        void CargarDiagonalesSuperiores(int fila, int col, int carga_completa = 0, int disable = 0)
+        {
+            if (fila > gridSize - 1 || fila < 0||carga_completa==2)
+                return;
+            else
+            {
+                if (col + l < gridSize&&disable!=1)
+                {
+                    if (_chessBoardPanels[fila, col + l].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[fila, col + l].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[fila, col + l].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    else
+                    { 
+                        disable = 1;
+                        carga_completa++;
+                    }
+                }
+                if (col - l >= 0&&disable!=2)
+                {
+                    if (_chessBoardPanels[fila, col - l].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[fila, col - l].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[fila, col - l].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    else
+                    {
+                        disable = 2;
+                        carga_completa++;
+                    }
+                }
+                
+            }
+            l++;
+            fila--;
+            CargarDiagonalesSuperiores(fila, col,carga_completa,disable);
+        }
+
+        public void CargarReina(int numSol)
+        {
+            CargarDiagos(soluciones[numSol, 4].getFILA(), soluciones[numSol, 4].getCOL());
+            CargarFilaCol(soluciones[numSol, 4].getFILA(), true, 0, soluciones[numSol, 4].getCOL() - 1, true, false);
+            CargarFilaCol(soluciones[numSol, 4].getFILA(), true, gridSize, soluciones[numSol, 4].getCOL()-1, true,true);
+            CargarFilaCol(soluciones[numSol, 4].getCOL(), false, 0, soluciones[numSol, 4].getFILA() - 1, true, false);
+            CargarFilaCol(soluciones[numSol, 4].getCOL(), false, gridSize, soluciones[numSol, 4].getFILA() - 1, true, true);
+        }
 
         private void btnProxSol_Click(object sender, EventArgs e)
         {
