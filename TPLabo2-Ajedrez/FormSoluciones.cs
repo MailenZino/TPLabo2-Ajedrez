@@ -32,8 +32,10 @@ namespace TPLabo2_Ajedrez
             const int tileSize = 40;
             var clr1 = Color.DarkGray;
             var clr2 = Color.White;
-            
+
+            BoxcantSoluciones.DropDownStyle = ComboBoxStyle.DropDownList;
             btnProxSol.Enabled = false;
+            btn_GenerarSol.Enabled = false;
             // inicializamos el tablero
             _chessBoardPanels = new Panel[gridSize, gridSize];
 
@@ -76,7 +78,7 @@ namespace TPLabo2_Ajedrez
         private void ImprimirSol()
         {
 
-            if (count < Constants.SOL_A_MOSTRAR)
+            if (count < SolucionMadre.SOL_A_MOSTRAR)
             {
                 //ELEJIMOS ALEATORIAMENTE UNA SOLUCION DEL VECTOR
                 Random rd = new Random();
@@ -124,7 +126,7 @@ namespace TPLabo2_Ajedrez
                 PrepararForm(numSol);
 
             }
-            if (count == Constants.SOL_A_MOSTRAR - 1)
+            if (count == SolucionMadre.SOL_A_MOSTRAR - 1)
             {
                 btnProxSol.Enabled = false;
                 
@@ -160,8 +162,6 @@ namespace TPLabo2_Ajedrez
         /// <param name="numSol"></param>
         private void PrepararForm(int numSol)
         {
-            // Cargamosa a la reina primero porque es la que mas abarca
-            CargarReina(numSol);
             // EN soluciones[numSol,0] y soluciones[numSol,1] estan las torres y atacan fuerte SIEMPRE
             CargarFilaCol(soluciones[numSol, 0].getFILA());
             CargarFilaCol(soluciones[numSol, 1].getFILA());
@@ -182,9 +182,10 @@ namespace TPLabo2_Ajedrez
 
             CargarDiagos(soluciones[numSol, 2].getFILA(), soluciones[numSol, 4].getCOL());
             CargarDiagos(soluciones[numSol, 3].getFILA(), soluciones[numSol, 5].getCOL());
-            
 
-            //TODO: FALTA CARGAR LEVES
+            CargarReina(numSol);
+
+            CargarAtaquesLeves();//Los paneles que quedan vacíos tienen ataque leve.
         }
 
         private void CargarFilaCol( int numero, bool fila=true, int stop=gridSize, int start=0, bool romper= false, bool aDerecha= true)
@@ -440,6 +441,21 @@ namespace TPLabo2_Ajedrez
             CargarFilaCol(soluciones[numSol, 4].getCOL(), false, gridSize, soluciones[numSol, 4].getFILA() + 1, true, true);
         }
 
+        private void CargarAtaquesLeves()
+        {//Recorremos el tablero y cualquiel panel vacío es porque tiene un ataque leve, pongo la imagen que muestre eso.
+            for(int i=0;i<gridSize;++i)
+            {
+                for(int j=0;j<gridSize; ++j)
+                {
+                    if (_chessBoardPanels[i, j].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[i, j].BackgroundImage = (Image)Properties.Resources.ataqueLeve;
+                        _chessBoardPanels[i, j].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                }
+            }
+        }
+
         private void btnProxSol_Click(object sender, EventArgs e)
         {
             for(int i = 0; i < 8; i++)
@@ -467,6 +483,17 @@ namespace TPLabo2_Ajedrez
             this.Close();
             
             
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BoxcantSoluciones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SolucionMadre.SOL_A_MOSTRAR = int.Parse(BoxcantSoluciones.SelectedItem.ToString());
+            btn_GenerarSol.Enabled = true;
         }
     }
 }

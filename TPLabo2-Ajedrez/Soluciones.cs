@@ -13,6 +13,7 @@ namespace TPLabo2_Ajedrez
         int CANT_SOL_TOTALES;
         int CANT_SOL_MAESTRA;
         public int CANT_SOL_IMPRESAS;
+        public int SOL_A_MOSTRAR;
 
         int N = 8;
         public Soluciones()
@@ -20,6 +21,7 @@ namespace TPLabo2_Ajedrez
             CANT_SOL_MAESTRA = 0;
             CANT_SOL_TOTALES = 0;
             CANT_SOL_IMPRESAS = 0;
+            SOL_A_MOSTRAR = 0;
             Solucion_Maestra = new Pieza[8, 8];
             Soluciones_totales = new Pieza[36, 8];
         }

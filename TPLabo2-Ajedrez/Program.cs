@@ -10,7 +10,7 @@ namespace TPLabo2_Ajedrez
 {
     static class Constants
     {
-        public const int SOL_A_MOSTRAR = 10;
+        //public const int SOL_A_MOSTRAR = 10;
         public const int N = 8;
     }
     public enum ePieza
@@ -78,12 +78,14 @@ namespace TPLabo2_Ajedrez
         
         public Soluciones LookSoluciones;
         public static int CANT_SOL_TOTALES;
+        public int SOL_A_MOSTRAR;
 
         public Program()
         {
             CANT_SOL_TOTALES = 0;
             LOOKUP = new Pieza[8];
             LookSoluciones = new Soluciones();
+            SOL_A_MOSTRAR = 0;
         }
         
 
