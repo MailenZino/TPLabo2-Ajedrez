@@ -199,10 +199,12 @@ namespace TPLabo2_Ajedrez
             LOOKUP[7] = CABALLO2;
             
 
-            if (LookSoluciones.SolucionExistente(LOOKUP)) //chequeamos que no sea una solucion existente --- tendriamos que agregar algo que borre objetos viejos de los ya instanciado?
+            if (!LookSoluciones.SolucionExistente(LOOKUP)) //chequeamos que no sea una solucion existente antes de imprimir
+                LookSoluciones.ReproducirSoluciones(LOOKUP, mainForm);
+            else
                 BuscarSoluciones(mainForm);
             
-            LookSoluciones.ReproducirSoluciones(LOOKUP,mainForm);
+            
 
 
         }

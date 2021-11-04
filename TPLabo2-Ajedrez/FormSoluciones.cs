@@ -168,7 +168,11 @@ namespace TPLabo2_Ajedrez
         /// <param name="numSol"></param>
         private void PrepararForm(int numSol)
         {
+            //cargamos a la reina porque es la que mas abarca en el tablero 
             CargarReina(numSol);
+
+           
+
             // EN soluciones[numSol,0] y soluciones[numSol,1] estan las torres y atacan fuerte SIEMPRE
             CargarFilaCol(soluciones[numSol, 0].getFILA());
             CargarFilaCol(soluciones[numSol, 1].getFILA());
@@ -187,12 +191,81 @@ namespace TPLabo2_Ajedrez
             CargarCaballo(soluciones[numSol, 6].getFILA(), soluciones[numSol, 6].getCOL());
             CargarCaballo(soluciones[numSol, 7].getFILA(), soluciones[numSol, 7].getCOL());
 
-            CargarDiagos(soluciones[numSol, 2].getFILA(), soluciones[numSol, 4].getCOL());
-            CargarDiagos(soluciones[numSol, 3].getFILA(), soluciones[numSol, 5].getCOL());
-
-           
-
+        
             CargarAtaquesLeves();//Los paneles que quedan vacíos tienen ataque leve.
+        }
+
+        public void CargarReina(int numSol)
+        {
+            CargarDiagos(soluciones[numSol, 4].getFILA(), soluciones[numSol, 4].getCOL());
+            CargarDiagos(soluciones[numSol, 2].getFILA(), soluciones[numSol, 2].getCOL());
+            CargarDiagos(soluciones[numSol, 3].getFILA(), soluciones[numSol, 3].getCOL());
+           
+            
+
+
+            CargarFilaCol(soluciones[numSol, 4].getFILA(), true, 0, soluciones[numSol, 4].getCOL() - 1, true, false);
+            CargarFilaCol(soluciones[numSol, 4].getFILA(), true, gridSize, soluciones[numSol, 4].getCOL() + 1, true, true);
+            CargarFilaCol(soluciones[numSol, 4].getCOL(), false, 0, soluciones[numSol, 4].getFILA() - 1, true, false);
+            CargarFilaCol(soluciones[numSol, 4].getCOL(), false, gridSize, soluciones[numSol, 4].getFILA() + 1, true, true);
+
+        }
+
+        public void CargarCaballo(int fila, int col)
+        {
+
+            if (fila + 1 < gridSize)
+            {
+                if (col - 2 >= 0 && _chessBoardPanels[col - 2, fila + 1].BackgroundImage == null)
+                {
+                    _chessBoardPanels[col - 2, fila + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[col - 2, fila + 1].BackgroundImageLayout = ImageLayout.Center;
+                }
+                if (col + 2 < gridSize && _chessBoardPanels[col + 2, fila + 1].BackgroundImage == null)
+                {
+                    _chessBoardPanels[col + 2, fila + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[col + 2, fila + 1].BackgroundImageLayout = ImageLayout.Center;
+                }
+                if (fila + 2 < gridSize)
+                {
+                    if (col - 1 >= 0 && _chessBoardPanels[col - 1, fila + 2].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[col - 1, fila + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col - 1, fila + 2].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    if (col + 1 < gridSize && _chessBoardPanels[col + 1, fila + 2].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[col + 1, fila + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col + 1, fila + 2].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                }
+            }
+            if (fila - 1 >= 0)
+            {
+                if (col - 2 >= 0 && _chessBoardPanels[col - 2, fila - 1].BackgroundImage == null)
+                {
+                    _chessBoardPanels[col - 2, fila - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[col - 2, fila - 1].BackgroundImageLayout = ImageLayout.Center;
+                }
+                if (col + 2 < gridSize && _chessBoardPanels[col + 2, fila - 1].BackgroundImage == null)
+                {
+                    _chessBoardPanels[col + 2, fila - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                    _chessBoardPanels[col + 2, fila - 1].BackgroundImageLayout = ImageLayout.Center;
+                }
+                if (fila - 2 >= 0)
+                {
+                    if (col - 1 >= 0 && _chessBoardPanels[col - 1, fila - 2].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[col - 1, fila - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col - 1, fila - 2].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                    if (col + 1 < gridSize && _chessBoardPanels[col + 1, fila - 2].BackgroundImage == null)
+                    {
+                        _chessBoardPanels[col + 1, fila - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
+                        _chessBoardPanels[col + 1, fila - 2].BackgroundImageLayout = ImageLayout.Center;
+                    }
+                }
+            }
         }
 
         private void CargarFilaCol( int numero, bool fila=true, int stop=gridSize, int start=0, bool romper= false, bool aDerecha= true)
@@ -201,7 +274,7 @@ namespace TPLabo2_Ajedrez
             int i = start;
             bool condicion = (i < stop);
 
-            if (!aDerecha) //si vamos a izq true start arranca con mayor valor que stop entonces vamos a decrementar i de start a stop con inc_dec
+            if (!aDerecha) //si vamos a izq start arranca con mayor valor que stop entonces vamos a decrementar i desde start a stop con inc_dec
             {
                 inc_dec = -1;
                 condicion = (i >= stop); 
@@ -234,222 +307,111 @@ namespace TPLabo2_Ajedrez
                 i += inc_dec;
             } while (condicion);
 
-            /*
-            for (int i = start; i < stop; i++)
-            {
-                if (i >= gridSize || i < 0)
-                    break;
-                if (fila)
-                {
-                    if (_chessBoardPanels[numero, i].BackgroundImage == null) //cargamos si no hay ficha cargada en la pos
-                    {
-                        _chessBoardPanels[numero, i].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[numero, i].BackgroundImageLayout = ImageLayout.Center;
-                    }
-                    else if (romper) //este parametro lo usamos cuando sabemos que habra ataques leves
-                        break;
-                }
-                else
-                {
-                    if (_chessBoardPanels[numero, i].BackgroundImage == null)
-                    {
-                        _chessBoardPanels[i, numero].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[i, numero].BackgroundImageLayout = ImageLayout.Center;
-                    }
-                    else if (romper)
-                        break;
-                }
-            }
-            */
+           
         }
-        public void CargarCaballo(int fila, int col)
-        {
-            
-            if (fila + 1 < gridSize)
-            {
-                if (col - 2 >= 0 && _chessBoardPanels[col - 2, fila + 1].BackgroundImage == null)
-                {
-                    _chessBoardPanels[col - 2, fila + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                    _chessBoardPanels[col - 2, fila + 1].BackgroundImageLayout = ImageLayout.Center;
-                }
-                if (col + 2 < gridSize && _chessBoardPanels[col + 2, fila + 1].BackgroundImage == null)
-                { 
-                    _chessBoardPanels[col + 2, fila + 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                    _chessBoardPanels[col + 2, fila + 1].BackgroundImageLayout = ImageLayout.Center;
-                }
-                if (fila + 2 < gridSize)
-                {
-                    if (col - 1 >= 0 && _chessBoardPanels[col - 1, fila + 2].BackgroundImage == null)
-                    {
-                        _chessBoardPanels[col - 1, fila + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[col - 1, fila + 2].BackgroundImageLayout = ImageLayout.Center;
-                    }
-                    if (col + 1 < gridSize && _chessBoardPanels[col + 1, fila + 2].BackgroundImage == null)
-                    { 
-                        _chessBoardPanels[col + 1, fila + 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[col + 1, fila + 2].BackgroundImageLayout = ImageLayout.Center;
-                    }
-                }
-            }
-            if (fila - 1 >= 0)
-            {
-                if (col - 2 >= 0 && _chessBoardPanels[col - 2, fila - 1].BackgroundImage == null)
-                { 
-                    _chessBoardPanels[col - 2, fila - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                    _chessBoardPanels[col - 2, fila - 1].BackgroundImageLayout = ImageLayout.Center;
-                }
-                if (col + 2 < gridSize && _chessBoardPanels[col + 2, fila - 1].BackgroundImage == null)
-                { 
-                    _chessBoardPanels[col + 2, fila - 1].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                    _chessBoardPanels[col + 2, fila - 1].BackgroundImageLayout = ImageLayout.Center;
-                }
-                if (fila - 2 >= 0)
-                {
-                    if (col - 1 >= 0 && _chessBoardPanels[col - 1, fila - 2].BackgroundImage == null)
-                    { 
-                        _chessBoardPanels[col - 1, fila - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[col - 1, fila - 2].BackgroundImageLayout = ImageLayout.Center;
-                    }
-                    if (col + 1 < gridSize && _chessBoardPanels[col + 1, fila - 2].BackgroundImage == null)
-                    { 
-                        _chessBoardPanels[col + 1, fila - 2].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
-                        _chessBoardPanels[col + 1, fila - 2].BackgroundImageLayout = ImageLayout.Center;
-                    }
-                }
-            }
-        }
+      
 
         public void CargarDiagos(int fila, int col)
         {
-            CargarDiagonalesInferiores(fila+1, col);
             i = 1;
-            CargarDiagonalesSuperiores(fila-1, col);
+            CargarDiagonalesInferiores(fila+1, col);
             l = 1;
+            CargarDiagonalesSuperiores(fila-1, col);
+
         }
 
 
         int i = 1;
-        void CargarDiagonalesInferiores(int fila, int col,int carga_completa=0,bool disable_1=false,bool disable_2=false)
+        void CargarDiagonalesInferiores(int fila, int col,bool disable_1=false,bool disable_2=false)
         {
             
-            if (fila > gridSize - 1 || fila < 0||carga_completa>=2)
+            if (fila > gridSize - 1 || fila < 0|| (disable_1 && disable_2))
                 return;
             else
             {
-               
-                if (col + i < gridSize&&!disable_1)
+                if ((col + i < gridSize)&&(!disable_1))
                 {
                     if (_chessBoardPanels[col + i, fila].BackgroundImage ==null)// si ninguna pieza atacaba la pos
                     {
                         _chessBoardPanels[col + i, fila].BackgroundImage = (Image)Properties.Resources.ataqueFuerte; //marco el ataque
                         _chessBoardPanels[col + i, fila].BackgroundImageLayout = ImageLayout.Center;
                     }
-                    else if(_chessBoardPanels[col + i, fila].BackgroundImage != (Image)Properties.Resources.ataqueFuerte)
+                    else
                     {
-                        //si la imagen cargada no se trata de un ataque es porque me tope con una pieza y por ende ya no puedo atacar mas fuerte x esta diago 
+                        //si no es null es porque hay una ficha (las diagos son lo primero q cargamos) 
                         disable_1 = true;
-                        carga_completa++;
                     }
                 }
-                //else
-                //{
-                //    //si me paso de los limites ya no puedo atacar mas x esta diago 
-                //    disable_1 = true;
-                //    carga_completa++;
-                //}
-                if (col - i >= 0&&!disable_2)
+                
+                if ((col - i >= 0)&&(!disable_2))
                 {
                     if (_chessBoardPanels[col - i, fila].BackgroundImage == null)// si ninguna pieza atacaba la pos
                     {
                         _chessBoardPanels[col - i, fila].BackgroundImage = (Image)Properties.Resources.ataqueFuerte; //marco el ataque
                         _chessBoardPanels[col - i, fila].BackgroundImageLayout = ImageLayout.Center;
                     }
-                    else if(_chessBoardPanels[col - i, fila].BackgroundImage != (Image)Properties.Resources.ataqueFuerte)
+                    else
                     {
-                        //si la imagen cargada no se trata de un ataque es porque me tope con una pieza y por ende ya no puedo atacar mas fuerte x esta diago 
+                        //si no es null es porque hay una ficha (las diagos son lo primero q cargamos) 
                         disable_2 = true;
-                        carga_completa++;
                     }
 
                 }
-                //else
-                //{
-                //    //si me paso de los limites ya no puedo atacar mas x esta diago 
-                //    disable_2 = true;
-                //    carga_completa++;
-                //}
+                
 
             }
             i++;
             fila++;
-            CargarDiagonalesInferiores(fila, col, carga_completa,disable_1,disable_2);
+            CargarDiagonalesInferiores(fila, col,disable_1,disable_2);
         }
 
         int l = 1;
-        void CargarDiagonalesSuperiores(int fila, int col, int carga_completa = 0, bool disable_1 = false, bool disable_2 = false)
+        void CargarDiagonalesSuperiores(int fila, int col, bool disable_1 = false, bool disable_2 = false)
         {
-            if (fila > gridSize - 1 || fila < 0||carga_completa==2)
+            if (fila > gridSize - 1 || fila < 0|| (disable_1 && disable_2))
                 return;
             else
             {
-                if (col + l < gridSize&&!disable_1)
+                if ((col + l < gridSize)&&(!disable_1))
                 {
                     if (_chessBoardPanels[col + l, fila].BackgroundImage == null) // si ninguna pieza atacaba la pos
                     {
                         _chessBoardPanels[col + l, fila].BackgroundImage = (Image)Properties.Resources.ataqueFuerte; //marco el ataque fuerte
                         _chessBoardPanels[col + l, fila].BackgroundImageLayout = ImageLayout.Center;
                     }
-                    else if(_chessBoardPanels[col + l, fila].BackgroundImage != (Image)Properties.Resources.ataqueFuerte)
+                    else
                     {
+
                         //si la imagen cargada no se trata de un ataque es porque me tope con una pieza y por ende ya no puedo atacar mas fuerte x esta diago 
                         disable_1 = true;
-                        carga_completa++;
                     }
                 }
-                //else
-                //{
-                //    //si me paso de los limites ya no puedo atacar mas x esta diago 
-                //    disable_1 = true;
-                //    carga_completa++;
-                //}
-                if (col - l >= 0&&!disable_2)
+               
+                if ((col - l >= 0)&&(!disable_2))
                 {
                     if (_chessBoardPanels[col - l, fila].BackgroundImage == null) // si ninguna pieza atacaba la pos
                     {
                         _chessBoardPanels[col - l, fila].BackgroundImage = (Image)Properties.Resources.ataqueFuerte;
                         _chessBoardPanels[col - l, fila].BackgroundImageLayout = ImageLayout.Center;
                     }
-                    else if (_chessBoardPanels[col - l, fila].BackgroundImage != (Image)Properties.Resources.ataqueFuerte)
+                    else
                     {
                         //si la imagen cargada no se trata de un ataque es porque me tope con una pieza y por ende ya no puedo atacar mas fuerte x esta diago 
                         disable_2 = true;
-                        carga_completa++;
                     }
                 }
-                //else
-                //{
-                //    //si me paso de los limites ya no puedo atacar mas x esta diago 
-                //    disable_2 = true;
-                //    carga_completa++;
-                //}
+               
 
             }
             l++;
             fila--;
-            CargarDiagonalesSuperiores(fila, col,carga_completa,disable_1,disable_2);
+            CargarDiagonalesSuperiores(fila, col,disable_1,disable_2);
         }
 
-        public void CargarReina(int numSol)
-        {
-            CargarDiagos(soluciones[numSol, 4].getFILA(), soluciones[numSol, 4].getCOL());
-            CargarFilaCol(soluciones[numSol, 4].getFILA(), true, 0, soluciones[numSol, 4].getCOL() - 1, true, false);
-            CargarFilaCol(soluciones[numSol, 4].getFILA(), true, gridSize, soluciones[numSol, 4].getCOL()+1, true,true);
-            CargarFilaCol(soluciones[numSol, 4].getCOL(), false, 0, soluciones[numSol, 4].getFILA()-1, true, false);
-            CargarFilaCol(soluciones[numSol, 4].getCOL(), false, gridSize, soluciones[numSol, 4].getFILA() + 1, true, true);
-        }
-
+       
         private void CargarAtaquesLeves()
-        {//Recorremos el tablero y cualquier panel vacío es porque tiene un ataque leve, pongo la imagen que muestre eso.
+        {
+            //Recorremos el tablero y cualquier panel vacío es porque tiene un ataque leve, pongo la imagen que muestre eso.
             for(int i=0;i<gridSize;++i)
             {
                 for(int j=0;j<gridSize; ++j)
@@ -463,6 +425,9 @@ namespace TPLabo2_Ajedrez
             }
         }
 
+
+
+        //eventos del form soluciones
         private void btnProxSol_Click(object sender, EventArgs e)
         {
             for(int i = 0; i < 8; i++)
@@ -494,15 +459,14 @@ namespace TPLabo2_Ajedrez
             
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void BoxcantSoluciones_SelectedIndexChanged(object sender, EventArgs e)
         {
             SolucionMadre.SOL_A_MOSTRAR = int.Parse(BoxcantSoluciones.SelectedItem.ToString());
             btn_GenerarSol.Enabled = true;
+        }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
