@@ -12,19 +12,25 @@ namespace TPLabo2_Ajedrez
 {
     public partial class FormSoluciones : Form
     {
-        Pieza[,] soluciones;                       //guardara las soluciones encontradas en el programa
-        private Panel[,] _chessBoardPanels;       // array tipo panel que representa el tablero de ajedrez
-        int count = 0;
-        int[] Sol_Mostradas;
         Soluciones SolucionMadre;
+        Pieza[,] soluciones;                       //guardara las soluciones encontradas en el programa
+        int[] Sol_Mostradas;                      // guarda el numero de solucion que se va imprimiendo
+        int count = 0;
+
+        private Panel[,] _chessBoardPanels;       // array tipo panel que representa el tablero de ajedrez
         const int gridSize=8;
-        public FormSoluciones(Pieza[,] look_soluciones, Soluciones Sol_madre)
+
+        MainForm Madre;
+
+        public FormSoluciones(Pieza[,] look_soluciones, Soluciones Sol_madre, MainForm mainForm)
         {
+
             InitializeComponent();
             soluciones = new Pieza[36, 8];
             soluciones = look_soluciones;
             Sol_Mostradas = new int[36];
             SolucionMadre = Sol_madre;
+            Madre = mainForm;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -162,6 +168,7 @@ namespace TPLabo2_Ajedrez
         /// <param name="numSol"></param>
         private void PrepararForm(int numSol)
         {
+            CargarReina(numSol);
             // EN soluciones[numSol,0] y soluciones[numSol,1] estan las torres y atacan fuerte SIEMPRE
             CargarFilaCol(soluciones[numSol, 0].getFILA());
             CargarFilaCol(soluciones[numSol, 1].getFILA());
@@ -183,7 +190,7 @@ namespace TPLabo2_Ajedrez
             CargarDiagos(soluciones[numSol, 2].getFILA(), soluciones[numSol, 4].getCOL());
             CargarDiagos(soluciones[numSol, 3].getFILA(), soluciones[numSol, 5].getCOL());
 
-            CargarReina(numSol);
+           
 
             CargarAtaquesLeves();//Los paneles que quedan vacíos tienen ataque leve.
         }
@@ -442,7 +449,7 @@ namespace TPLabo2_Ajedrez
         }
 
         private void CargarAtaquesLeves()
-        {//Recorremos el tablero y cualquiel panel vacío es porque tiene un ataque leve, pongo la imagen que muestre eso.
+        {//Recorremos el tablero y cualquier panel vacío es porque tiene un ataque leve, pongo la imagen que muestre eso.
             for(int i=0;i<gridSize;++i)
             {
                 for(int j=0;j<gridSize; ++j)
@@ -476,12 +483,14 @@ namespace TPLabo2_Ajedrez
             ImprimirSol();
             btnProxSol.Enabled = true;
             btn_GenerarSol.Enabled=false;
+            BoxcantSoluciones.Enabled = false;
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
+            SolucionMadre.CANT_SOL_IMPRESAS = SolucionMadre.SOL_A_MOSTRAR;
+            Madre.Show();
             this.Close();
-            
             
         }
 

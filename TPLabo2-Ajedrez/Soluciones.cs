@@ -14,16 +14,17 @@ namespace TPLabo2_Ajedrez
         int CANT_SOL_MAESTRA;
         public int CANT_SOL_IMPRESAS;
         public int SOL_A_MOSTRAR;
-
+        MainForm mainForm;
         int N = 8;
         public Soluciones()
         {
             CANT_SOL_MAESTRA = 0;
             CANT_SOL_TOTALES = 0;
             CANT_SOL_IMPRESAS = 0;
-            SOL_A_MOSTRAR = 0;
+            SOL_A_MOSTRAR = 5; //minimo
             Solucion_Maestra = new Pieza[8, 8];
             Soluciones_totales = new Pieza[36, 8];
+
         }
 
 
@@ -55,7 +56,7 @@ namespace TPLabo2_Ajedrez
         /// nos permite encontrar mas soluciones a partir del lookup recibido que contiene una ""solucion maestra""
         /// </summary>
         /// <param name="lookup"></param>
-        public void ReproducirSoluciones(Pieza[] lookup)
+        public void ReproducirSoluciones(Pieza[] lookup, MainForm mainForm)
         {
 
             Pieza[] lookup_aux = new Pieza[8];
@@ -188,7 +189,7 @@ namespace TPLabo2_Ajedrez
             CargarSolucion(lookup_aux);
             Espejar(lookup_aux,1);
 
-            ImprimirSoluciones();
+            ImprimirSoluciones(mainForm);
         }
 
 
@@ -274,10 +275,11 @@ namespace TPLabo2_Ajedrez
         /// </summary>
         ///  
         /// <param name="lookup"></param>
-        public void ImprimirSoluciones()
+        public void ImprimirSoluciones(MainForm mainForm)
         {
-            FormSoluciones FORM = new FormSoluciones(Soluciones_totales, this);
+           FormSoluciones FORM = new FormSoluciones(Soluciones_totales, this, mainForm);
            FORM.Visible = true;
+          
         }
 
       

@@ -75,7 +75,8 @@ namespace TPLabo2_Ajedrez
         Caballo CABALLO2;
         Pieza[] LOOKUP;
         //vector que guarda cada pieza y su posicion en la matriz
-        
+
+        MainForm mainForm;
         public Soluciones LookSoluciones;
         public static int CANT_SOL_TOTALES;
         public int SOL_A_MOSTRAR;
@@ -89,7 +90,7 @@ namespace TPLabo2_Ajedrez
         }
         
 
-        public void BuscarSoluciones()
+        public void BuscarSoluciones(MainForm mainForm)
         {
             Tablero MatrizPrueba = new Tablero(8); // en cada casilla: 1 (atacada) | 0 (libre)
 
@@ -199,9 +200,10 @@ namespace TPLabo2_Ajedrez
             
 
             if (LookSoluciones.SolucionExistente(LOOKUP)) //chequeamos que no sea una solucion existente --- tendriamos que agregar algo que borre objetos viejos de los ya instanciado?
-                BuscarSoluciones();
+                BuscarSoluciones(mainForm);
             
-            LookSoluciones.ReproducirSoluciones(LOOKUP);
+            LookSoluciones.ReproducirSoluciones(LOOKUP,mainForm);
+
 
         }
 
@@ -211,8 +213,10 @@ namespace TPLabo2_Ajedrez
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var Programa = new Program();
-            Application.Run(new MainForm(Programa));
+            MainForm mainForm = new MainForm(Programa);
+            Application.Run(mainForm);
 
+            
         }
 
 
