@@ -88,13 +88,16 @@ namespace TPLabo2_Ajedrez
             // 
             // NroSol
             // 
-            this.NroSol.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.NroSol.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.NroSol.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.NroSol.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.NroSol.Font = new System.Drawing.Font("Tahoma", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NroSol.ForeColor = System.Drawing.SystemColors.Window;
+            this.NroSol.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.NroSol.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.NroSol.Location = new System.Drawing.Point(15, 407);
             this.NroSol.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.NroSol.Name = "NroSol";
+            this.NroSol.ReadOnly = true;
             this.NroSol.Size = new System.Drawing.Size(152, 21);
             this.NroSol.TabIndex = 3;
             this.NroSol.Text = "Solución nro.1";
@@ -159,11 +162,11 @@ namespace TPLabo2_Ajedrez
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(478, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(324, 17);
+            this.label1.Size = new System.Drawing.Size(288, 17);
             this.label1.TabIndex = 9;
             this.label1.Text = "Seleccione la cantidad de soluciones a mostrar";
             // 
@@ -171,7 +174,7 @@ namespace TPLabo2_Ajedrez
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.BoxcantSoluciones);

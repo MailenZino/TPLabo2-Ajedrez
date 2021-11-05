@@ -73,7 +73,6 @@ namespace TPLabo2_Ajedrez
 
                 }
             }
-            NroSol.Enabled = false;
         }
 
         /// <summary>
