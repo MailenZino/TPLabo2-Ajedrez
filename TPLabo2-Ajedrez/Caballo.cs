@@ -25,8 +25,8 @@ namespace TPLabo2_Ajedrez
         /// <summary>
         /// se utiliza para obtener la mejor posicion del caballo
         /// Complejidad de 20 + VerificarPosCaballo + 13 PiezasCargadas (porque depende de poslibre tmb)
-        /// C1 = 20 + 101 + 13x6 = 199
-        /// C2 = 20 + 
+        /// C1 = 20 + 125 + 13x6 = 223
+        /// C2 = 20 + 101 + 13x7 = 212
         /// </summary>
         /// <param name="MatrizPrueba"></param>
         /// <param name="LOOKUP"></param>
@@ -125,8 +125,7 @@ namespace TPLabo2_Ajedrez
 
         /// <summary>
         /// se llena la matriz segun los movimientos del caballo en fila col
-        /// MEJOR CASO: C1 llena todo C2 no pincha ni corta
-        /// entonces C1 trabaja con el peor caso de esta funcion = 90
+        /// depende de la posicion del caballo - peor caso 90
         /// </summary>
         /// <param name="MatrizPrueba"></param>
         /// <param name="fila"></param>

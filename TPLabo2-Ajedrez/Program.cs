@@ -109,7 +109,8 @@ namespace TPLabo2_Ajedrez
         /// CargarReina - complejidad cte 56
         /// Posicionamiento del rey - 36 x cte el peor caso , 
         /// CargarRey - 51 peor caso , 
-        /// CargarCaballos - mejor caso: C1 ocupa todo - 
+        /// CargarCaballos - mejor caso: C1 ocupa todo - 365 (todas lo usado esta comentado en caballo)
+        /// 
         /// ReproducirSol - complejidad CTE
         /// </summary>
         /// <param name="mainForm"></param>
@@ -197,7 +198,7 @@ namespace TPLabo2_Ajedrez
 
             REY = new Rey();
 
-            REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, 0,2,2);
+            REY.BuscarPosicionRey(MatrizPrueba, LOOKUP, REY, 0,3,3);
             
             MatrizPrueba.matriz[REY.getFILA(), REY.getCOL()] = 1;
             REY.CargarPosRey(MatrizPrueba, REY.getFILA(), REY.getCOL());
