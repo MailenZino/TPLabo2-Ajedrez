@@ -46,6 +46,14 @@ namespace TPLabo2_Ajedrez
    {
         public ePieza pieza { get; set; }
         public sPosicion posicion;
+
+        /// <summary>
+        /// Constructor de Pieza 
+        /// complejidad cte - 8
+        /// </summary>
+        /// <param name="pieza_"></param>
+        /// <param name="fila"></param>
+        /// <param name="col"></param>
         public Pieza(ePieza pieza_,int fila=0,int col=0)
         {
             pieza=pieza_;
@@ -88,8 +96,23 @@ namespace TPLabo2_Ajedrez
             LookSoluciones = new Soluciones();
             SOL_A_MOSTRAR = 0;
         }
-        
 
+        /// <summary>
+        /// Para el analisis de complejidad:
+        /// CargarFILACOL - complejidad cte 16
+        /// CargarDiagos - complejidad cte 15
+        /// VerifLibreAtaque - complejidad cte 3
+        /// ContarVacias - complejidad cte 217
+        /// Poslibre - complejidad depende de cant de piezas cargadas al look up, CP = 13 CP + 1
+        /// Todos los constructores de piezas tienen complejidad cte - 8
+        /// Posicionamiento de la reina - 7  el peor caso , 5 mejor caso
+        /// CargarReina - complejidad cte 56
+        /// Posicionamiento del rey - 36 x cte el peor caso , 
+        /// CargarRey - 51 peor caso , 
+        /// CargarCaballos - mejor caso: C1 ocupa todo - 
+        /// ReproducirSol - complejidad CTE
+        /// </summary>
+        /// <param name="mainForm"></param>
         public void BuscarSoluciones(MainForm mainForm)
         {
             Tablero MatrizPrueba = new Tablero(8); // en cada casilla: 1 (atacada) | 0 (libre)
@@ -102,7 +125,7 @@ namespace TPLabo2_Ajedrez
             LOOKUP[0] = TORRE1;
             LOOKUP[1] = TORRE2;
 
-            MatrizPrueba.CargarFILACOL(0);
+            MatrizPrueba.CargarFILACOL(0); 
             MatrizPrueba.CargarFILACOL(1);
             MatrizPrueba.CargarFILACOL(0, false);
             MatrizPrueba.CargarFILACOL(1, false);

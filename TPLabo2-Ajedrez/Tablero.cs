@@ -18,6 +18,11 @@ namespace TPLabo2_Ajedrez
         public int[,] matriz { get { return Matriz; } }
 
         //funciones de carga de la matriz
+        /// <summary>
+        /// COMPLEJIDAD CTE (depende del tamano del tablero)
+        /// </summary>
+        /// <param name="numero"></param>
+        /// <param name="fila"></param>
         public void CargarFILACOL(int numero, bool fila = true)
         {
             for (int i = 0; i < N; i++)
@@ -62,6 +67,13 @@ namespace TPLabo2_Ajedrez
             fila--;
             CargarDiagonalesSuperiores(fila, col);
         }
+
+        /// <summary>
+        /// La complejidad viene dada por CargarDiagonalesInferiores y CargarDiagonalesSuperiores y es cte porque cuando
+        /// hay menos desplazamiento en una direccion aumenta en el otro y siempre se termina "iterando" un total de 6 veces
+        /// </summary>
+        /// <param name="fila"></param>
+        /// <param name="col"></param>
         public void CargarDiagonales(int fila, int col)
         {
           
@@ -88,22 +100,13 @@ namespace TPLabo2_Ajedrez
         public int contador;
         /// <summary>
         /// Cuenta vacias de la matriz
+        /// Complejidad cte de 6x6 x (2 lecturas + 3 operaciones)
         /// </summary>
         /// <param name="col"></param>
         /// <returns></returns>
         public int contarVacias(int col= 2)
         {
-            //for(int i=2;i<N;i++)
-            //{
-            //    if (Matriz[i, col] == 0) contador++;
-            //}
-            //if (col < N - 1)
-            //{
-            //    col++;
-            //    contarVacias(col);
-            //}
-
-            //return contador;
+           
             contador = 0;
             for(int i = 2;i < N;i++)
             {
