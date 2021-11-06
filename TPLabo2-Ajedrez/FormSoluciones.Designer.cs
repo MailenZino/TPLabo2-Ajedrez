@@ -152,7 +152,8 @@ namespace TPLabo2_Ajedrez
             "5",
             "10",
             "15",
-            "30"});
+            "30",
+            "36"});
             this.BoxcantSoluciones.Location = new System.Drawing.Point(585, 45);
             this.BoxcantSoluciones.Name = "BoxcantSoluciones";
             this.BoxcantSoluciones.Size = new System.Drawing.Size(123, 24);
