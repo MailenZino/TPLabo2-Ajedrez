@@ -82,8 +82,9 @@ namespace TPLabo2_Ajedrez
         /// </summary>
         private void ImprimirSol()
         {
-
-            if (count < SolucionMadre.SOL_A_MOSTRAR)
+            if (SolucionMadre.SOL_A_MOSTRAR == 30)
+                ImprimirLineal();
+            else if (count < SolucionMadre.SOL_A_MOSTRAR)
             {
                 //ELEJIMOS ALEATORIAMENTE UNA SOLUCION DEL VECTOR
                 Random rd = new Random();
@@ -138,7 +139,44 @@ namespace TPLabo2_Ajedrez
             }
 
         }
+        private void ImprimirLineal()
+        {
+            int i = count;
+                _chessBoardPanels[soluciones[i, 0].getCOL(), soluciones[i, 0].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
+                _chessBoardPanels[soluciones[i, 1].getCOL(), soluciones[i, 1].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaTorre;
 
+                _chessBoardPanels[soluciones[i, 4].getCOL(), soluciones[i, 4].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaReina;
+
+                _chessBoardPanels[soluciones[i, 5].getCOL(), soluciones[i, 5].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaRey;
+
+
+                //TENEMOS EN CUENTA EL CASO DE QUE ALFIL Y CABALLO ESTEN EN LA MISMA CASILLA
+
+                if (soluciones[i, 2].getCOL() == soluciones[i, 6].getCOL() && soluciones[i, 2].getFILA() == soluciones[i, 6].getFILA())
+                {
+                    _chessBoardPanels[soluciones[i, 2].getCOL(), soluciones[i, 2].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfilCaballo;
+                    _chessBoardPanels[soluciones[i, 3].getCOL(), soluciones[i, 3].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
+                    _chessBoardPanels[soluciones[i, 7].getCOL(), soluciones[i, 7].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
+                }
+                else if (soluciones[i, 3].getCOL() == soluciones[i, 6].getCOL() && soluciones[i, 3].getFILA() == soluciones[i, 6].getFILA())
+                {
+                    _chessBoardPanels[soluciones[i, 3].getCOL(), soluciones[i, 3].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfilCaballo;
+                    _chessBoardPanels[soluciones[i, 2].getCOL(), soluciones[i, 2].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
+                    _chessBoardPanels[soluciones[i, 7].getCOL(), soluciones[i, 7].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
+                }
+                else
+                {
+                    _chessBoardPanels[soluciones[i, 2].getCOL(), soluciones[i, 2].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
+                    _chessBoardPanels[soluciones[i, 3].getCOL(), soluciones[i, 3].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaAlfil;
+                    _chessBoardPanels[soluciones[i, 6].getCOL(), soluciones[i, 6].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
+                    _chessBoardPanels[soluciones[i, 7].getCOL(), soluciones[i, 7].getFILA()].BackgroundImage = (Image)Properties.Resources.piezaCaballo;
+                }
+
+                //CARGAMOS LOS ATAQUES
+
+                PrepararForm(i);
+
+        }
         /// <summary>
         /// Verifica que no mostremos la misma sol 2 veces
         /// </summary>
