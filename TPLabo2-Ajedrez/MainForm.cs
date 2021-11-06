@@ -32,7 +32,7 @@ namespace TPLabo2_Ajedrez
 
         private void btnComplejidad_Click(object sender, EventArgs e)
         {
-
+            DialogResult result = MessageBox.Show("Este es el mensaje", "Análisis de complejidad del algoritmo", MessageBoxButtons.OK);
         }
     }
 }

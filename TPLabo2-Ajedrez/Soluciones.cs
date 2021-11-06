@@ -54,6 +54,7 @@ namespace TPLabo2_Ajedrez
 
         /// <summary>
         /// nos permite encontrar mas soluciones a partir del lookup recibido que contiene una ""solucion maestra""
+        /// Reacomodar tiene una complejidad constante, Omega(
         /// </summary>
         /// <param name="lookup"></param>
         public void ReproducirSoluciones(Pieza[] lookup, MainForm mainForm)
@@ -197,6 +198,7 @@ namespace TPLabo2_Ajedrez
 
         /// <summary>
         /// Se reajusta la posicion de las piezas en el 6x6 delimitado x las torres
+        /// Complejidad constante de 210
         /// </summary>
         /// <param name="lookup"></param>
         /// <param name="fila"></param>
@@ -205,12 +207,12 @@ namespace TPLabo2_Ajedrez
         
         public Pieza[] Reacomodar(Pieza[] lookup, int fila, int col = 0)
         {
-            Pieza[] LOOKUPaux = new Pieza[8];
-            for (int i = 0; i < 8; i++)
+            Pieza[] LOOKUPaux = new Pieza[8];//2
+            for (int i = 0; i < 8; i++) //8*8=64
             { LOOKUPaux[i] = new Pieza(lookup[i]); }
 
 
-            for (int i = 2; i < N; i++)
+            for (int i = 2; i < N; i++)//6*2*(5 + 7)=144
             {
                 if (fila > 0 && fila < 3)
                 {
@@ -225,17 +227,18 @@ namespace TPLabo2_Ajedrez
 
         }
 
-       
+
 
         /// <summary>
         /// espejar hacia el costado las piezas del 6x6 delimitado por las torres para encontrar otra solucion
+        /// Complejidad cte de 2 + 2 + 8*(8 + 2 + 6*(2 + 7 + 4)) + 52 = 760
         /// </summary>
         /// <param name="desplazamiento"></param>
         public void Espejar(Pieza[] lookup, int desplazamiento)
         {
-            int aux = 0;
-            Pieza[] lookupaux = new Pieza[8];
-            for (int i = 0; i < 8; i++)
+            int aux = 0;//2
+            Pieza[] lookupaux = new Pieza[8];//2
+            for (int i = 0; i < 8; i++)//8*(8 + 2 + 6*(2 + 7 + 4))
             {
                 lookupaux[i] = new Pieza(lookup[i]);
                 if (i >= 2)
@@ -246,7 +249,7 @@ namespace TPLabo2_Ajedrez
                 }
             }
             //espeja hacia el costado tambien podria espejarse hacia abajo
-            CargarSolucion(lookupaux);
+            CargarSolucion(lookupaux);//52
         }
 
 
@@ -255,17 +258,18 @@ namespace TPLabo2_Ajedrez
 
         /// <summary>
         /// Se copia el look up a sol totales que contiene todas las soluciones
+        /// Complejidad cte de 52
         /// </summary>
         /// <param name="lookup"></param>
         public void CargarSolucion(Pieza[] lookup)
         {
-            if (CANT_SOL_TOTALES <= 35)
+            if (CANT_SOL_TOTALES <= 35)//2
             {
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 8; i++)//8*6=48
                 {
                     Soluciones_totales[CANT_SOL_TOTALES, i] = lookup[i];
                 }
-                CANT_SOL_TOTALES++;
+                CANT_SOL_TOTALES++;//2
             }
         }
 
