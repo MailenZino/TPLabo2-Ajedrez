@@ -10,7 +10,7 @@ Amenazar en simultaneo las 64 casillas del tablero usando las 8 piezas principal
 Construir un algoritmo que muestre al menos 100 tableros donde TODA casilla está siendo atacada. <br>
  ! Las piezas no amenazan el casillero en el que se encuentran paradas. <br>
  ! Pueden superponerse en la misma casilla. <br>
-<h2><a href="[https://www.w3schools.com/](https://docs.google.com/document/d/1G1dqeS-hC3CvVHTod7haPKCv1eacSh86rtbDLmdSSts/edit?usp=sharing)"> Solucion: </a> </h2> 
+<h2><a href="https://docs.google.com/document/d/1G1dqeS-hC3CvVHTod7haPKCv1eacSh86rtbDLmdSSts/edit?usp=sharing"> Solucion: </a> </h2> 
 - Torres: se posicionaron en 0,0 y 1,1  reduciendo el tablero a 6x6 para colocar el resto de las piezas. <br>
 - Alfiles: se colocaron de manera aleatoria para que cubran las diagonales del 6x6. <br>
 - Reina: se coloco donde habia un casillero atacado sabiendo que no podia ser la misma del alfiler. <br>
